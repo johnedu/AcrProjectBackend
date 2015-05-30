@@ -9,6 +9,7 @@ declare module ng.ui {
         name?: string;
         template?: string;
         templateUrl?: any; // string || () => string
+        templateProvider?: any; // () => string || IPromise<string>
         controller?: any;
         controllerAs?: string;    
         controllerProvider?: any;
@@ -27,6 +28,7 @@ declare module ng.ui {
         data?: T;
     }
 
+    interface IStateProvider extends IServiceProvider {
         state(name: string, config: IState): IStateProvider;
         state(config: IState): IStateProvider;
         decorator(name?: string, decorator?: (state: IState, parent: Function) => any): any;
@@ -44,6 +46,7 @@ declare module ng.ui {
         isMatcher(o: any): boolean;
     }
 
+    interface IUrlRouterProvider extends IServiceProvider {
         when(whenPath: RegExp, handler: Function): IUrlRouterProvider;
         when(whenPath: RegExp, handler: any[]): IUrlRouterProvider;
         when(whenPath: RegExp, toPath: string): IUrlRouterProvider;
@@ -76,6 +79,7 @@ declare module ng.ui {
     }
 
     interface IStateService {
+        go(to: string, params?: {}, options?: IStateOptions): IPromise<any>;
         transitionTo(state: string, params?: {}, updateLocation?: boolean): void;
         transitionTo(state: string, params?: {}, options?: IStateOptions): void;
         includes(state: string, params?: {}): boolean;
@@ -120,4 +124,3 @@ declare module ng.ui {
         useAnchorScroll(): void;
     }
 }
-
