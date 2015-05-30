@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="ACR. Sistema de Administración de la App">
-    <meta name="author" content="ACR">
-    <title>ACR App - Sistema de Administración de la APP</title>
+    <meta name="description" content="BOW. Sistema de Administración Funeraria">
+    <meta name="author" content="La Aurora Funerales y Capillas">
+    <title>Bow - Sistema de Administración Funeraria</title>
     <link rel="shortcut icon" href="~/favicon.ico?ver=1">
 
     @Styles.Render("~/bundles/BootstrapStyles")
@@ -59,6 +59,24 @@
         <!-- Page footer-->
         <footer ng-include="'/App/Main/views/layout/footer.cshtml'"></footer>
     </div>
+
+    <!-- Settings-->
+    <div ng-include="'/App/Main/views/layout/settings.cshtml'" ng-class="{'visible': showSettings}" ng-init="showSettings = false" class="settings-wrapper"></div>
+    <!-- End Settings-->
+    <!-- Layer Morph -->
+    <div class="layer-morph-overlay">
+        <div class="layer-morph-inner bg-info"></div>
+    </div>
+    <div layer-morph-close="" class="layer-morph-close">
+        <em class="fa fa-times"></em>
+    </div>
+    <div class="layer-morph-container bg-info">
+        <div class="layer-morph-wrapper">
+            <div id="layer-search" ng-include="'/App/Main/views/layout/buscar.cshtml'" class="layer-morph"></div>
+            <div class="layer-morph-footer">Naut</div>
+        </div>
+    </div>
+
 
     @Scripts.Render("~/bundles/ApplicationScripts")
     @Scripts.Render("~/Bundles/App/Main/js")

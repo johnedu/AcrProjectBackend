@@ -1,0 +1,12 @@
+﻿<div class="text-left">
+    <label class="control-label" for="iptNombre" ng-show="mostrarTitulo">{{titulolabel}}</label>
+    <input id="iptNombre"
+           placeholder="{{tituloplaceholder}}"
+           name="iptNombre"
+           type="text"
+           maxlength="50"
+           ng-model="selected"
+           class="form-control"
+           typeahead="nombre for nombre in nombres | filter: $viewValue | limitTo:10"
+           @*typeahead-on-select="onSelect($item, $model, $label)"*@>
+</div>

@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{17298EA0-AF73-4F30-B6F1-2066100D7D74}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bow</RootNamespace>
+    <AssemblyName>Bow.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Abp, Version=0.6.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Abp.0.6.1.1\lib\net451\Abp.dll</HintPath>
+    </Reference>
+    <Reference Include="Abp.Zero">
+      <HintPath>..\packages\Abp.Zero.0.6.0.0\lib\net451\Abp.Zero.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Castle.LoggingFacility.3.3.0\lib\net45\Castle.Facilities.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Concurrent">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Enlightenment">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.Enlightenment.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.0.34.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Immutable.1.0.34\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Afiliaciones\Entidades\BeneficioAdicionalPlanExequial.cs" />
+    <Compile Include="Afiliaciones\Entidades\GrupoInformalEmpleado.cs" />
+    <Compile Include="Afiliaciones\Entidades\GrupoInformal.cs" />
+    <Compile Include="Afiliaciones\Entidades\PlanExequialRecaudoMasivo.cs" />
+    <Compile Include="Afiliaciones\Entidades\RecaudoMasivoCobertura.cs" />
+    <Compile Include="Afiliaciones\Entidades\AfiliadoProspecto.cs" />
+    <Compile Include="Afiliaciones\Entidades\BeneficiosGestionProspecto.cs" />
+    <Compile Include="Afiliaciones\Entidades\FunerariaProspecto.cs" />
+    <Compile Include="Afiliaciones\Entidades\GestionProspecto.cs" />
+    <Compile Include="Afiliaciones\Entidades\PlanExequialSucursal.cs" />
+    <Compile Include="Afiliaciones\Entidades\BeneficioPlanExequial.cs" />
+    <Compile Include="Afiliaciones\Entidades\GrupoFamiliar.cs" />
+    <Compile Include="Afiliaciones\Entidades\GrupoParentescoRango.cs" />
+    <Compile Include="Afiliaciones\Entidades\Parentesco.cs" />
+    <Compile Include="Afiliaciones\Entidades\GrupoFamiliarParentesco.cs" />
+    <Compile Include="Afiliaciones\Entidades\PlanExequial.cs" />
+    <Compile Include="Afiliaciones\Entidades\Prospecto.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IAfiliadoProspectoRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IBeneficioAdicionalPlanExequialRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IBeneficiosGestionProspectoRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IFunerariaProspectoRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IGestionProspectoRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IGrupoInformalEmpleadoRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IGrupoInformalRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IPlanExequialRecaudoMasivoRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IRecaudoMasivoCoberturaRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IPlanExequialSucursalRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IBeneficioPlanExequialRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IGrupoFamiliarRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IGrupoFamiliarParentescoRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IGrupoParentescoRangoRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IParentescoRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IPlanExequialRepositorio.cs" />
+    <Compile Include="Afiliaciones\Entidades\Beneficio.cs" />
+    <Compile Include="Afiliaciones\Entidades\PeriodoVenta.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IBeneficioRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IPeriodoVentaRepositorio.cs" />
+    <Compile Include="Afiliaciones\Repositorios\IProspectoRepositorio.cs" />
+    <Compile Include="BowConsts.cs" />
+    <Compile Include="BowCoreModule.cs" />
+    <Compile Include="Cartera\Entidades\Moneda.cs" />
+    <Compile Include="Cartera\Repositorios\IMonedaRepositorio.cs" />
+    <Compile Include="Empleados\Entidades\Empleado.cs" />
+    <Compile Include="Empleados\Repositorios\IEmpleadoRepositorio.cs" />
+    <Compile Include="Empresas\Entidades\ActividadEconomica.cs" />
+    <Compile Include="Empresas\Entidades\RecaudoMasivo.cs" />
+    <Compile Include="Empresas\Entidades\SucursalTelefono.cs" />
+    <Compile Include="Empresas\Entidades\Sucursal.cs" />
+    <Compile Include="Empresas\Entidades\EmpresaOrganizacion.cs" />
+    <Compile Include="Empresas\Entidades\EmpresaInfoTributaria.cs" />
+    <Compile Include="Empresas\Entidades\Organizacion.cs" />
+    <Compile Include="Empresas\Entidades\InfoTributariaLocalidad.cs" />
+    <Compile Include="Empresas\Entidades\InfoTributariaOpcion.cs" />
+    <Compile Include="Empresas\Entidades\InfoTributaria.cs" />
+    <Compile Include="Empresas\Entidades\EmpresaContactoWeb.cs" />
+    <Compile Include="Empresas\Entidades\EmpresaContacto.cs" />
+    <Compile Include="Empresas\Entidades\EmpresaTelefono.cs" />
+    <Compile Include="Empresas\Entidades\Empresa.cs" />
+    <Compile Include="Empresas\Repositorios\IActividadEconomicaRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\IEmpresaOrganizacionRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\IEmpresaContactoRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\IEmpresaContactoWebRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\IEmpresaInfoTributariaRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\IRecaudoMasivoRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\ISucursalTelefonoRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\ISucursalRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\IOrganizacionRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\IInfoTributariaLocalidadRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\IInfoTributariaOpcionRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\IEmpresaTelefonoRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\IEmpresaRepositorio.cs" />
+    <Compile Include="Empresas\Repositorios\IInfoTributariaRepositorio.cs" />
+    <Compile Include="EntidadBase\EntidadMultiTenant.cs" />
+    <Compile Include="EntidadBase\IMultiTenant.cs" />
+    <Compile Include="Parametros\Entidades\Estado.cs" />
+    <Compile Include="Parametros\Entidades\NombreEstado.cs" />
+    <Compile Include="Parametros\Entidades\Parametro.cs" />
+    <Compile Include="Parametros\Entidades\Tipo.cs" />
+    <Compile Include="Parametros\Repositorios\IEstadoRepositorio.cs" />
+    <Compile Include="Parametros\Repositorios\INombreEstadoRepositorio.cs" />
+    <Compile Include="Parametros\Repositorios\IParametroRepositorio.cs" />
+    <Compile Include="Parametros\Repositorios\ISufijoRepositorio.cs" />
+    <Compile Include="Parametros\Repositorios\ITipoRepositorio.cs" />
+    <Compile Include="Personas\Entidades\Auditoria.cs" />
+    <Compile Include="Personas\Entidades\OpcionPreferencia.cs" />
+    <Compile Include="Personas\Entidades\Persona.cs" />
+    <Compile Include="Personas\Entidades\PersonaAuditoria.cs" />
+    <Compile Include="Personas\Entidades\PersonaContactoWeb.cs" />
+    <Compile Include="Personas\Entidades\PersonaDireccion.cs" />
+    <Compile Include="Personas\Entidades\PersonaPreferencia.cs" />
+    <Compile Include="Personas\Entidades\PersonaTelefono.cs" />
+    <Compile Include="Personas\Entidades\Preferencia.cs" />
+    <Compile Include="Personas\Entidades\TipoDocumentoPersona.cs" />
+    <Compile Include="Personas\Repositorios\IOpcionPreferenciaRepositorio.cs" />
+    <Compile Include="Personas\Repositorios\IPersonaAuditoriaRepositorio.cs" />
+    <Compile Include="Personas\Repositorios\IPersonaContactoWebRepositorio.cs" />
+    <Compile Include="Personas\Repositorios\IPersonaDireccionRepositorio.cs" />
+    <Compile Include="Personas\Repositorios\IPersonaPreferenciaRepositorio.cs" />
+    <Compile Include="Personas\Repositorios\IPersonaRepositorio.cs" />
+    <Compile Include="Personas\Repositorios\IPersonaTelefonoRepositorio.cs" />
+    <Compile Include="Personas\Repositorios\IPreferenciaRepositorio.cs" />
+    <Compile Include="Personas\Repositorios\ITipoDocumentoPersonaRepositorio.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seguridad\Autorizacion\PermissionChecker.cs" />
+    <Compile Include="Seguridad\Autorizacion\Role.cs" />
+    <Compile Include="Seguridad\Autorizacion\RoleManager.cs" />
+    <Compile Include="Seguridad\Autorizacion\RoleStore.cs" />
+    <Compile Include="Seguridad\MultiTenancy\Tenant.cs" />
+    <Compile Include="Seguridad\MultiTenancy\TenantManager.cs" />
+    <Compile Include="Seguridad\Usuarios\UserManager.cs" />
+    <Compile Include="Seguridad\Usuarios\UserStore.cs" />
+    <Compile Include="Seguridad\Usuarios\User.cs" />
+    <Compile Include="Zonificacion\Entidades\Avenida.cs" />
+    <Compile Include="Zonificacion\Entidades\Barrio.cs" />
+    <Compile Include="Zonificacion\Entidades\Departamento.cs" />
+    <Compile Include="Zonificacion\Entidades\Direccion.cs" />
+    <Compile Include="Zonificacion\Entidades\Localidad.cs" />
+    <Compile Include="Zonificacion\Entidades\Manzana.cs" />
+    <Compile Include="Zonificacion\Entidades\Pais.cs" />
+    <Compile Include="Zonificacion\Entidades\Sufijo.cs" />
+    <Compile Include="Zonificacion\Entidades\SufijoLocalidad.cs" />
+    <Compile Include="Zonificacion\Entidades\Telefono.cs" />
+    <Compile Include="Zonificacion\Entidades\TipoOrientacion.cs" />
+    <Compile Include="Zonificacion\Entidades\TorieLocalidad.cs" />
+    <Compile Include="Zonificacion\Entidades\Zona.cs" />
+    <Compile Include="Zonificacion\Entidades\ZonaBarrio.cs" />
+    <Compile Include="Zonificacion\Entidades\ZonaEmpleado.cs" />
+    <Compile Include="Zonificacion\Repositorios\IAvenidaRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\IBarrioRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\IDepartamentoRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\IDireccionRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\ILocalidadRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\IManzanaRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\IPaisRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\ISufijoLocalidadRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\ITelefonoRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\ITipoOrientacionRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\ITorieLocalidadRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\IZonaBarrioRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\IZonaEmpleadoRepositorio.cs" />
+    <Compile Include="Zonificacion\Repositorios\IZonaRepositorio.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

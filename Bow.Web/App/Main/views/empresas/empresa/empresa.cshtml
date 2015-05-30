@@ -1,0 +1,958 @@
+﻿<div class="app-container" ng-controller="app.views.empresas.empresa as vm">
+    <div class="app-view-header page-header">
+        <div class="row">
+            <div class="col-md-12">
+                @L("empresas_empresaOrganizacion_titulo")
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                    @L("empresas_empresaOrganizacion_titulo_organizacion")
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-success btn-circle btn-lg" ng-hide="vm.verFormularioOrganizacion" ng-click="vm.mostrarFormularioEditarOrganizacion(true)" title="@L("empresas_empresaOrganizacion_btn_editarOrganización")">
+                                    <em class="fa fa-pencil"></em>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label class="control-label">
+                                @L("empresas_empresaOrganizacion_logo_titulo")
+                            </label>
+                            <img class="img-responsive" src="~/App/Main/images/logo bow.png" />
+                        </div>
+                        <div class="col-lg-8">
+                            <div ng-hide="vm.verFormularioOrganizacion">
+                                <label class="control-label">
+                                    @L("empresas_empresaOrganizacion_nombre_titulo")
+                                </label>
+                                <h4>
+                                    {{vm.NombreOrganizacion}}
+                                </h4>
+                            </div>
+                            <form role="form" name="formEditarOrganizacion" ng-show="vm.verFormularioOrganizacion">
+                                <label class="control-label" for="iptNombreOrganizacion">@L("empresas_empresaOrganizacion_actualizar_nombre")</label>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group" ng-class="{'has-error' : formEditarOrganizacion.iptNombreOrganizacion.$dirty && formEditarOrganizacion.iptNombreOrganizacion.$invalid }">
+                                            <input type="text" class="form-control" id="iptNombreOrganizacion" name="iptNombreOrganizacion" placeholder="@L("empresas_empresaOrganizacion_actualizar_nombre_placeholder")" ng-model="vm.organizacion.nombre" required maxlength="100" />
+                                            <div ng-show="formEditarOrganizacion.iptNombreOrganizacion.$dirty && formEditarOrganizacion.iptNombreOrganizacion.$invalid">
+                                                <small ng-show="formEditarOrganizacion.iptNombreOrganizacion.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_actualizar_nombre_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-success btn-circle btn-lg" ng-show="vm.verFormularioOrganizacion" ng-click="vm.editarOrganizacion()" ng-disabled="formEditarOrganizacion.$invalid" title="@L("empresas_empresaOrganizacion_actualizar_btnGuardar")">
+                                                <em class="fa fa-save"></em>
+                                            </button>
+                                            <button type="button" class="btn btn-warning btn-circle btn-lg" ng-show="vm.verFormularioOrganizacion" ng-click="vm.mostrarFormularioEditarOrganizacion(false)" title="@L("empresas_empresaOrganizacion_actualizar_btnCancelar")">
+                                                <em class="fa fa-close"></em>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <label class="control-label" for="iptNombreBeneficio">@L("empresas_empresaOrganizacion_empresas_titulo")</label>
+                            <select ng-disabled="vm.FormularioNuevoEmpresa && !vm.modoConsulta" ng-model="vm.selectedEmpresa" ng-options="to as to.nombre for to in vm.listaEmpresas" class="form-control" name="selectedEmpresa" id="selectedEmpresa" ng-change="vm.cargarInformacionEmpresaOrganizacion()" required>
+                                <option value="">@L("empresas_empresaOrganizacion_empresas_seleccione")</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            <div ng-show="!vm.FormularioNuevoEmpresa || vm.modoConsulta">
+                                <button type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.mostrarFormularioEmpresa(true)" title="@L("empresas_empresaOrganizacion_empresas_btnNuevo")">
+                                    <em class="fa fa-plus"></em>
+                                </button>
+                                <button type="button" class="btn btn-success btn-circle btn-lg" ng-disabled="!vm.selectedEmpresa" ng-click="vm.editarEmpresaOrganizacion()" title="@L("empresas_empresaOrganizacion_empresas_btnEditar")">
+                                    <em class="fa fa-pencil"></em>
+                                </button>
+                            </div>
+                            <div ng-show="vm.FormularioNuevoEmpresa && !vm.modoConsulta">
+                                <button type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.guardarEmpresaOrganizacion()" ng-disabled="frmRegistrarEmpresaOrganizacion.$invalid || (!vm.DocumentoValido && !vm.EsNaturalezaJuridica) || !vm.empresaOrganizacion.direccion" title="@L("empresas_empresaOrganizacion_empresas_btnGuardar")">
+                                    <em class="fa fa-save"></em>
+                                </button>
+                                <button type="button" class="btn btn-warning btn-circle btn-lg" ng-click="vm.mostrarFormularioEmpresa(false)" title="@L("empresas_empresaOrganizacion_empresas_btnCancelar")">
+                                    <em class="fa fa-close"></em>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                    @L("empresas_empresaOrganizacion_conveniosRecaudo_titulo")
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr ng-repeat="convenio in vm.listaConveniosRecaudoMasivo">
+                                    <td>
+                                        <h4 class="media-heading">
+                                            {{convenio.nombre}}
+                                        </h4>
+                                    </td>
+                                    <td class="text-center">
+                                        <h4 class="media-heading">
+                                            <a class="clickable" ng-click="vm.abrirModalLocalidades(convenio.id, convenio.nombre)">
+                                                {{convenio.numeroLocalidades}} <span ng-show="convenio.numeroLocalidades == '1'">@L("empresas_empresaOrganizacion_convenios_conteo_1localidad")</span><span ng-hide="convenio.numeroLocalidades == '1'">@L("empresas_empresaOrganizacion_convenios_conteo_masde1localidad")</span>
+                                            </a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="vm.FormularioNuevoEmpresa">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                        @L("empresas_empresaOrganizacion_titulo_infoBasica")
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" name="frmRegistrarEmpresaOrganizacion">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group" ng-class="{'has-error' : frmRegistrarEmpresaOrganizacion.selectedNaturaleza.$dirty && frmRegistrarEmpresaOrganizacion.selectedNaturaleza.$invalid }">
+                                        <label class="control-label" for="selectedNaturaleza">@L("empresas_empresaOrganizacion_naturaleza_titulo")</label>
+                                        <select ng-model="vm.selectedNaturaleza" ng-options="to.id as to.nombre for to in vm.tiposNaturalezaEmpresa" class="form-control" name="selectedNaturaleza" id="selectedNaturaleza"
+                                                required ng-change="vm.validarNaturalezaEmpresa()" ng-disabled="vm.modoConsulta">
+                                            <option value="">@L("empresas_empresaOrganizacion_naturaleza_seleccione")</option>
+                                        </select>
+                                        <div ng-show="frmRegistrarEmpresaOrganizacion.selectedNaturaleza.$dirty && frmRegistrarEmpresaOrganizacion.selectedNaturaleza.$invalid">
+                                            <small ng-show="frmRegistrarEmpresaOrganizacion.selectedNaturaleza.$error.required" class="text-danger">
+                                                @L("empresas_empresaOrganizacion_naturaleza_requerida")
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <bow-buscar-pais titulo='@L("empresas_empresaOrganizacion_nacionalidad_titulo")'
+                                                     error-requerido="@L("empresas_empresaOrganizacion_nacionalidad_titulo")"
+                                                     error-invalido="@L("empresas_empresaOrganizacion_nacionalidad_titulo")"
+                                                     ng-disabled="vm.modoConsulta"
+                                                     requerido="true"
+                                                     ng-model="vm.selectedNacionalidad"
+                                                     selecciono-pais="vm.seleccionoNacionalidad(pais)">
+                                    </bow-buscar-pais>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group" ng-class="{'has-error' : frmRegistrarEmpresaOrganizacion.selectedTipoDocumento.$dirty && frmRegistrarEmpresaOrganizacion.selectedTipoDocumento.$invalid }">
+                                        <label class="control-label" for="selectedTipoDocumento">@L("empresas_empresaOrganizacion_tipoDocumento_titulo")</label>
+                                        <select ng-model="vm.selectedTipoDocumento" ng-options="to.id as to.nombre for to in vm.tiposDocumentoPersona" class="form-control" name="selectedTipoDocumento" id="selectedTipoDocumento"
+                                                required ng-disabled="!vm.selectedNacionalidad || vm.modoConsulta">
+                                            <option value="">@L("empresas_empresaOrganizacion_tipoDocumento_seleccione")</option>
+                                        </select>
+                                        <div ng-show="frmRegistrarEmpresaOrganizacion.selectedTipoDocumento.$dirty && frmRegistrarEmpresaOrganizacion.selectedTipoDocumento.$invalid">
+                                            <small ng-show="frmRegistrarEmpresaOrganizacion.selectedTipoDocumento.$error.required" class="text-danger">
+                                                @L("empresas_empresaOrganizacion_tipoDocumento_requerido")
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group" ng-class="{'has-error' : frmRegistrarEmpresaOrganizacion.iptDocumento.$dirty && frmRegistrarEmpresaOrganizacion.iptDocumento.$invalid }">
+                                        <label class="control-label" for="iptDocumento">@L("empresas_empresaOrganizacion_documento_titulo")</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="iptDocumento" name="iptDocumento" placeholder="@L("empresas_empresaOrganizacion_documento_placeholder")" ng-model="vm.empresaOrganizacion.documento" required maxlength="100" ng-disabled="!vm.selectedTipoDocumento || vm.DocumentoValido || vm.modoConsulta" />
+                                            <div class="input-group-btn">
+                                                <label class="btn btn-primary" ng-click="vm.validarDocumentoPersona()" ng-disabled="!vm.selectedTipoDocumento || !vm.BuscadorPersonas || vm.modoConsulta || vm.DocumentoValido" title="@L("empresas_empresaOrganizacion_documento_btnBuscar_tooltip")">
+                                                    <span class="glyphicon fa fa-search"></span>
+                                                </label>
+                                                <label class="btn btn-primary" ng-click="vm.cambiarDocumentoPersona()" ng-disabled="vm.modoConsulta || !vm.DocumentoValido" title="@L("empresas_empresaOrganizacion_documento_btnEditar_tooltip")">
+                                                    <span class="glyphicon fa fa-pencil"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div ng-show="frmRegistrarEmpresaOrganizacion.iptDocumento.$dirty && frmRegistrarEmpresaOrganizacion.iptDocumento.$invalid">
+                                            <small ng-show="frmRegistrarEmpresaOrganizacion.iptDocumento.$error.required" class="text-danger">
+                                                @L("empresas_empresaOrganizacion_documento_requerido")
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group" ng-class="{'has-error' : frmRegistrarEmpresaOrganizacion.iptRazonSocial.$dirty && frmRegistrarEmpresaOrganizacion.iptRazonSocial.$invalid }">
+                                        <label class="control-label" for="iptRazonSocial">@L("empresas_empresaOrganizacion_razonSocial_titulo")</label>
+                                        <input type="text" class="form-control" id="iptRazonSocial" name="iptRazonSocial" placeholder="@L("empresas_empresaOrganizacion_razonSocial_placeholder")" ng-model="vm.empresaOrganizacion.razonSocial" required maxlength="100" ng-disabled="vm.modoConsulta" />
+                                        <div ng-show="frmRegistrarEmpresaOrganizacion.iptRazonSocial.$dirty && frmRegistrarEmpresaOrganizacion.iptRazonSocial.$invalid">
+                                            <small ng-show="frmRegistrarEmpresaOrganizacion.iptRazonSocial.$error.required" class="text-danger">
+                                                @L("empresas_empresaOrganizacion_razonSocial_requerida")
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group" ng-class="{'has-error' : frmRegistrarEmpresaOrganizacion.iptNombreComercial.$dirty && frmRegistrarEmpresaOrganizacion.iptNombreComercial.$invalid }">
+                                        <label class="control-label" for="iptNombreComercial">@L("empresas_empresaOrganizacion_nombreComercial_titulo")</label>
+                                        <input type="text" class="form-control" id="iptNombreComercial" name="iptNombreComercial" placeholder="@L("empresas_empresaOrganizacion_nombreComercial_placeholder")" ng-model="vm.empresaOrganizacion.nombreComercial" maxlength="100" ng-disabled="vm.modoConsulta" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group" ng-class="{'has-error' : frmRegistrarEmpresaOrganizacion.iptNombreInterno.$dirty && frmRegistrarEmpresaOrganizacion.iptNombreInterno.$invalid }">
+                                        <label class="control-label" for="iptNombreInterno">@L("empresas_empresaOrganizacion_nombreInterno_titulo")</label>
+                                        <input type="text" class="form-control" id="iptNombreInterno" name="iptNombreInterno" placeholder="@L("empresas_empresaOrganizacion_nombreInterno_placeholder")" ng-model="vm.empresaOrganizacion.nombreInterno" required maxlength="100" ng-disabled="vm.modoConsulta" />
+                                        <div ng-show="frmRegistrarEmpresaOrganizacion.iptNombreInterno.$dirty && frmRegistrarEmpresaOrganizacion.iptNombreInterno.$invalid">
+                                            <small ng-show="frmRegistrarEmpresaOrganizacion.iptNombreInterno.$error.required" class="text-danger">
+                                                @L("empresas_empresaOrganizacion_nombreInterno_requerido")
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="control-label">@L("empresas_empresaOrganizacion_estado_titulo")</label>
+                                    <div>
+                                        <div class="btn-group">
+                                            <div class="radio-inline c-radio">
+                                                <label>
+                                                    <input type="radio" name="i-radio" value="Activo" ng-model="vm.empresaOrganizacion.estado" ng-disabled="vm.modoConsulta">
+                                                    <span class="fa fa-check"></span>@L("empresas_empresaOrganizacion_estado_activo")
+                                                </label>
+                                            </div>
+                                            <div class="radio-inline c-radio">
+                                                <label>
+                                                    <input type="radio" name="i-radio" value="Inactivo" ng-model="vm.empresaOrganizacion.estado" ng-disabled="vm.modoConsulta">
+                                                    <span class="fa fa-close"></span>@L("empresas_empresaOrganizacion_estado_inactivo")
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group" ng-class="{'has-error' : frmRegistrarEmpresaOrganizacion.iptActividadEconomica.$dirty && frmRegistrarEmpresaOrganizacion.iptActividadEconomica.$invalid }">
+                                        <label class="control-label" for="iptActividadEconomica">@L("empresas_empresaOrganizacion_actividadEconomica_titulo")</label>
+                                        <input id="iptActividadEconomica" name="iptActividadEconomica" type="text" ng-model="vm.selectedActividadEconomica" class="form-control" typeahead-editable="false" ng-disabled="vm.modoConsulta"
+                                               typeahead="actividad as actividad.codigo + ' - ' + actividad.nombre for actividad in vm.actividadesEconomicas | filter:$viewValue" placeholder="@L("empresas_empresaOrganizacion_actividadEconomica_placeholder")"
+                                               required>
+                                        <div ng-show="frmRegistrarEmpresaOrganizacion.iptActividadEconomica.$dirty && frmRegistrarEmpresaOrganizacion.iptActividadEconomica.$invalid">
+                                            <small ng-show="frmRegistrarEmpresaOrganizacion.iptActividadEconomica.$error.required" class="text-danger">
+                                                @L("empresas_empresaOrganizacion_actividadEconomica_requerida")
+                                            </small>
+                                            <small ng-show="frmRegistrarEmpresaOrganizacion.iptActividadEconomica.$invalid && !frmRegistrarEmpresaOrganizacion.iptActividadEconomica.$error.required" class="text-danger">
+                                                @L("empresas_empresaOrganizacion_actividadEconomica_noSeleccionada")
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                        @L("empresas_empresaOrganizacion_panel_infoContacto_titulo")
+                    </div>
+                    <div class="panel-body">
+                        <div class="row line-bottom bow-margin-bottom-10">
+                            <div class="col-md-12">
+                                <label class="control-label font-size-18 bow-margin-top-10">@L("empresas_empresaOrganizacion_direccion_titulo")</label>&nbsp;&nbsp;&nbsp;
+                                {{vm.empresaOrganizacion.direccion}}
+                                <div class="pull-right">
+                                    <button bow-modalnuevadireccion
+                                            bow-nuevadireccionregistrada="vm.direccionRegistrada(direccion)"
+                                            type="button"
+                                            class="btn btn-success btn-circle btn-lg"
+                                            ng-hide="vm.modoConsulta"
+                                            title="@L("empresas_empresaOrganizacion_direccion_btnDireccion")">
+                                        <em class="fa fa-plus" ng-show="!vm.empresaOrganizacion.direccion"></em>
+                                        <em class="fa fa-pencil" ng-show="vm.empresaOrganizacion.direccion"></em>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row line-bottom">
+                            <div class="col-md-12">
+                                <label class="control-label font-size-18 bow-margin-top-10">@L("empresas_empresaOrganizacion_telefonos_titulo")</label>
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-success btn-circle btn-lg" ng-hide="vm.FormularioNuevoTelefono || vm.modoConsulta" ng-click="vm.mostrarNuevoTelefono(true)">
+                                        <em class="fa fa-plus"></em>
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-circle btn-lg" ng-show="vm.FormularioNuevoTelefono && !vm.modoConsulta" ng-click="vm.mostrarNuevoTelefono(false)">
+                                        <em class="fa fa-close"></em>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div ng-show="vm.FormularioNuevoTelefono" class="bow-margin-top-5">
+                                    <bow-nuevotelefono bow-guardotelefono="vm.notificacionTelefonoEmpresaGuardado(telefono)"
+                                                       formulario-corto="true"
+                                                       control="vm.controlOperacionesTelefono">
+                                    </bow-nuevotelefono>
+                                </div>
+                                <br />
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr ng-repeat="telefono in vm.empresaOrganizacion.listaTelefonos.filasMostrar track by $index"
+                                                ng-mouseenter="vm.controlesTelefono.mostrar($index)"
+                                                ng-mouseleave="vm.controlesTelefono.ocultar($index)">
+                                                <td>
+                                                    <h4 class="media-heading">
+                                                        {{telefono.telefonoNumero}}
+                                                    </h4>
+                                                    <span class="text-muted">
+                                                        {{telefono.nombreLocalidad}}
+                                                    </span>
+                                                </td>
+                                                <td class="text-center" ng-hide="vm.modoConsulta">
+                                                    <span ng-show="vm.controlesTelefono.visible[$index]" class="pull-right">
+                                                        <bow-operacion-eliminar-fila mensaje-confirmacion="@L("empresas_empresaOrganizacion_telefonos_lista_eliminar_validacion")"
+                                                                                     mensaje-tooltip="@L("empresas_empresaOrganizacion_telefonos_lista_eliminar_tooltip")"
+                                                                                     operacion-puede-eliminar="vm.puedeEliminarTelefono(telefono.id, funcionRetornarPuedeEliminar)"
+                                                                                     no-puede-eliminar="vm.noPuedeEliminarTelefono()"
+                                                                                     confirmacion-ok="vm.eliminarTelefonoOk(telefono.id, telefono.telefonoId, telefono.telefonoNumero, telefono.nombreLocalidad, telefono.accion, $index)">
+                                                        </bow-operacion-eliminar-fila>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center">
+                                        <pagination items-per-page="vm.empresaOrganizacion.listaTelefonos.filasPorPagina"
+                                                    total-items="vm.empresaOrganizacion.listaTelefonos.totalFilas"
+                                                    ng-model="vm.empresaOrganizacion.listaTelefonos.paginaActual"
+                                                    ng-change="vm.empresaOrganizacion.listaTelefonos.pageChanged()"
+                                                    class="pagination-sm"></pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                        @L("empresas_empresaOrganizacion_contactosWeb_titulo")
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 text-right bow-padding-bottom-15" ng-hide="vm.FormularioNuevoContactoWeb || vm.modoConsulta">
+                                <button type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.mostrarFormularioContactoWeb(true)">
+                                    <em class="fa fa-plus"></em>
+                                </button>
+                            </div>
+                        </div>
+                        <div ng-show="vm.FormularioNuevoContactoWeb">
+                            <form role="form" name="frmRegistrarContactosWeb">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarContactosWeb.selectedMedioContacto.$dirty && frmRegistrarContactosWeb.selectedMedioContacto.$invalid }">
+                                            <label class="control-label" for="selectedMedioContacto">@L("empresas_empresaOrganizacion_contactosWeb_medioContacto")</label>
+                                            <select ng-disabled="vm.AccionFormularioContactosWeb == 'Modificar'" ng-model="vm.selectedMediosContacto" ng-options="contacto as contacto.nombre for contacto in vm.mediosContacto" class="form-control" name="selectedMedioContacto" id="selectedMedioContacto" required>
+                                                <option value="">@L("empresas_empresaOrganizacion_contactosWeb_medioContacto_seleccione")</option>
+                                            </select>
+                                            <div ng-show="frmRegistrarContactosWeb.selectedMedioContacto.$dirty && frmRegistrarContactosWeb.selectedMedioContacto.$invalid">
+                                                <small ng-show="frmRegistrarContactosWeb.selectedMedioContacto.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_contactosWeb_medioContacto_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarContactosWeb.iptIdentificador.$dirty && frmRegistrarContactosWeb.iptIdentificador.$invalid }">
+                                            <label class="control-label" for="iptIdentificador">@L("empresas_empresaOrganizacion_contactosWeb_identificador")</label>
+                                            <input type="text" class="form-control" id="iptIdentificador" name="iptIdentificador" placeholder="@L("empresas_empresaOrganizacion_contactosWeb_identificador_placeholder")" ng-model="vm.empresaOrganizacion.identificador" required maxlength="100" />
+                                            <div ng-show="frmRegistrarContactosWeb.iptIdentificador.$dirty && frmRegistrarContactosWeb.iptIdentificador.$invalid">
+                                                <small ng-show="frmRegistrarContactosWeb.iptIdentificador.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_contactosWeb_identificador_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer text-right">
+                                    <button type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.guardarNuevoContactoWeb()" ng-disabled="frmRegistrarContactosWeb.$invalid" title="@L("empresas_empresaOrganizacion_contactosWeb_btnGuardar")">
+                                        <em class="fa fa-save"></em>
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-circle btn-lg" ng-click="vm.mostrarFormularioContactoWeb(false)" title="@L("empresas_empresaOrganizacion_contactosWeb_btnCancelar")">
+                                        <em class="fa fa-close"></em>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="contactoWeb in vm.empresaOrganizacion.listaContactosWeb.filasMostrar track by $index"
+                                        ng-mouseenter="vm.controlesContactoWeb.mostrar($index)"
+                                        ng-mouseleave="vm.controlesContactoWeb.ocultar($index)">
+                                        <td>
+                                            <h4 class="media-heading">
+                                                {{contactoWeb.medioContacto}}
+                                            </h4>
+                                            <span class="text-muted">
+                                                {{contactoWeb.identificador}}
+                                            </span>
+                                        </td>
+                                        <td class="text-center" ng-hide="vm.modoConsulta">
+                                            <span ng-show="vm.controlesContactoWeb.visible[$index]" class="pull-right">
+                                                <bow-operacion-editar-fila operacion-editar="vm.consultarEditarContactoWeb(contactoWeb.id, contactoWeb.idMedioContacto, contactoWeb.medioContacto, contactoWeb.identificador, contactoWeb.accion)"
+                                                                           mensaje-tooltip="@L("empresas_empresaOrganizacion_contactosWeb_tabla_btnEditar")"
+                                                                           ng-show="!vm.eliminadoContactoWeb">
+                                                </bow-operacion-editar-fila>
+                                                <bow-operacion-eliminar-fila mensaje-confirmacion="@L("empresas_empresaOrganizacion_contactosWeb_tabla_confirmacion")"
+                                                                             mensaje-tooltip="@L("empresas_empresaOrganizacion_contactosWeb_tabla_btnEliminar")"
+                                                                             operacion-puede-eliminar="vm.puedeEliminarContactoWeb(contactoWeb.id, funcionRetornarPuedeEliminar)"
+                                                                             no-puede-eliminar="vm.noPuedeEliminarContactoWeb()"
+                                                                             confirmacion-ok="vm.eliminarContactoWebOk(contactoWeb.id, contactoWeb.idMedioContacto, contactoWeb.medioContacto, contactoWeb.identificador, contactoWeb.accion, $index)"
+                                                                             confirmacion-cancel="vm.eliminarContactoWebCancel($index)">
+                                                </bow-operacion-eliminar-fila>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <pagination items-per-page="vm.empresaOrganizacion.listaContactosWeb.filasPorPagina"
+                                            total-items="vm.empresaOrganizacion.listaContactosWeb.totalFilas"
+                                            ng-model="vm.empresaOrganizacion.listaContactosWeb.paginaActual"
+                                            ng-change="vm.empresaOrganizacion.listaContactosWeb.pageChanged()"
+                                            class="pagination-sm"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                        @L("empresas_empresaOrganizacion_contactos_titulo")
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 text-right bow-padding-bottom-15" ng-hide="vm.FormularioNuevoContacto || vm.modoConsulta">
+                                <button type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.mostrarFormularioContacto(true)">
+                                    <em class="fa fa-plus"></em>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div ng-show="vm.FormularioNuevoContacto">
+                            <form role="form" name="frmRegistrarContacto">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarContacto.iptDocumentoContacto.$dirty && frmRegistrarContacto.iptDocumentoContacto.$invalid }">
+                                            <label class="control-label" for="iptDocumentoContacto">@L("empresas_empresaOrganizacion_contactos_documento")</label>
+                                            <div class="input-group">
+                                                <input ng-disabled="vm.PersonaContactoEncontrada" type="text" class="form-control" id="iptDocumentoContacto" name="iptDocumentoContacto" placeholder="@L("empresas_empresaOrganizacion_contactos_documento_tooltip")" ng-model="vm.empresaOrganizacion.contactoPersona.documentoContacto" required maxlength="20" />
+                                                <div class="input-group-btn">
+                                                    <label class="btn btn-primary" ng-disabled="!vm.empresaOrganizacion.contactoPersona.documentoContacto || vm.PersonaContactoEncontrada" ng-click="vm.consultarPersona()" title="@L("empresas_empresaOrganizacion_contactos_documento_btnConsultar")">
+                                                        <span class="glyphicon fa fa-search"></span>
+                                                    </label>
+                                                    <label class="btn btn-primary" ng-disabled="!vm.PersonaContactoEncontrada" ng-click="vm.cambiarConsultaPersona()" title="@L("empresas_empresaOrganizacion_contactos_documento_btnEditar")">
+                                                        <span class="glyphicon fa fa-pencil"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div ng-show="frmRegistrarContacto.iptDocumentoContacto.$dirty && frmRegistrarContacto.iptDocumentoContacto.$invalid">
+                                                <small ng-show="frmRegistrarContacto.iptDocumentoContacto.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_contactos_documento_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <label class="control-label">{{vm.empresaOrganizacion.contactoPersona.nombreContacto}}</label>
+                                        <br />
+                                        <label ng-show="vm.empresaOrganizacion.contactoPersona.nombreContacto" class="control-label">@L("empresas_empresaOrganizacion_contactos_documento_personaTelefonos")</label>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <label class="control-label">{{vm.empresaOrganizacion.contactoPersona.telefonosContacto}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarContacto.selectedAreaEmpresa.$dirty && frmRegistrarContacto.selectedAreaEmpresa.$invalid }">
+                                            <label class="control-label" for="selectedAreaEmpresa">@L("empresas_empresaOrganizacion_contactos_areaEmpresa")</label>
+                                            <select ng-model="vm.selectedAreaEmpresa" ng-options="area as area.nombre for area in vm.areasEmpresa" class="form-control" name="selectedAreaEmpresa" id="selectedAreaEmpresa" required>
+                                                <option value="">@L("empresas_empresaOrganizacion_contactos_areaEmpresa_seleccione")</option>
+                                            </select>
+                                            <div ng-show="frmRegistrarContacto.selectedAreaEmpresa.$dirty && frmRegistrarContacto.selectedAreaEmpresa.$invalid">
+                                                <small ng-show="frmRegistrarContacto.selectedAreaEmpresa.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_contactos_areaEmpresa_requerida")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarContacto.iptCargoContacto.$dirty && frmRegistrarContacto.iptCargoContacto.$invalid }">
+                                            <label class="control-label" for="iptCargoContacto">@L("empresas_empresaOrganizacion_contactos_cargo")</label>
+                                            <input type="text" class="form-control" id="iptCargoContacto" name="iptCargoContacto" placeholder="@L("empresas_empresaOrganizacion_contactos_cargo_tooltip")" ng-model="vm.empresaOrganizacion.contactoPersona.cargoContacto" required maxlength="100" />
+                                            <div ng-show="frmRegistrarContacto.iptCargoContacto.$dirty && frmRegistrarContacto.iptCargoContacto.$invalid">
+                                                <small ng-show="frmRegistrarContacto.iptCargoContacto.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_contactos_cargo_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success btn-circle btn-lg" ng-disabled="frmRegistrarContacto.$invalid || !vm.PersonaContactoEncontrada" ng-click="vm.guardarNuevoContacto()" title="@L("empresas_empresaOrganizacion_contactos_btnGuardar")">
+                                        <em class="fa fa-save"></em>
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-circle btn-lg" ng-hide="vm.modoConsulta" ng-click="vm.mostrarFormularioContacto(false)" title="@L("empresas_empresaOrganizacion_contactos_btnCancelar")">
+                                        <em class="fa fa-close"></em>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="contacto in vm.empresaOrganizacion.listaContactos.filasMostrar track by $index"
+                                        ng-mouseenter="vm.controlesContacto.mostrar($index)"
+                                        ng-mouseleave="vm.controlesContacto.ocultar($index)">
+                                        <td>
+                                            <h4 class="media-heading">
+                                                {{contacto.nombrePersona}}
+                                            </h4>
+                                            <span class="text-muted">
+                                                {{contacto.telefonosContacto}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <h4 class="media-heading">
+                                                {{contacto.tipoAreaEmpresa}}
+                                            </h4>
+                                            <span class="text-muted">
+                                                {{contacto.cargo}}
+                                            </span>
+                                        </td>
+                                        <td class="text-center" ng-hide="vm.modoConsulta">
+                                            <span ng-show="vm.controlesContacto.visible[$index]" class="pull-right">
+                                                <bow-operacion-editar-fila operacion-editar="vm.consultarEditarContacto(contacto.id, contacto.documentoPersona, contacto.idPersona, contacto.nombrePersona, contacto.telefonosContacto, contacto.idTipoAreaEmpresa, contacto.tipoAreaEmpresa, contacto.cargo, contacto.accion)"
+                                                                           mensaje-tooltip="@L("empresas_empresaOrganizacion_contactos_tabla_btnEditar")"
+                                                                           ng-show="!vm.eliminadocontacto">
+                                                </bow-operacion-editar-fila>
+                                                <bow-operacion-eliminar-fila mensaje-confirmacion="@L("empresas_empresaOrganizacion_contactos_tabla_eliminar_confirmar")"
+                                                                             mensaje-tooltip="@L("empresas_empresaOrganizacion_contactos_tabla_btnEliminar")"
+                                                                             operacion-puede-eliminar="vm.puedeEliminarContacto(contacto.id, funcionRetornarPuedeEliminar)"
+                                                                             no-puede-eliminar="vm.noPuedeEliminarContacto()"
+                                                                             confirmacion-ok="vm.eliminarContactoOk(contacto.id, contacto.idPersona, contacto.idTipoAreaEmpresa, contacto.tipoAreaEmpresa, contacto.cargo, contacto.accion, $index)"
+                                                                             confirmacion-cancel="vm.eliminarContactoCancel()">
+                                                </bow-operacion-eliminar-fila>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <pagination items-per-page="vm.empresaOrganizacion.listaContactos.filasPorPagina"
+                                            total-items="vm.empresaOrganizacion.listaContactos.totalFilas"
+                                            ng-model="vm.empresaOrganizacion.listaContactos.paginaActual"
+                                            ng-change="vm.empresaOrganizacion.listaContactos.pageChanged()"
+                                            class="pagination-sm"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" ng-class="'bg-' + app.theme.name" title="@L("empresas_empresaOrganizacion_infoTributaria_btnTooltip")">
+                        @L("empresas_empresaOrganizacion_infoTributaria_titulo")
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 text-right bow-padding-bottom-10" ng-show="!vm.FormularioNuevaInfoTributaria && !vm.modoConsulta">
+                                <button type="button" class="btn btn-success btn-circle btn-lg" ng-disabled="!vm.empresaOrganizacion.direccion" ng-click="vm.mostrarFormularioInfoTributaria(true)">
+                                    <em class="fa fa-plus"></em>
+                                </button>
+                            </div>
+                        </div>
+                        <div ng-show="vm.FormularioNuevaInfoTributaria">
+                            <form role="form" name="frmRegistrarInfoTributaria">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarInfoTributaria.selectedInfoTributaria.$dirty && frmRegistrarInfoTributaria.selectedInfoTributaria.$invalid }">
+                                            <label class="control-label" for="selectedInfoTributaria">@L("empresas_empresaOrganizacion_infoTributaria_nombre")</label>
+                                            <select ng-model="vm.selectedInfoTributaria" ng-options="infoTributaria as infoTributaria.nombre for infoTributaria in vm.infoTributarias" class="form-control" name="selectedInfoTributaria"
+                                                    ng-change="vm.cargarOpcionesInfoTributariaTodas(vm.selectedInfoTributaria.id, vm.selectedInfoTributaria.tipoValor)" id="selectedInfoTributaria" required>
+                                                <option value="">@L("empresas_empresaOrganizacion_infoTributaria_seleccione")</option>
+                                            </select>
+                                            <div ng-show="frmRegistrarInfoTributaria.selectedInfoTributaria.$dirty && frmRegistrarInfoTributaria.selectedInfoTributaria.$invalid">
+                                                <small ng-show="frmRegistrarInfoTributaria.selectedInfoTributaria.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_infoTributaria_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarInfoTributaria.selectedOpcionInfoTributaria.$dirty && frmRegistrarInfoTributaria.selectedOpcionInfoTributaria.$invalid }">
+                                            <label class="control-label" for="selectedOpcionInfoTributaria">@L("empresas_empresaOrganizacion_infoTributaria_opcion_nombre")</label>
+                                            <select ng-model="vm.selectedOpcionInfoTributaria" ng-options="opcionInfoTributaria as opcionInfoTributaria.nombre for opcionInfoTributaria in vm.opcionesInfoTributaria" class="form-control" name="selectedOpcionInfoTributaria" id="selectedOpcionInfoTributaria" required>
+                                                <option value="">@L("empresas_empresaOrganizacion_infoTributaria_opcion_seleccione")</option>
+                                            </select>
+                                            <div ng-show="frmRegistrarInfoTributaria.selectedOpcionInfoTributaria.$dirty && frmRegistrarInfoTributaria.selectedOpcionInfoTributaria.$invalid">
+                                                <small ng-show="frmRegistrarInfoTributaria.selectedOpcionInfoTributaria.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_infoTributaria_opcion_requerida")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarInfoTributaria.iptValorInfoTributaria.$dirty && frmRegistrarInfoTributaria.iptValorInfoTributaria.$invalid }">
+                                            <label class="control-label" for="iptValorInfoTributaria">@L("empresas_empresaOrganizacion_infoTributaria_valor")&nbsp;&nbsp;&nbsp;<span ng-show="vm.selectedInfoTributaria.tipoValor">(&nbsp;{{ vm.selectedInfoTributaria.tipoValor }}&nbsp;)</span></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="iptValorInfoTributaria" name="iptValorInfoTributaria" placeholder="@L("empresas_empresaOrganizacion_infoTributaria_valor_placeholder")" ng-model="vm.empresaOrganizacion.infoTributaria.valor" required maxlength="30" />
+                                                <span class="input-group-addon"><span ng-show="vm.selectedInfoTributaria.tipoValor == 'Porcentaje'">@L("empresas_empresaOrganizacion_infoTributaria_valor_porcentaje")</span></span>
+                                            </div>
+                                            <div ng-show="frmRegistrarInfoTributaria.iptValorInfoTributaria.$dirty && frmRegistrarInfoTributaria.iptValorInfoTributaria.$invalid">
+                                                <small ng-show="frmRegistrarInfoTributaria.iptValorInfoTributaria.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_infoTributaria_valor_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarInfoTributaria.iptFechaInicio.$dirty && frmRegistrarInfoTributaria.iptFechaInicio.$invalid }">
+                                            <label class="control-label" for="iptFechaInicio">@L("empresas_empresaOrganizacion_infoTributaria_fechaInicio")</label>
+                                            <p class="input-group">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="iptFechaInicio"
+                                                       name="iptFechaInicio"
+                                                       ng-model="vm.empresaOrganizacion.infoTributaria.fechaInicio" close-text="Close"
+                                                       datepicker-popup="{{configuracionFechaExpedicion.format}}"
+                                                       is-open="configuracionFechaExpedicion.opciones.opened"
+                                                       min-date="configuracionFechaExpedicion.opciones.minDate"
+                                                       max-date="configuracionFechaExpedicion.opciones.maxDate"
+                                                       datepicker-options="configuracionFechaExpedicion.opciones"
+                                                       ng-disabled="!vm.selectedInfoTributaria" required />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" ng-disabled="!vm.selectedInfoTributaria"
+                                                            ng-click="configuracionFechaExpedicion.open($event)">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </p>
+                                            <div ng-show="frmRegistrarInfoTributaria.iptFechaInicio.$dirty && frmRegistrarInfoTributaria.iptFechaInicio.$invalid">
+                                                <small ng-show="frmRegistrarInfoTributaria.iptFechaInicio.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_infoTributaria_fechaInicio_requerida")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <br />
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.guardarNuevaOpcionInfoTributaria()" ng-disabled="frmRegistrarInfoTributaria.$invalid" title="@L("empresas_empresaOrganizacion_infoTributaria_btnAsignar")">
+                                                <em class="fa fa-save"></em>
+                                            </button>
+                                            <button type="button" class="btn btn-warning btn-circle btn-lg" ng-click="vm.mostrarFormularioInfoTributaria(false)" title="@L("empresas_empresaOrganizacion_infoTributaria_btnCancelar")">
+                                                <em class="fa fa-close"></em>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 text-right">
+                                <label class="control-label">@L("empresas_empresaOrganizacion_infoTributaria_checkActivas")</label>
+                                <div>
+                                    <label class="switch switch-lg">
+                                        <input type="checkbox" checked="checked" ng-model="vm.empresaOrganizacion.checkActivas" value="AC">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="infoTributaria in vm.empresaOrganizacion.listaOpcionesInfoTributaria.filasMostrar track by $index" ng-show="infoTributaria.estadoActiva || !vm.empresaOrganizacion.checkActivas">
+                                        <td>
+                                            <h4 class="media-heading">
+                                                {{infoTributaria.infoTributaria}}
+                                            </h4>
+                                            <span class="text-muted">
+                                                {{infoTributaria.infoTributariaOpcion}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <h4 class="media-heading">
+                                                <span ng-show="infoTributaria.tipoValor == 'Valor'">
+                                                    {{infoTributaria.valor | currency:"$ ":0}}
+                                                </span>
+                                                <span ng-show="infoTributaria.tipoValor == 'Porcentaje'">
+                                                    {{infoTributaria.valor}}&nbsp;@L("empresas_empresaOrganizacion_infoTributaria_tabla_porcentaje")
+                                                </span>
+                                            </h4>
+                                        </td>
+                                        <td>
+                                            <div ng-show="!vm.mensajeCancelarOpcionInfoTributaria[$index]">
+                                                <strong>@L("empresas_empresaOrganizacion_infoTributaria_tabla_fechaInicio")</strong> {{infoTributaria.fechaInicio}}
+                                                <button type="button" class="btn btn-danger btn-circle btn-lg" ng-click="vm.cancelarOpcionInfoTributaria($index)" ng-show="!infoTributaria.fechaFin && !vm.modoConsulta">
+                                                    <span ng-show="infoTributaria.accion == 'N'"><em class="fa fa-trash" title="@L("empresas_empresaOrganizacion_infoTributaria_tabla_btnEliminar")"></em></span>
+                                                    <span ng-hide="infoTributaria.accion == 'N'"><em class="fa fa-close" title="@L("empresas_empresaOrganizacion_infoTributaria_tabla_btnCancelar")"></em></span>
+                                                </button>
+                                                <div ng-show="infoTributaria.fechaFin">
+                                                    <strong>@L("empresas_empresaOrganizacion_infoTributaria_tabla_fechaCancelacion")</strong> {{infoTributaria.fechaFin}}
+                                                </div>
+                                            </div>
+                                            <div ng-show="vm.mensajeCancelarOpcionInfoTributaria[$index]">
+                                                @L("empresas_empresaOrganizacion_infoTributaria_tabla_validacion")
+                                                <button type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.cancelarOpcionInfoTributariaOk(infoTributaria.id, infoTributaria.infoTributariaId, infoTributaria.infoTributariaOpcionId, infoTributaria.infoTributaria, infoTributaria.tipoValor, infoTributaria.valor, infoTributaria.fechaInicio, infoTributaria.fechaActualizacion, infoTributaria.accion, $index)" title="@L("empresas_empresaOrganizacion_infoTributaria_tabla_validacion_si")">
+                                                    <em class="fa fa-check"></em>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-circle btn-lg" ng-click="vm.cancelarOpcionInfoTributariaCancel($index)" title="@L("empresas_empresaOrganizacion_infoTributaria_tabla_validacion_no")">
+                                                    <em class="fa fa-close"></em>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="control-label">@L("empresas_empresaOrganizacion_infoTributaria_tabla_ultimaActualizacion")</label>
+                                            <div>
+                                                <span ng-hide="infoTributaria.accion == 'N'">
+                                                    {{infoTributaria.fechaActualizacion}}
+                                                </span>
+                                                <div ng-show="!infoTributaria.fechaFin && infoTributaria.accion != 'N' && !vm.modoConsulta">
+                                                    <div class="checkbox-inline c-checkbox">
+                                                        <label>
+                                                            <input type="checkbox" ng-hide="vm.modoConsulta" ng-model="vm.tablaCheckInfoActualizada[$index]" value="A" ng-change="vm.actualizarInformacionTributaria(infoTributaria.id, infoTributaria.infoTributariaId, infoTributaria.infoTributariaOpcionId, infoTributaria.valor, infoTributaria.fechaInicio, $index)">
+                                                            <span class="fa fa-check"></span>@L("empresas_empresaOrganizacion_infoTributaria_tabla_infoActualizada")
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <pagination items-per-page="vm.empresaOrganizacion.listaOpcionesInfoTributaria.filasPorPagina"
+                                            total-items="vm.empresaOrganizacion.listaOpcionesInfoTributaria.totalFilas"
+                                            ng-model="vm.empresaOrganizacion.listaOpcionesInfoTributaria.paginaActual"
+                                            ng-change="vm.empresaOrganizacion.listaOpcionesInfoTributaria.pageChanged()"
+                                            class="pagination-sm"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                        @L("empresas_empresaOrganizacion_sucursal_titulo")
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 text-right" ng-show="!vm.FormularioNuevaSucursal && !vm.modoConsulta">
+                                <button type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.mostrarFormularioSucursal(true)" title="@L("empresas_empresaOrganizacion_sucursal_btnNuevo")">
+                                    <em class="fa fa-plus"></em>
+                                </button>
+                            </div>
+                        </div>
+                        <div ng-show="vm.FormularioNuevaSucursal">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form role="form" name="frmRegistrarSucursal">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarSucursal.iptNombreSucursal.$dirty && frmRegistrarSucursal.iptNombreSucursal.$invalid }">
+                                            <label class="control-label" for="iptNombreSucursal">@L("empresas_empresaOrganizacion_sucursal_nombre_titulo")</label>
+                                            <input type="text" class="form-control" id="iptNombreSucursal" name="iptNombreSucursal" placeholder="@L("empresas_empresaOrganizacion_sucursal_nombre_placeholder")" ng-model="vm.empresaOrganizacion.sucursal.nombre" required maxlength="100" ng-disabled="!vm.PuedeEditarSucursal" />
+                                            <div ng-show="frmRegistrarSucursal.iptNombreSucursal.$dirty && frmRegistrarSucursal.iptNombreSucursal.$invalid">
+                                                <small ng-show="frmRegistrarSucursal.iptNombreSucursal.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_sucursal_nombre_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarSucursal.selectedTipoSucursal.$dirty && frmRegistrarSucursal.selectedTipoSucursal.$invalid }">
+                                            <label class="control-label" for="selectedTipoSucursal">@L("empresas_empresaOrganizacion_sucursal_tipo_titulo")</label>
+                                            <select ng-model="vm.selectedTipoSucursal" ng-options="tipoSucursal as tipoSucursal.nombre for tipoSucursal in vm.tiposSucursales" class="form-control" name="selectedTipoSucursal" id="selectedTipoSucursal" required ng-disabled="!vm.PuedeEditarSucursal">
+                                                <option value="">@L("empresas_empresaOrganizacion_sucursal_tipo_seleccione")</option>
+                                            </select>
+                                            <div ng-show="frmRegistrarSucursal.selectedTipoSucursal.$dirty && frmRegistrarSucursal.selectedTipoSucursal.$invalid">
+                                                <small ng-show="frmRegistrarSucursal.selectedTipoSucursal.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_sucursal_tipo_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarSucursal.selectedEstadoSucursal.$dirty && frmRegistrarSucursal.selectedEstadoSucursal.$invalid }">
+                                            <label class="control-label" for="selectedEstadoSucursal">@L("empresas_empresaOrganizacion_sucursal_estado_titulo")</label>
+                                            <select ng-model="vm.selectedEstadoSucursal" ng-options="estadoSucursal as estadoSucursal.nombre for estadoSucursal in vm.estadosSucursales" class="form-control" name="selectedEstadoSucursal" id="selectedEstadoSucursal" required ng-disabled="!vm.PuedeEditarSucursal">
+                                                <option value="">@L("empresas_empresaOrganizacion_sucursal_estado_seleccione")</option>
+                                            </select>
+                                            <div ng-show="frmRegistrarSucursal.selectedEstadoSucursal.$dirty && frmRegistrarSucursal.selectedEstadoSucursal.$invalid">
+                                                <small ng-show="frmRegistrarSucursal.selectedEstadoSucursal.$error.required" class="text-danger">
+                                                    @L("empresas_empresaOrganizacion_sucursal_estado_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row bow-padding-bottom-10">
+                                        <div class="col-md-8">
+                                            <label class="control-label">@L("empresas_empresaOrganizacion_sucursal_direccion_titulo")</label>
+                                            <label class="control-label">{{vm.empresaOrganizacion.sucursal.direccion}}</label>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                            <button type="button" bow-modalnuevadireccion bow-nuevadireccionregistrada="vm.modalDireccionSucursalRegistrada(direccion)" class="btn btn-success btn-circle btn-lg" ng-hide="!vm.PuedeEditarSucursal">
+                                                <em class="fa fa-pencil" ng-show="vm.empresaOrganizacion.sucursal.direccion"></em>
+                                                <em class="fa fa-plus" ng-show="!vm.empresaOrganizacion.sucursal.direccion"></em>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row bow-padding-bottom-10">
+                                        <div class="col-md-8">
+                                            <label class="control-label">@L("empresas_empresaOrganizacion_sucursal_telefonos_titulo")</label>
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                            <button type="button" ng-hide="vm.FormularioNuevoTelefonoSucursal || !vm.PuedeEditarSucursal" class="btn btn-success btn-circle btn-lg" ng-click="vm.mostrarNuevoTelefonoSucursal(true)">
+                                                <em class="fa fa-plus"></em>
+                                            </button>
+                                            <button type="button" ng-show="vm.FormularioNuevoTelefonoSucursal" class="btn btn-warning btn-circle btn-lg" ng-click="vm.mostrarNuevoTelefonoSucursal(false)">
+                                                <em class="fa fa-close"></em>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div ng-show="vm.FormularioNuevoTelefonoSucursal">
+                                        <bow-nuevotelefono bow-guardotelefono="vm.notificacionTelefonoSucursalGuardado(telefono)"
+                                                           formulario-corto="true"
+                                                           control="vm.controlOperacionesTelefonoSucursal">
+                                        </bow-nuevotelefono>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr ng-repeat="telefonoSucursal in vm.empresaOrganizacion.sucursal.listaTelefonos.filasMostrar track by $index"
+                                                    ng-mouseenter="vm.controlesTelefonoSucursal.mostrar($index)"
+                                                    ng-mouseleave="vm.controlesTelefonoSucursal.ocultar($index)">
+                                                    <td>
+                                                        <h4 class="media-heading">
+                                                            {{telefonoSucursal.telefonoNumero}}
+                                                        </h4>
+                                                        <span class="text-muted">
+                                                            {{telefonoSucursal.nombreLocalidad}}
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" ng-hide="vm.modoConsulta || !vm.PuedeEditarSucursal">
+                                                        <span ng-show="vm.controlesTelefonoSucursal.visible[$index]" class="pull-right">
+                                                            <bow-operacion-eliminar-fila mensaje-confirmacion="@L("empresas_empresaOrganizacion_sucursal_telefonos_tabla_eliminar_confirmar")"
+                                                                                         mensaje-tooltip="@L("empresas_empresaOrganizacion_sucursal_telefonos_tabla_eliminar_tooltip")"
+                                                                                         operacion-puede-eliminar="vm.puedeEliminarContacto(contacto.id, funcionRetornarPuedeEliminar)"
+                                                                                         no-puede-eliminar="vm.noPuedeEliminarContacto()"
+                                                                                         confirmacion-ok="vm.eliminarContactoOk(contacto.id, contacto.idPersona, contacto.idTipoAreaEmpresa, contacto.tipoAreaEmpresa, contacto.cargo, contacto.accion, $index)"
+                                                                                         confirmacion-cancel="vm.eliminarContactoCancel()">
+                                                            </bow-operacion-eliminar-fila>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center">
+                                            <pagination items-per-page="vm.empresaOrganizacion.sucursal.listaTelefonos.filasPorPagina"
+                                                        total-items="vm.empresaOrganizacion.sucursal.listaTelefonos.totalFilas"
+                                                        ng-model="vm.empresaOrganizacion.sucursal.listaTelefonos.paginaActual"
+                                                        ng-change="vm.empresaOrganizacion.sucursal.listaTelefonos.pageChanged()"
+                                                        class="pagination-sm"></pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success btn-circle btn-lg" ng-show="vm.FormularioNuevaSucursal && vm.PuedeEditarSucursal" ng-click="vm.guardarSucursalEmpresa()" ng-disabled="frmRegistrarSucursal.$invalid || !vm.empresaOrganizacion.sucursal.direccion" title="@L("empresas_empresaOrganizacion_sucursal_btnGuardar")">
+                                    <em class="fa fa-save"></em>
+                                </button>
+                                <button type="button" class="btn btn-warning btn-circle btn-lg" ng-show="vm.FormularioNuevaSucursal" ng-click="vm.mostrarFormularioSucursal(false)" title="@L("empresas_empresaOrganizacion_sucursal_btnCancelar")">
+                                    <em class="fa fa-close"></em>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>
+                                    {{vm.empresaOrganizacion.listaSucursales.totalFilas}} <span ng-show="vm.empresaOrganizacion.listaSucursales.totalFilas == '1'">@L("empresas_empresaOrganizacion_sucursal_tabla_titulo_1sucursal")</span><span ng-hide="vm.empresaOrganizacion.listaSucursales.totalFilas == '1'">@L("empresas_empresaOrganizacion_sucursal_tabla_titulo_masde1sucursal")</span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="sucursal in vm.empresaOrganizacion.listaSucursales.filasMostrar track by $index"
+                                        ng-mouseenter="vm.controlesSucursales.mostrar($index)"
+                                        ng-mouseleave="vm.controlesSucursales.ocultar($index)">
+                                        <td>
+                                            <h4 class="media-heading">
+                                                {{sucursal.nombre}}
+                                            </h4>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-show="vm.controlesSucursales.visible[$index]" class="pull-right">
+                                                <button type="button"
+                                                        class="btn btn-info btn-circle btn-lg"
+                                                        ng-click="vm.cargarInformacionSucursalEmpresaOrganizacion(sucursal.id, false)"
+                                                        title="@L("empresas_empresaOrganizacion_sucursal_tabla_tooltip_consultar")">
+                                                    <em class="fa fa-eye"></em>
+                                                </button>
+                                                <button type="button"
+                                                        class="btn btn-success btn-circle btn-lg"
+                                                        ng-click="vm.cargarInformacionSucursalEmpresaOrganizacion(sucursal.id, true)"
+                                                        title="@L("empresas_empresaOrganizacion_sucursal_tabla_tooltip_editar")"
+                                                        ng-hide="vm.modoConsulta">
+                                                    <em class="fa fa-pencil"></em>
+                                                </button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <pagination items-per-page="vm.empresaOrganizacion.listaSucursales.filasPorPagina"
+                                            total-items="vm.empresaOrganizacion.listaSucursales.totalFilas"
+                                            ng-model="vm.empresaOrganizacion.listaSucursales.paginaActual"
+                                            ng-change="vm.empresaOrganizacion.listaSucursales.pageChanged()"
+                                            class="pagination-sm"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

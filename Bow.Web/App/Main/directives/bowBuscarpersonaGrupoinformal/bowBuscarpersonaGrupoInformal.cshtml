@@ -1,0 +1,75 @@
+﻿<div class="modal-body">
+    <div class="alert alert-danger text-center" ng-show="mensajeError">
+        <strong>{{mensajeError}}</strong>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="iptNombre" placeholder="@L("directiva_bowResultadobusquedaGrupoinformal_filtrarPorNombre")"
+                           name="iptNombre" ng-model="buscarPor.nombre" maxlength="50" /><br />
+                </div>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="iptPrimerApellido" placeholder="@L("directiva_bowResultadobusquedaGrupoinformal_filtrarPorApellido1")"
+                           name="iptPrimerApellido" ng-model="buscarPor.apellido1" maxlength="50" /><br />
+                </div>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="iptSegundoApellido" placeholder="@L("directiva_bowResultadobusquedaGrupoinformal_filtrarPorApellido2")"
+                           name="iptSegundoApellido" ng-model="buscarPor.apellido2" maxlength="50" /><br />
+                </div>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="iptDocumento" placeholder="@L("directiva_bowResultadobusquedaGrupoinformal_filtrarPorDocumento")"
+                           name="iptDocumento" ng-model="buscarPor.documento" maxlength="50" /><br />
+                </div>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="iptTelefono" placeholder="@L("directiva_bowResultadobusquedaGrupoinformal_filtrarPorTelefono")"
+                           name="iptTelefono" ng-model="buscarPor.telefono" maxlength="20" /><br />
+                </div>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="iptZipCode" placeholder="@L("directiva_bowResultadobusquedaGrupoinformal_filtrarPorZipCode")"
+                           name="iptZipCode" ng-model="buscarPor.zipCode" maxlength="20" /><br />
+                </div>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="iptCorreo" placeholder="@L("directiva_bowResultadobusquedaGrupoinformal_filtrarPorCorreo")"
+                           name="iptCorreo" ng-model="buscarPor.correoElectronico" maxlength="50" /><br />
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-success btn-block" ng-click="consultarPersonas()">@L("directiva_bowResultadobusquedaGrupoinformal_btn_consultar")</button><br />
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-info btn-block" ng-click="limpiarBuscador()">@L("directiva_bowResultadobusquedaGrupoinformal_btn_limpiar")</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="col-md-12">
+                <div ng-show="resultadoBusqueda.totalFilas > 0 ">
+                    <div class="col-md-12 text-center">
+                        {{resultadoBusqueda.totalFilas}} @L("directiva_bowResultadobusquedaGrupoinformal_personasEncontradas")
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <div class="col-md-6">
+                            @L("directiva_bowResultadobusquedaGrupoinformal_tabla_documento")
+                        </div>
+                        <div class="col-md-6">
+                            @L("directiva_bowResultadobusquedaGrupoinformal_tabla_nombreCompleto")
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <div ng-repeat="persona in resultadoBusqueda.filasMostrar track by $index">
+                            <bow-resultadobusqueda-grupoinformal ng-model="persona" bow-seleccionopersona="seleccionoPersona(personaSeleccion)"></bow-resultadobusqueda-grupoinformal>
+                        </div>
+                        <div class="text-center">
+                            <pagination items-per-page="resultadoBusqueda.filasPorPagina"
+                                        total-items="resultadoBusqueda.totalFilas"
+                                        ng-model="resultadoBusqueda.paginaActual"
+                                        ng-change="resultadoBusqueda.pageChanged()"
+                                        class="pagination-sm"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

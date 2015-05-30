@@ -1,0 +1,947 @@
+﻿<div class="container" ng-controller="app.views.afiliaciones.detallePlanExequial as vm">
+
+    @*<div class="row">
+        <div class="col-md-6">
+            <span class="font-size-28">{{vm.planExequial.nombre}}</span>
+        </div>
+        <div class="col-md-6 text-right">
+            <a ui-sref="planExequial">@L("afiliaciones_detallePlanExequial_plan_volverAlListado")  &nbsp;&nbsp;<i class="fa fa-angle-double-left font-size-16"></i></a>
+        </div>
+    </div>*@
+    @*<div class="row">
+        <div class="col-md-6">
+            <span class="font-size-18">{{vm.planExequial.descripcion}}</span>
+        </div>
+        <div class="col-md-6 text-center">
+            <i data-toggle="tooltip" ng-show="vm.planExequial.planParaGrupo" class="fa fa-users" title="@L("afiliaciones_detallePlanExequial_plan_grupo_tooltip")"> @L("afiliaciones_detallePlanExequial_plan_grupo")</i>
+            &nbsp;&nbsp;
+            <i data-toggle="tooltip" ng-show="vm.planExequial.planFamiliar" class="fa fa-home" title="@L("afiliaciones_detallePlanExequial_plan_familiar_tooltip")"> @L("afiliaciones_detallePlanExequial_plan_familiar")</i>
+            &nbsp;&nbsp;
+            <i data-toggle="tooltip" ng-show="vm.planExequial.planEmpresarial" class="fa fa-suitcase" title="@L("afiliaciones_detallePlanExequial_plan_empresarial_tooltip")"> @L("afiliaciones_detallePlanExequial_plan_empresarial")</i>
+        </div>
+    </div>*@
+    <div class="row">
+        <div class="col-md-12">
+            <tabset name="tab_registrarGrupoFamiliar">
+                <tab>
+                    <tab-heading>
+                        <i class="fa fa-users"></i> @L("afiliaciones_detallePlanExequial_pestanas_grupoFamiliar")
+                    </tab-heading>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-success" ng-click="vm.mostrarFormularioGrupo(true)">
+                                        @L("afiliaciones_detallePlanExequial_grupoFamiliar_nuevo_titulo") &nbsp;
+                                        <i class="glyphicon glyphicon-plus font-size-18"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <br />
+                            <table class="table table-responsive table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            {{vm.gruposFamiliares.length}} <span ng-show="vm.gruposFamiliares.length == '1'">@L("afiliaciones_detallePlanExequial_grupoFamiliar_tabla_conteo_1registro")</span><span ng-hide="vm.gruposFamiliares.length == '1'">@L("afiliaciones_detallePlanExequial_grupoFamiliar_tabla_conteo_masde1registro")</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="grupo in vm.gruposFamiliares"
+                                        ng-mouseenter="vm.controlesGrupoFamiliar.mostrar($index)"
+                                        ng-mouseleave="vm.controlesGrupoFamiliar.ocultar($index)">
+                                        <td>
+                                            <a data-toggle="tooltip" title='@L("afiliaciones_detallePlanExequial_grupoFamiliar_tabla_consultarDetalle")' ng-click="vm.consultarParentescosYRangos(grupo.id)">
+                                                {{grupo.nombre}}
+                                            </a>
+                                            <span ng-show="vm.controlesGrupoFamiliar.visible[$index]" class="pull-right">
+                                                <a ng-click="vm.mostrarParentesco(grupo.id, grupo.nombre, true)" data-toggle="tooltip" data-placement="left" title="@L("afiliaciones_detallePlanExequial_grupoFamiliar_tabla_editarParentescos_tooltip")">
+                                                    <i class="fa fa-users"></i>
+                                                </a>
+                                                <bow-operacion-editar-fila operacion-editar="vm.editarGrupoFamiliar(grupo.id)" mensaje-tooltip="@L("afiliaciones_detallePlanExequial_grupoFamiliar_tabla_editar_tooltip")" posicion-tooltip="left"></bow-operacion-editar-fila>
+                                                <bow-operacion-eliminar-fila mensaje-confirmacion="@L("afiliaciones_detallePlanExequial_grupoFamiliar_tabla_confirmacion")" mensaje-tooltip="@L("afiliaciones_detallePlanExequial_grupoFamiliar_tabla_eliminar")" posicion-tooltip="left"
+                                                                             operacion-puede-eliminar="vm.puedeEliminarGrupoFamiliar(grupo.id, funcionRetornarPuedeEliminar)" no-puede-eliminar="vm.noPuedeEliminar()"
+                                                                             confirmacion-ok="vm.eliminarGrupoFamiliar(grupo.id)"></bow-operacion-eliminar-fila>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="alert alert-danger text-center" ng-show="mensajeError">
+                                <strong>{{mensajeError}}</strong>
+                            </div>
+                            <div class="row" ng-show="vm.formularioGrupoVisible">
+                                <div class="col-md-12">
+                                    <form role="form" name="frmRegistrarGrupoFamiliar">
+                                        <input id="frmRegistrarGrupoOculto" ng-model="vm.data.frmRegistrarGrupoFamiliar" ng-init="vm.data.frmRegistrarGrupoFamiliar=frmRegistrarGrupoFamiliar" hidden>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarGrupoFamiliar.iptNombre.$dirty && frmRegistrarGrupoFamiliar.iptNombre.$invalid }">
+                                                    <label class="control-label" for="iptNombre">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_nombre")</label>
+                                                    <input type="text" class="form-control" id="iptNombre" name="iptNombre" placeholder="@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_nombre_tooltip")" ng-model="vm.grupoFamiliar.nombre" required maxlength="100" />
+                                                    <div ng-show="frmRegistrarGrupoFamiliar.iptNombre.$dirty && frmRegistrarGrupoFamiliar.iptNombre.$invalid">
+                                                        <small ng-show="frmRegistrarGrupoFamiliar.iptNombre.$error.required" class="text-danger">
+                                                            @L("afiliaciones_detallePlanExequial_grupoFamiliar_form_nombre_requerido")
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarGrupoFamiliar.iptDescripcion.$dirty && frmRegistrarGrupoFamiliar.iptDescripcion.$invalid }">
+                                                    <label class="control-label" for="iptDescripcion">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_descripcion")</label>
+                                                    <textarea class="form-control" style="resize: none;" id="iptDescripcion" name="iptDescripcion" placeholder="@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_descripcion_tooltip")"
+                                                              ng-model="vm.grupoFamiliar.descripcion" required maxlength="300" rows="3"></textarea>
+                                                    <div ng-show="frmRegistrarGrupoFamiliar.iptDescripcion.$dirty && frmRegistrarGrupoFamiliar.iptDescripcion.$invalid">
+                                                        <small ng-show="frmRegistrarGrupoFamiliar.iptDescripcion.$error.required" class="text-danger">
+                                                            @L("afiliaciones_detallePlanExequial_grupoFamiliar_form_descripcion_requerido")
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarGrupoFamiliar.iptValorBaseAnual.$dirty && frmRegistrarGrupoFamiliar.iptValorBaseAnual.$invalid }">
+                                                    <label class="control-label" for="iptValorBaseAnual">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_valorBase")</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="iptValorBaseAnual" name="iptValorBaseAnual" placeholder="@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_valorBase_tooltip")" ng-model="vm.grupoFamiliar.valorPlan" required maxlength="100"
+                                                               bow-input-numero="{ separadorMil: '.', separadorDecimal: ',', valorMinimo: 0, maximoDecimales: 2 }" />
+                                                        <span class="input-group-addon">{{vm.planExequial.monedaSimbolo}}</span>
+                                                    </div>
+                                                    <div ng-show="frmRegistrarGrupoFamiliar.iptValorBaseAnual.$dirty && frmRegistrarGrupoFamiliar.iptValorBaseAnual.$invalid">
+                                                        <small ng-show="frmRegistrarGrupoFamiliar.iptValorBaseAnual.$error.required" class="text-danger">
+                                                            @L("afiliaciones_detallePlanExequial_grupoFamiliar_form_valorBase_requerido")
+                                                        </small>
+                                                        <small ng-show="frmRegistrarGrupoFamiliar.iptValorBaseAnual.$error.fcsaNumber" class="text-danger">
+                                                            {{frmRegistrarGrupoFamiliar.iptValorBaseAnual.$error.validacion}}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <label class="control-label">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_tieneCuotaInicial")</label>
+                                                <br />
+                                                <div class="btn-group">
+                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.grupoFamiliar.tieneCuotaInicial" ng-click="vm.limpiarCuotaInicial()" btn-radio="'1'">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_tieneCuotaInicial_si")</label>
+                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.grupoFamiliar.tieneCuotaInicial" btn-radio="'0'">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_tieneCuotaInicial_no")</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarGrupoFamiliar.iptValorInicial.$dirty && frmRegistrarGrupoFamiliar.iptValorInicial.$invalid }" ng-show="vm.grupoFamiliar.tieneCuotaInicial == '1'">
+                                                    <label class="control-label" for="iptValorInicial">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_valorInicial")</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="iptValorInicial" name="iptValorInicial" placeholder="@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_valorInicial_tooltip")" ng-model="vm.grupoFamiliar.valorCuotaInicial" required maxlength="100" ng-required="vm.grupoFamiliar.tieneCuotaInicial == '1'"
+                                                               bow-input-numero="{ separadorMil: '.', separadorDecimal: ',', valorMinimo: 0, maximoDecimales: 1 }" />
+                                                        <span class="input-group-addon">{{vm.planExequial.monedaSimbolo}}</span>
+                                                    </div>
+                                                    <div ng-show="frmRegistrarGrupoFamiliar.iptValorInicial.$dirty && frmRegistrarGrupoFamiliar.iptValorInicial.$invalid">
+                                                        <small ng-show="frmRegistrarGrupoFamiliar.iptValorInicial.$error.required" class="text-danger">
+                                                            @L("afiliaciones_detallePlanExequial_grupoFamiliar_form_valorInicial_requerido")
+                                                        </small>
+                                                        <small ng-show="frmRegistrarGrupoFamiliar.iptValorInicial.$error.fcsaNumber" class="text-danger">
+                                                            {{frmRegistrarGrupoFamiliar.iptValorInicial.$error.validacion}}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class=" form-group" ng-class="{'has-error' : frmRegistrarGrupoFamiliar.iptCantidadAfiliados.$dirty && frmRegistrarGrupoFamiliar.iptCantidadAfiliados.$invalid }">
+                                                    <label class="control-label" for="iptCantidadAfiliados">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_cantidadAfiliados")</label>
+                                                    <input type="text" class="form-control" id="iptCantidadAfiliados" name="iptCantidadAfiliados" placeholder="@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_cantidadAfiliados_tooltip")" ng-model="vm.grupoFamiliar.cantidadMaximaAfiliados" required maxlength="100"
+                                                           bow-input-numero="{ separadorMil: '.', valorMinimo: 0, maximoDecimales: 0 }" />
+                                                    <div ng-show="frmRegistrarGrupoFamiliar.iptCantidadAfiliados.$dirty && frmRegistrarGrupoFamiliar.iptCantidadAfiliados.$invalid">
+                                                        <small ng-show="frmRegistrarGrupoFamiliar.iptCantidadAfiliados.$error.required" class="text-danger">
+                                                            @L("afiliaciones_detallePlanExequial_grupoFamiliar_form_cantidadAfiliados_requerido")
+                                                        </small>
+                                                        <small ng-show="frmRegistrarGrupoFamiliar.iptCantidadAfiliados.$error.fcsaNumber" class="text-danger">
+                                                            {{frmRegistrarGrupoFamiliar.iptCantidadAfiliados.$error.validacion}}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <label class="control-label">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_afiliadosAdicionales")</label>
+                                                <br />
+                                                <div class="btn-group">
+                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.grupoFamiliar.permitirAfiliadosAdicionales" btn-radio="'1'">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_afiliadosAdicionales_si")</label>
+                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.grupoFamiliar.permitirAfiliadosAdicionales" btn-radio="'0'">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_afiliadosAdicionales_no")</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarGrupoFamiliar.selectedEstado.$dirty && frmRegistrarGrupoFamiliar.selectedEstado.$invalid }" ng-show="vm.accionFormulario == 'Modificar'">
+                                                    <label class="control-label" for="selectedEstado">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_estado")</label>
+                                                    <select ng-model="vm.grupoFamiliar.estadoId" ng-options="estado.id as estado.nombre for estado in vm.tiposEstadoGrupoFamiliar" class="form-control" name="selectedEstado" id="selectedEstado" ng-required="vm.accionFormulario == 'Modificar'">
+                                                        <option value="">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_estado_seleccione")</option>
+                                                    </select>
+                                                    <div ng-show="frmRegistrarGrupoFamiliar.selectedEstado.$dirty && frmRegistrarGrupoFamiliar.selectedEstado.$invalid">
+                                                        <small ng-show="frmRegistrarGrupoFamiliar.selectedEstado.$error.required" class="text-danger">
+                                                            @L("afiliaciones_detallePlanExequial_grupoFamiliar_form_estado_requerido")
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6 text-center">
+                                                    <br />
+                                                    <button type="button" class="btn btn-success" style="width: 90%;" ng-click="vm.guardarGrupoFamiliar()" ng-disabled="frmRegistrarGrupoFamiliar.$invalid">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_btn_registrar")</button>
+                                                </div>
+                                                <div class="col-md-6 text-center">
+                                                    <br />
+                                                    <button type="button" class="btn btn-danger" style="width: 90%;" ng-click="vm.mostrarFormularioGrupo(false)">@L("afiliaciones_detallePlanExequial_grupoFamiliar_form_btn_cancelar")</button>
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="vm.formularioParentescoVisible">
+                                <div class="col-md-12">
+                                    <h3>@L("afiliaciones_detallePlanExequial_parentescos_titulo")  <strong>{{vm.grupoFamiliar.nombre}}</strong></h3>
+                                    <form role="form" name="frmRegistrarParentescoGrupoFamiliar">
+                                        <input id="frmRegistrarParentescoOculto" ng-model="vm.data.frmRegistrarParentescoGrupoFamiliar" ng-init="vm.data.frmRegistrarParentescoGrupoFamiliar=frmRegistrarParentescoGrupoFamiliar" hidden>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarParentescoGrupoFamiliar.selectedParentesco.$dirty && frmRegistrarParentescoGrupoFamiliar.selectedParentesco.$invalid }">
+                                                    <label class="control-label" for="selectedParentesco">@L("afiliaciones_detallePlanExequial_parentescos_form_nombre")</label>
+                                                    <select ng-model="vm.grupoFamiliarParentesco.parentescoId" ng-options="parentesco.id as parentesco.nombre for parentesco in vm.tiposParentesco"
+                                                            ng-change="vm.cambiarParentescoGrupoFamiliar()" class="form-control" name="selectedParentesco" id="selectedParentesco">
+                                                        <option value="">@L("afiliaciones_detallePlanExequial_parentescos_form_nombre_seleccione")</option>
+                                                    </select>
+                                                    <div ng-show="frmRegistrarParentescoGrupoFamiliar.selectedParentesco.$dirty && frmRegistrarParentescoGrupoFamiliar.selectedParentesco.$invalid">
+                                                        <small ng-show="frmRegistrarParentescoGrupoFamiliar.selectedParentesco.$error.required" class="text-danger">
+                                                            @L("afiliaciones_detallePlanExequial_parentescos_form_nombre_requerido")
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 text-center">
+                                                <label class="control-label">@L("afiliaciones_detallePlanExequial_parentescos_form_validarSoloIngreso")</label>
+                                                <br />
+                                                <div class="btn-group">
+                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.grupoFamiliarParentesco.validarSoloIngreso" btn-radio="'1'">@L("afiliaciones_detallePlanExequial_parentescos_form_validarSoloIngreso_si")</label>
+                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.grupoFamiliarParentesco.validarSoloIngreso" btn-radio="'0'">@L("afiliaciones_detallePlanExequial_parentescos_form_validarSoloIngreso_no")</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarParentescoGrupoFamiliar.iptNombre.$dirty && frmRegistrarParentescoGrupoFamiliar.iptEdadMinima.$invalid }">
+                                                    <label class="control-label" for="iptEdadMinima">@L("afiliaciones_detallePlanExequial_parentescos_form_edadMinima")</label>
+                                                    <input type="text" class="form-control" id="iptEdadMinima" name="iptEdadMinima" placeholder="@L("afiliaciones_detallePlanExequial_parentescos_form_edadMinima_tooltip")" ng-model="vm.grupoParentescoRango.edadMinima" required maxlength="100"
+                                                           bow-input-numero="{ separadorMil: '.', valorMinimo: 0, maximoDecimales: 0 }" />
+                                                    <div ng-show="frmRegistrarParentescoGrupoFamiliar.iptEdadMinima.$dirty && frmRegistrarParentescoGrupoFamiliar.iptEdadMinima.$invalid">
+                                                        <small ng-show="frmRegistrarParentescoGrupoFamiliar.iptEdadMinima.$error.required" class="text-danger">
+                                                            @L("afiliaciones_detallePlanExequial_parentescos_form_edadMinima_requerido")
+                                                        </small>
+                                                        <small ng-show="frmRegistrarParentescoGrupoFamiliar.iptEdadMinima.$error.fcsaNumber" class="text-danger">
+                                                            {{frmRegistrarParentescoGrupoFamiliar.iptEdadMinima.$error.validacion}}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarParentescoGrupoFamiliar.iptEdadMaxima.$dirty && frmRegistrarParentescoGrupoFamiliar.iptEdadMaxima.$invalid }">
+                                                    <label class="control-label" for="iptEdadMaxima">@L("afiliaciones_detallePlanExequial_parentescos_form_edadMaxima")</label>
+                                                    <input type="text" class="form-control" id="iptEdadMaxima" name="iptEdadMaxima" placeholder="@L("afiliaciones_detallePlanExequial_parentescos_form_edadMaxima_tooltip")" ng-model="vm.grupoParentescoRango.edadMaxima" required maxlength="100"
+                                                           bow-input-numero="{ separadorMil: '.', valorMinimo: 0, maximoDecimales: 0 }" />
+                                                    <div ng-show="frmRegistrarParentescoGrupoFamiliar.iptEdadMaxima.$dirty && frmRegistrarParentescoGrupoFamiliar.iptEdadMaxima.$invalid">
+                                                        <small ng-show="frmRegistrarParentescoGrupoFamiliar.iptEdadMaxima.$error.required" class="text-danger">
+                                                            @L("afiliaciones_detallePlanExequial_parentescos_form_edadMaxima_requerido")
+                                                        </small>
+                                                        <small ng-show="frmRegistrarParentescoGrupoFamiliar.iptEdadMaxima.$error.fcsaNumber" class="text-danger">
+                                                            {{frmRegistrarParentescoGrupoFamiliar.iptEdadMaxima.$error.validacion}}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarParentescoGrupoFamiliar.iptPeriodoCarencia.$dirty && frmRegistrarParentescoGrupoFamiliar.iptPeriodoCarencia.$invalid }">
+                                                    <label class="control-label" for="iptPeriodoCarencia">@L("afiliaciones_detallePlanExequial_parentescos_form_periodoCarencia")</label>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control" id="iptPeriodoCarencia" name="iptPeriodoCarencia" placeholder="@L("afiliaciones_detallePlanExequial_parentescos_form_periodoCarencia_tooltip")" ng-model="vm.grupoParentescoRango.periodoCarencia"
+                                                                   bow-input-numero="{ separadorMil: '.', valorMinimo: 0, maximoDecimales: 0 }" />
+                                                            <div ng-show="frmRegistrarParentescoGrupoFamiliar.iptPeriodoCarencia.$dirty && frmRegistrarParentescoGrupoFamiliar.iptPeriodoCarencia.$invalid">
+                                                                <small ng-show="frmRegistrarParentescoGrupoFamiliar.iptPeriodoCarencia.$error.required" class="text-danger">
+                                                                    @L("afiliaciones_detallePlanExequial_parentescos_form_periodoCarencia_requerido")
+                                                                </small>
+                                                                <small ng-show="frmRegistrarParentescoGrupoFamiliar.iptPeriodoCarencia.$error.fcsaNumber" class="text-danger">
+                                                                    {{frmRegistrarParentescoGrupoFamiliar.iptPeriodoCarencia.$error.validacion}}
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 text-center">
+                                                            <div class="btn-group text-center">
+                                                                <label class="btn btn-primary" ng-model="vm.grupoParentescoRango.unidadPeriodoCarencia" btn-radio="'M'">@L("afiliaciones_detallePlanExequial_parentescos_form_periodoCarencia_meses")</label>
+                                                                <label class="btn btn-primary" ng-model="vm.grupoParentescoRango.unidadPeriodoCarencia" btn-radio="'D'">@L("afiliaciones_detallePlanExequial_parentescos_form_periodoCarencia_dias")</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarParentescoGrupoFamiliar.iptValorBasico.$dirty && frmRegistrarParentescoGrupoFamiliar.iptValorBasico.$invalid }">
+                                                    <label class="control-label" for="iptValorBasico">@L("afiliaciones_detallePlanExequial_parentescos_form_valorBasico")</label>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="iptValorBasico" name="iptValorBasico" placeholder="@L("afiliaciones_detallePlanExequial_parentescos_form_valorBasico_tooltip")" ng-model="vm.grupoParentescoRango.valorBasico" required maxlength="100"
+                                                                       bow-input-numero="{ separadorMil: '.', valorMinimo: 0, maximoDecimales: 0 }" />
+                                                                <span class="input-group-addon"><span ng-show="vm.grupoParentescoRango.tipoValorBasico == 'V'">{{vm.planExequial.monedaSimbolo}}</span><span ng-hide="vm.grupoParentescoRango.tipoValorBasico == 'V'">@L("afiliaciones_detallePlanExequial_parentescos_form_valorBasico_%")</span></span>
+                                                            </div>
+                                                            <div ng-show="frmRegistrarParentescoGrupoFamiliar.iptValorBasico.$dirty && frmRegistrarParentescoGrupoFamiliar.iptValorBasico.$invalid">
+                                                                <small ng-show="frmRegistrarParentescoGrupoFamiliar.iptValorBasico.$error.required" class="text-danger">
+                                                                    @L("afiliaciones_detallePlanExequial_parentescos_form_valorBasico_requerido")
+                                                                </small>
+                                                                <small ng-show="frmRegistrarParentescoGrupoFamiliar.iptValorBasico.$error.fcsaNumber" class="text-danger">
+                                                                    {{frmRegistrarParentescoGrupoFamiliar.iptValorBasico.$error.validacion}}
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 text-center">
+                                                            <div class="btn-group">
+                                                                <label class="btn btn-primary" ng-model="vm.grupoParentescoRango.tipoValorBasico" btn-radio="'V'">@L("afiliaciones_detallePlanExequial_parentescos_form_valorBasico_valor")</label>
+                                                                <label class="btn btn-primary" ng-model="vm.grupoParentescoRango.tipoValorBasico" btn-radio="'P'">@L("afiliaciones_detallePlanExequial_parentescos_form_valorBasico_porcentaje")</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarParentescoGrupoFamiliar.iptValorAdicional.$dirty && frmRegistrarParentescoGrupoFamiliar.iptValorAdicional.$invalid }">
+                                                    <label class="control-label" for="iptValorBasico">@L("afiliaciones_detallePlanExequial_parentescos_form_valorAdicional")</label>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="iptValorAdicional" name="iptValorAdicional" placeholder="@L("afiliaciones_detallePlanExequial_parentescos_form_valorAdicional")" ng-model="vm.grupoParentescoRango.valorAdicional" required maxlength="100"
+                                                                       bow-input-numero="{ separadorMil: '.', valorMinimo: 0, maximoDecimales: 0 }" />
+                                                                <span class="input-group-addon"><span ng-show="vm.grupoParentescoRango.tipoValorAdicional == 'V'">{{vm.planExequial.monedaSimbolo}}</span><span ng-hide="vm.grupoParentescoRango.tipoValorAdicional == 'V'">@L("afiliaciones_detallePlanExequial_parentescos_form_valorAdicional_%")</span></span>
+                                                            </div>
+                                                            <div ng-show="frmRegistrarParentescoGrupoFamiliar.iptValorAdicional.$dirty && frmRegistrarParentescoGrupoFamiliar.iptValorAdicional.$invalid">
+                                                                <small ng-show="frmRegistrarParentescoGrupoFamiliar.iptValorAdicional.$error.required" class="text-danger">
+                                                                    @L("afiliaciones_detallePlanExequial_parentescos_form_valorAdicional_requerido")
+                                                                </small>
+                                                                <small ng-show="frmRegistrarParentescoGrupoFamiliar.iptValorAdicional.$error.fcsaNumber" class="text-danger">
+                                                                    {{frmRegistrarParentescoGrupoFamiliar.iptValorAdicional.$error.validacion}}
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 text-center">
+                                                            <div class="btn-group">
+                                                                <label class="btn btn-primary" ng-model="vm.grupoParentescoRango.tipoValorAdicional" btn-radio="'V'">@L("afiliaciones_detallePlanExequial_parentescos_form_valorAdicional_valor")</label>
+                                                                <label class="btn btn-primary" ng-model="vm.grupoParentescoRango.tipoValorAdicional" btn-radio="'P'">@L("afiliaciones_detallePlanExequial_parentescos_form_valorAdicional_porcentaje")</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6 text-center">
+                                                    <br />
+                                                    <button type="button" class="btn btn-success" style="width: 90%;" ng-click="vm.guardarRangoParentesco()" ng-disabled="frmRegistrarParentescoGrupoFamiliar.$invalid">@L("afiliaciones_detallePlanExequial_parentescos_form_btn_registrar")</button>
+                                                </div>
+                                                <div class="col-md-6 text-center">
+                                                    <br />
+                                                    <button type="button" class="btn btn-danger" style="width: 90%;" ng-click="vm.mostrarParentesco(null, null, false)">@L("afiliaciones_detallePlanExequial_parentescos_form_btn_cancelar")</button>
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="control-label"> {{vm.grupoFamiliarParentesco.parentesco}} </label>
+                                    <br />
+                                    <table class="table table-responsive table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>@L("afiliaciones_detallePlanExequial_parentescos_tabla_edades")</th>
+                                                <th>@L("afiliaciones_detallePlanExequial_parentescos_tabla_carencia")</th>
+                                                <th>@L("afiliaciones_detallePlanExequial_parentescos_tabla_valorBase")</th>
+                                                <th>@L("afiliaciones_detallePlanExequial_parentescos_tabla_valorAdicional")</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="rango in vm.rangosGrupoParentesco"
+                                                ng-mouseenter="vm.controlesRangoGrupo.mostrar($index)"
+                                                ng-mouseleave="vm.controlesRangoGrupo.ocultar($index)">
+                                                <td>
+                                                    {{rango.edadMinima}} - {{rango.edadMaxima}} @L("afiliaciones_detallePlanExequial_parentescos_tabla_anios")
+                                                </td>
+                                                <td>
+                                                    {{rango.periodoCarencia}} <span ng-show="rango.unidadPeriodoCarencia == 'M'">@L("afiliaciones_detallePlanExequial_parentescos_tabla_meses")</span><span ng-show="rango.unidadPeriodoCarencia == 'D'">@L("afiliaciones_detallePlanExequial_parentescos_tabla_dias")</span>
+                                                </td>
+                                                <td>
+                                                    <span ng-show="rango.tipoValorBasico == 'V'">{{rango.valorBasico | currency:"$ ":0}}</span><span ng-hide="rango.tipoValorBasico == 'V'">{{rango.valorBasico}} %</span>
+                                                </td>
+                                                <td>
+                                                    <span ng-show="rango.tipoValorAdicional == 'V'">{{rango.valorAdicional | currency:"$ ":0}}</span><span ng-hide="rango.tipoValorAdicional == 'V'">{{rango.valorAdicional}} %</span>
+                                                </td>
+                                                <td>
+                                                    <span ng-show="vm.controlesRangoGrupo.visible[$index]" class="pull-right">
+                                                        <bow-operacion-editar-fila operacion-editar="vm.editarRangoParentesco(rango.id)" mensaje-tooltip="@L("afiliaciones_detallePlanExequial_parentescos_tabla_editar")" posicion-tooltip="left"></bow-operacion-editar-fila>
+                                                        <bow-operacion-eliminar-fila mensaje-confirmacion="@L("afiliaciones_detallePlanExequial_parentescos_tabla_confirmacion")" mensaje-tooltip="@L("afiliaciones_detallePlanExequial_parentescos_tabla_eliminar")" posicion-tooltip="left"
+                                                                                     operacion-puede-eliminar="vm.puedeEliminarRangoParentesco(rango.id, funcionRetornarPuedeEliminar)" no-puede-eliminar="vm.noPuedeEliminarRangoParentesco()"
+                                                                                     confirmacion-ok="vm.eliminarRangoParentesco(rango.id)"></bow-operacion-eliminar-fila>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="vm.formularioConsultaVisible">
+                                <div class="col-md-12">
+                                    <h3>{{vm.grupoFamiliar.nombre}}</h3>
+                                    <h4>{{vm.grupoFamiliar.descripcion}}</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="control-label">@L("afiliaciones_detallePlanExequial_parentescos_consulta_valorBase")</label>
+                                            <br />
+                                            {{vm.grupoFamiliar.valorPlan | currency:"$ ":0}}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label">@L("afiliaciones_detallePlanExequial_parentescos_consulta_cuotaInicial")</label>
+                                            <br />
+                                            <span ng-show="vm.grupoFamiliar.tieneCuotaInicial == '1'">{{vm.grupoFamiliar.valorCuotaInicial | currency:"$ ":0}}</span>
+                                            <span ng-show="vm.grupoFamiliar.tieneCuotaInicial == '0'">@L("afiliaciones_detallePlanExequial_parentescos_consulta_cuotaInicial_no")</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="control-label">@L("afiliaciones_detallePlanExequial_parentescos_consulta_cantidadAfiliados")</label>
+                                            <br />
+                                            {{vm.grupoFamiliar.cantidadMaximaAfiliados}}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label">@L("afiliaciones_detallePlanExequial_parentescos_consulta_permiteAdicionales")</label>
+                                            <br />
+                                            <span ng-show="vm.grupoFamiliar.permitirAfiliadosAdicionales == '1'">@L("afiliaciones_detallePlanExequial_parentescos_consulta_permiteAdicionales_si")</span>
+                                            <span ng-show="vm.grupoFamiliar.permitirAfiliadosAdicionales == '0'">@L("afiliaciones_detallePlanExequial_parentescos_consulta_permiteAdicionales_no")</span>
+                                        </div>
+                                    </div>
+                                    <h4 ng-hide="vm.consultaParentescosYRangos.parentescos.length == '0'">@L("afiliaciones_detallePlanExequial_parentescos_consulta_parentescos_titulo")</h4>
+                                    <div ng-repeat="parentesco in vm.consultaParentescosYRangos.parentescos">
+                                        <label class="control-label">{{parentesco.nombreParentesco}}</label><span ng-show="parentesco.validarSoloIngreso == '1'">( @L("afiliaciones_detallePlanExequial_parentescos_consulta_validadoIngreso") )</span>
+                                        <br />
+                                        <table class="table table-responsive table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>@L("afiliaciones_detallePlanExequial_parentescos_consulta_tabla_edades")</th>
+                                                    <th>@L("afiliaciones_detallePlanExequial_parentescos_consulta_tabla_carencia")</th>
+                                                    <th>@L("afiliaciones_detallePlanExequial_parentescos_consulta_tabla_valorBase")</th>
+                                                    <th>@L("afiliaciones_detallePlanExequial_parentescos_consulta_tabla_valorAdicional")</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="rango in parentesco.rangos">
+                                                    <td>
+                                                        {{rango.edadMinima}} - {{rango.edadMaxima}} @L("afiliaciones_detallePlanExequial_parentescos_consulta_tabla_anios")
+                                                    </td>
+                                                    <td>
+                                                        {{rango.periodoCarencia}} <span ng-show="rango.unidadPeriodoCarencia == 'M'">@L("afiliaciones_detallePlanExequial_parentescos_consulta_tabla_meses")</span><span ng-show="rango.unidadPeriodoCarencia == 'D'">@L("afiliaciones_detallePlanExequial_parentescos_consulta_tabla_dias")</span>
+                                                    </td>
+                                                    <td>
+                                                        <span ng-show="rango.tipoValorBasico == 'V'">{{rango.valorBasico | currency:"$ ":0}}</span><span ng-hide="rango.tipoValorBasico == 'V'">{{rango.valorBasico}} @L("afiliaciones_detallePlanExequial_parentescos_consulta_tabla_%")</span>
+                                                    </td>
+                                                    <td>
+                                                        <span ng-show="rango.tipoValorAdicional == 'V'">{{rango.valorAdicional | currency:"$ ":0}}</span><span ng-hide="rango.tipoValorAdicional == 'V'">{{rango.valorAdicional}} @L("afiliaciones_detallePlanExequial_parentescos_consulta_tabla_%")</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        <i class="fa fa-star"></i> @L("afiliaciones_detallePlanExequial_pestanas_beneficios")
+                    </tab-heading>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <table class="table table-responsive table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            @L("afiliaciones_beneficios_grupos_titulo")
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="grupoBeneficio in vm.gruposBeneficios">
+                                        <td>
+                                            <a data-toggle="tooltip" title='@L("afiliaciones_beneficios_grupos_consultarBeneficios")' ng-click="vm.consultarBeneficiosPlanExequial(grupoBeneficio.id, grupoBeneficio.nombre)">
+                                                {{grupoBeneficio.nombre}}
+                                            </a>
+                                            <label class="control-label">
+                                                ( <span>{{grupoBeneficio.numeroBeneficiosPlanExequial}}</span> )
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="alert alert-danger text-center" ng-show="mensajeError">
+                                <strong>{{mensajeError}}</strong>
+                            </div>
+                            <div class="row" ng-show="vm.formularioSeccionBeneficioVisible">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-success" ng-click="vm.mostrarDirectivaBeneficios(true)">
+                                                @L("afiliaciones_beneficios_btn_nuevo") {{vm.grupoBeneficioNombreSeleccionado}} &nbsp;
+                                                <i class="glyphicon glyphicon-plus font-size-18"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="vm.formularioBeneficioVisible">
+                                        <div class="col-md-12">
+                                            <div class="row" ng-show="!vm.formularioNuevoBeneficioVisible">
+                                                <div class="col-md-12">
+                                                    <br />
+                                                    <bow-categoria-beneficio bow-beneficio-seleccionado="vm.mostrarBeneficios(beneficio)" bow-ocultar-formulario="vm.mostrarDirectivaBeneficios(mostrar)" grupo-beneficio-seleccionado="vm.grupoBeneficioNombreSeleccionado" listado-beneficios-agregados="vm.listadoBeneficios" listado-todos-los-beneficios="vm.listadoTodosLosBeneficios" mostrar-mensaje-categoria-asignada="vm.mostrarMensajeCategoria(mensaje)" plan-exequial-id="vm.grupoFamiliar.planExequialId" control="vm.limpiarCatagoriasBeneficios"></bow-categoria-beneficio>
+                                                </div>
+                                            </div>
+                                            <div class="row" ng-show="vm.formularioNuevoBeneficioVisible">
+                                                <div class="col-md-12">
+                                                    <br />
+                                                    <form role="form" name="frmRegistrarBeneficio" ng-show="vm.grupoBeneficioNombreSeleccionado == 'Propio'">
+                                                        <input id="frmRegistrarBeneficioOculto" ng-model="vm.data.frmRegistrarBeneficio" ng-init="vm.data.frmRegistrarBeneficio = frmRegistrarBeneficio" hidden>
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-right" ng-show="vm.accionFormularioBeneficio == 'Registrar'">
+                                                                <a ng-click="vm.mostrarDirectivaBeneficios(true)">@L("afiliaciones_beneficios_form_volver")  &nbsp;&nbsp;<i class="fa fa-angle-double-left font-size-16"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label class="control-label">{{vm.beneficio.beneficioNombre}} ( {{vm.beneficio.categoriaNombre}} )</label>
+                                                                <h5>{{vm.beneficio.beneficioDescripcion}}</h5>
+                                                            </div>
+                                                            <div class="col-md-3 text-center">
+                                                                <label class="control-label">@L("afiliaciones_beneficios_form_esAsignable")</label>
+                                                                <br />
+                                                                <div class="btn-group">
+                                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.beneficioPlanExequial.esAsignable" ng-click="vm.limpiarCantidadAsignados()" btn-radio="true">@L("afiliaciones_beneficios_form_esAsignable_si")</label>
+                                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.beneficioPlanExequial.esAsignable" btn-radio="false">@L("afiliaciones_beneficios_form_esAsignable_no")</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 text-center" ng-show="vm.beneficioPlanExequial.esAsignable">
+                                                                <div class=" form-group" ng-class="{'has-error' : frmRegistrarBeneficio.iptCantidadAsignables.$dirty && frmRegistrarBeneficio.iptCantidadAsignables.$invalid }">
+                                                                    <label class="control-label" for="iptCantidadAsignables">@L("afiliaciones_beneficios_form_cantidadAsignables")</label>
+                                                                    <input type="text" class="form-control" id="iptCantidadAsignables" name="iptCantidadAsignables" placeholder="@L("afiliaciones_beneficios_form_cantidadAsignables_placeholder")" ng-model="vm.beneficioPlanExequial.asignables" ng-required="vm.beneficioPlanExequial.esAsignable"
+                                                                           bow-input-numero="{ separadorMil: '.', valorMinimo: 0, maximoDecimales: 0 }" />
+                                                                    <div ng-show="frmRegistrarBeneficio.iptCantidadAsignables.$dirty && frmRegistrarBeneficio.iptCantidadAsignables.$invalid">
+                                                                        <small ng-show="frmRegistrarBeneficio.iptCantidadAsignables.$error.required" class="text-danger">
+                                                                            @L("afiliaciones_beneficios_form_cantidadAsignables_requerido")
+                                                                        </small>
+                                                                        <small ng-show="frmRegistrarBeneficio.iptCantidadAsignables.$error.fcsaNumber" class="text-danger">
+                                                                            {{frmRegistrarBeneficio.iptCantidadAsignables.$error.validacion}}
+                                                                        </small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <form role="form" name="frmRegistrarBeneficioAdicional" ng-show="vm.grupoBeneficioNombreSeleccionado == 'Adicional'">
+                                                        <input id="frmRegistrarBeneficioAdicionalOculto" ng-model="vm.data.frmRegistrarBeneficioAdicional" ng-init="vm.data.frmRegistrarBeneficioAdicional = frmRegistrarBeneficioAdicional" hidden>
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-right" ng-show="vm.accionFormularioBeneficio == 'Registrar'">
+                                                                <a ng-click="vm.mostrarDirectivaBeneficios(true)">@L("afiliaciones_beneficios_form_volver")  &nbsp;&nbsp;<i class="fa fa-angle-double-left font-size-16"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label class="control-label">{{vm.beneficio.beneficioNombre}} ( {{vm.beneficio.categoriaNombre}} )</label>
+                                                                <h5>{{vm.beneficio.beneficioDescripcion}}</h5>
+                                                            </div>
+                                                            <div class="col-md-3 text-center">
+                                                                <label class="control-label">@L("afiliaciones_beneficios_form_esAsignable")</label>
+                                                                <br />
+                                                                <div class="btn-group">
+                                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.beneficioAdicionalPlanExequial.esAsignable" ng-click="vm.limpiarCantidadAsignados()" btn-radio="true">@L("afiliaciones_beneficios_form_esAsignable_si")</label>
+                                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.beneficioAdicionalPlanExequial.esAsignable" btn-radio="false">@L("afiliaciones_beneficios_form_esAsignable_no")</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 text-center" ng-show="vm.beneficioAdicionalPlanExequial.esAsignable">
+                                                                <div class=" form-group" ng-class="{'has-error' : frmRegistrarBeneficioAdicional.iptCantidadAsignables.$dirty && frmRegistrarBeneficioAdicional.iptCantidadAsignables.$invalid }">
+                                                                    <label class="control-label" for="iptCantidadAsignables">@L("afiliaciones_beneficios_form_cantidadAsignables")</label>
+                                                                    <input type="text" class="form-control" id="iptCantidadAsignables" name="iptCantidadAsignables" placeholder="@L("afiliaciones_beneficios_form_cantidadAsignables_placeholder")" ng-model="vm.beneficioAdicionalPlanExequial.asignables" ng-required="vm.beneficioAdicionalPlanExequial.esAsignable"
+                                                                           bow-input-numero="{ separadorMil: '.', valorMinimo: 0, maximoDecimales: 0 }" />
+                                                                    <div ng-show="frmRegistrarBeneficioAdicional.iptCantidadAsignables.$dirty && frmRegistrarBeneficioAdicional.iptCantidadAsignables.$invalid">
+                                                                        <small ng-show="frmRegistrarBeneficioAdicional.iptCantidadAsignables.$error.required" class="text-danger">
+                                                                            @L("afiliaciones_beneficios_form_cantidadAsignables_requerido")
+                                                                        </small>
+                                                                        <small ng-show="frmRegistrarBeneficioAdicional.iptCantidadAsignables.$error.fcsaNumber" class="text-danger">
+                                                                            {{frmRegistrarBeneficioAdicional.iptCantidadAsignables.$error.validacion}}
+                                                                        </small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarBeneficioAdicional.selectedReemplazable.$dirty && frmRegistrarBeneficioAdicional.selectedReemplazable.$invalid }">
+                                                                    <label class="control-label" for="selectedReemplazable">@L("afiliaciones_beneficios_form_reemplazaBeneficio")</label>
+                                                                    <select ng-model="vm.beneficioAdicionalPlanExequial.beneficioPlanExequialId" ng-options="to.id as to.nombre for to in vm.listadoBeneficiosPropios" class="form-control" name="selectedReemplazable" id="selectedReemplazable"
+                                                                            ng-change="vm.validarNaturalezaEmpresa()" ng-disabled="vm.modoConsulta">
+                                                                        <option value="">@L("afiliaciones_beneficios_form_reemplazaBeneficio_seleccione")</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarBeneficioAdicional.iptValorBeneficio.$dirty && frmRegistrarBeneficioAdicional.iptValorBeneficio.$invalid }">
+                                                                    <label class="control-label" for="iptValorBeneficio">@L("afiliaciones_beneficios_form_valor")</label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" id="iptValorBeneficio" name="iptValorBeneficio" placeholder="@L("afiliaciones_beneficios_form_valor_placeholder")" ng-model="vm.beneficioAdicionalPlanExequial.valor"
+                                                                               required bow-input-numero="{ separadorMil: '.', valorMinimo: 0, maximoDecimales: 0 }" />
+                                                                        <span class="input-group-addon">{{vm.planExequial.monedaSimbolo}}</span>
+                                                                    </div>
+                                                                    <div ng-show="frmRegistrarBeneficioAdicional.iptValorBeneficio.$dirty && frmRegistrarBeneficioAdicional.iptValorBeneficio.$invalid">
+                                                                        <small ng-show="frmRegistrarBeneficioAdicional.iptValorBeneficio.$error.required" class="text-danger">
+                                                                            @L("afiliaciones_beneficios_form_valor_requerido")
+                                                                        </small>
+                                                                        <small ng-show="frmRegistrarBeneficioAdicional.iptValorBeneficio.$error.fcsaNumber" class="text-danger">
+                                                                            {{frmRegistrarBeneficioAdicional.iptValorBeneficio.$error.validacion}}
+                                                                        </small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-6 text-center">
+                                                                    <br />
+                                                                    <button ng-show="!vm.confirmacionBeneficioPropioVisible" type="button" class="btn btn-success" style="width: 90%;" ng-click="vm.mostrarConfirmacionBeneficioPropio(true)" ng-disabled="(frmRegistrarBeneficio.$invalid && vm.grupoBeneficioNombreSeleccionado == 'Propio') || (frmRegistrarBeneficioAdicional.$invalid && vm.grupoBeneficioNombreSeleccionado == 'Adicional')">{{vm.accionFormularioBeneficio}} @L("afiliaciones_beneficios_form_btn_guardar_modificar")</button>
+                                                                    <div class="row" ng-show="vm.confirmacionBeneficioPropioVisible">
+                                                                        <div class="col-md-12">
+                                                                            <span ng-show="vm.mostrarMensajeCategoriaYaAsignada == 'P'">
+                                                                                @L("afiliaciones_beneficios_form_guardar_validacion_beneficioYaExiste")
+                                                                            </span>
+                                                                            <span ng-show="vm.mostrarMensajeCategoriaYaAsignada == 'A'">
+                                                                                @L("afiliaciones_beneficios_form_guardar_validacion_beneficioAdicionalYaExiste")
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <button type="button" class="btn btn-success" style="width: 90%;" ng-click="vm.guardarBeneficioPlanExequial()">@L("afiliaciones_beneficios_form_guardar_validacion_btn_continuar")</button>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <button type="button" class="btn btn-danger" style="width: 90%;" ng-click="vm.mostrarConfirmacionBeneficioPropio(false)">@L("afiliaciones_beneficios_form_guardar_validacion_btn_cancelar")</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 text-center">
+                                                                    <br />
+                                                                    <button type="button" class="btn btn-danger" style="width: 90%;" ng-click="vm.mostrarDirectivaBeneficios(false)">@L("afiliaciones_beneficios_form_btn_cancelar")</button>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="!vm.formularioBeneficioVisible">
+                                        <div class="col-md-12">
+                                            <br />
+                                            <div ng-repeat="beneficio in vm.listadoBeneficios" ng-mouseenter="vm.controlesBeneficio.mostrar($index)" ng-mouseleave="vm.controlesBeneficio.ocultar($index)">
+                                                <div class="modal-footer">
+                                                    <div class="row">
+                                                        <div class="col-md-6 text-left">
+                                                            <label class="control-label">{{beneficio.nombre}} - ( {{beneficio.categoriaBeneficioNombre}} )</label>
+                                                            <br />
+                                                            {{beneficio.descripcion}}
+                                                            <div ng-show="beneficio.beneficioPlanExequialNombre">
+                                                                <br />
+                                                                <label class="control-label">@L("afiliaciones_beneficios_form_tabla_reemplazaBeneficio")</label> {{beneficio.beneficioPlanExequialNombre}}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 text-left">
+                                                            <span ng-show="vm.grupoBeneficioNombreSeleccionado == 'Adicional'">
+                                                                <label class="control-label">@L("afiliaciones_beneficios_tabla_informacion_valor")</label> {{beneficio.valor | currency:"$ ":0}}
+                                                                <br />
+                                                            </span>
+                                                            <span ng-show="beneficio.esAsignable">
+                                                                <label class="control-label">@L("afiliaciones_beneficios_tabla_informacion_asignable")</label>
+                                                                <br />
+                                                                ( {{beneficio.asignables}} <span ng-show="beneficio.asignables == '1'">@L("afiliaciones_beneficios_tabla_informacion_1_beneficiario") </span><span ng-hide="beneficio.asignables == '1'">@L("afiliaciones_beneficios_tabla_informacion_masde1_beneficiario") </span> )
+                                                            </span>
+                                                            <span ng-show="!beneficio.esAsignable">
+                                                                @L("afiliaciones_beneficios_tabla_informacion_noAsignable")
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-md-3 text-center">
+                                                            <label class="control-label">@L("afiliaciones_beneficios_form_tabla_estado")</label> {{beneficio.estado}}
+                                                            <span ng-show="vm.controlesBeneficio.visible[$index]" class="pull-right">
+                                                                <bow-operacion-editar-fila operacion-editar="vm.editarBeneficioPlanExequial(beneficio.id)" mensaje-tooltip="@L("afiliaciones_beneficios_tabla_editar")" posicion-tooltip="left"></bow-operacion-editar-fila>
+                                                                <bow-operacion-eliminar-fila mensaje-confirmacion="@L("afiliaciones_beneficios_tabla_eliminar_confirmacion")" mensaje-tooltip="@L("afiliaciones_beneficios_tabla_eliminar")" posicion-tooltip="left"
+                                                                                             operacion-puede-eliminar="vm.puedeEliminarBeneficio(beneficio.id, funcionRetornarPuedeEliminar)" no-puede-eliminar="vm.noPuedeEliminarBeneficios()"
+                                                                                             confirmacion-ok="vm.eliminarBeneficio(beneficio.id)"></bow-operacion-eliminar-fila>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*<table class="table table-responsive table-striped table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>@L("afiliaciones_beneficios_tabla_beneficio") {{vm.grupoBeneficioNombreSeleccionado}}</th>
+                                                            <th>@L("afiliaciones_beneficios_tabla_informacion")</th>
+                                                            <th>@L("afiliaciones_beneficios_tabla_estado")</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="beneficio in vm.listadoBeneficios"
+                                                            ng-mouseenter="vm.controlesBeneficio.mostrar($index)"
+                                                            ng-mouseleave="vm.controlesBeneficio.ocultar($index)">
+                                                            <td>
+                                                                <label class="control-label">{{beneficio.nombre}} - ( {{beneficio.categoriaBeneficioNombre}} )</label>
+                                                                <br />
+                                                                {{beneficio.descripcion}}
+                                                            </td>
+                                                            <td>
+                                                                @L("afiliaciones_beneficios_tabla_informacion_valor")  {{beneficio.valor}}
+                                                                <br />
+                                                                <span ng-show="!beneficio.esAsignable">
+                                                                    @L("afiliaciones_beneficios_tabla_informacion_asignable")  ( {{beneficio.Asignables}} <span ng-show="beneficio.asignables == '1'">@L("afiliaciones_beneficios_tabla_informacion_1_beneficiario") </span><span ng-hide="beneficio.asignables == '1'">@L("afiliaciones_beneficios_tabla_informacion_masde1_beneficiario") </span> )
+                                                                </span>
+                                                                <span ng-show="beneficio.esAsignable">
+                                                                    @L("afiliaciones_beneficios_tabla_informacion_noAsignable")
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                {{beneficio.estado}}
+                                                            </td>
+                                                            <td>
+                                                                <span ng-show="vm.controlesBeneficio.visible[$index]" class="pull-right">
+                                                                    <bow-operacion-editar-fila operacion-editar="vm.editarBeneficioPlanExequial(beneficio.id)" mensaje-tooltip="@L("afiliaciones_beneficios_tabla_editar")" posicion-tooltip="left"></bow-operacion-editar-fila>
+                                                                    <bow-operacion-eliminar-fila mensaje-confirmacion="@L("afiliaciones_beneficios_tabla_eliminar_confirmacion")" mensaje-tooltip="@L("afiliaciones_beneficios_tabla_eliminar")" posicion-tooltip="left"
+                                                                                                 operacion-puede-eliminar="vm.puedeEliminarBeneficio(beneficio.id, funcionRetornarPuedeEliminar)" no-puede-eliminar="vm.noPuedeEliminarBeneficios()"
+                                                                                                 confirmacion-ok="vm.eliminarBeneficio(beneficio.id)"></bow-operacion-eliminar-fila>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        <i class="fa fa-briefcase"></i> @L("afiliaciones_detallePlanExequial_pestanas_comercializacion")
+                    </tab-heading>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-responsive table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            @L("afiliaciones_detallePlanExequial_comercializacion_empresas_titulo")
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="empresa in vm.listadoEmpresasSucursales.filasMostrar track by $index">
+                                        <td>
+                                            <a data-toggle="tooltip" title='@L("afiliaciones_detallePlanExequial_comercializacion_empresas_seleccionar")' ng-click="vm.cargarSucursalesPlanExequial(empresa.empresaOrganizacionId, empresa.empresaNombre)">
+                                                {{empresa.empresaNombre}}
+                                            </a>
+                                            <br />
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{empresa.sucursalesAsignadas}} @L("afiliaciones_detallePlanExequial_comercializacion_empresas_sucursalesAsociadas")
+                                            <br />
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{empresa.sucursalesNoAsignadas}} @L("afiliaciones_detallePlanExequial_comercializacion_empresas_sucursalesNoAsociadas")
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <pagination items-per-page="vm.listadoEmpresasSucursales.filasPorPagina"
+                                            total-items="vm.listadoEmpresasSucursales.totalFilas"
+                                            ng-model="vm.listadoEmpresasSucursales.paginaActual"
+                                            ng-change="vm.listadoEmpresasSucursales.pageChanged()"
+                                            class="pagination-sm"></pagination>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-responsive table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            @L("afiliaciones_detallePlanExequial_comercializacion_sucursales_titulo")&nbsp;&nbsp;&nbsp;{{vm.empresaSeleccionada}}
+                                            <span class="pull-right">
+                                                <input class="control-label" type="checkbox" ng-model="vm.checkSelectAll" ng-change="vm.sucursalesSeleccionarTodas()" /> @L("afiliaciones_detallePlanExequial_comercializacion_sucursales_checkAll")
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="sucursal in vm.listadoSucursales.filasMostrar track by $index">
+                                        <td>
+                                            {{sucursal.sucursalNombre}}
+                                            <span class="pull-right">
+                                                <input class="control-label" type="checkbox" ng-model="vm.controlesCheckboxModificado[$index]" />
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <pagination items-per-page="vm.listaSucursales.filasPorPagina"
+                                            total-items="vm.listaSucursales.totalFilas"
+                                            ng-model="vm.listaSucursales.paginaActual"
+                                            ng-change="vm.listaSucursales.pageChanged()"
+                                            class="pagination-sm"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-success" ng-click="vm.guardarSucursalesPlanExequial()">@L("afiliaciones_detallePlanExequial_comercializacion_btn_registrar")</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </tab>
+                <tab>
+                    <tab-heading>
+                        <i class="fa fa-money"></i> @L("afiliaciones_detallePlanExequial_pestanas_recaudoMasivo")
+                    </tab-heading>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="btn btn-success" ng-click="vm.mostrarFormularioRecaudoMasivo(true)" ng-hide="vm.formularioConvenioRecaudoVisible">
+                                @L("afiliaciones_detallePlanExequial_recaudoMasivo_btn_asignar") &nbsp;
+                                <i class="glyphicon glyphicon-plus font-size-18"></i>
+                            </button>
+                            <div class="alert alert-danger text-center" ng-show="mensajeError">
+                                <strong>{{mensajeError}}</strong>
+                            </div>
+                            <br /><br />
+                            <div class="row" ng-show="vm.formularioConvenioRecaudoVisible">
+                                <div class="col-md-12">
+                                    <form role="form" name="frmRegistrarRecaudo">
+                                        <input id="frmRegistrarRecaudoOculto" ng-model="vm.data.frmRegistrarRecaudo" ng-init="vm.data.frmRegistrarRecaudo = frmRegistrarRecaudo" hidden>
+                                        <h4 ng-show="vm.accionFormularioConvenioRecaudo == 'Modificar'">@L("afiliaciones_detallePlanExequial_recaudoMasivo_modificar_titulo")</h4>
+                                        <h4 ng-show="vm.accionFormularioConvenioRecaudo == 'Guardar'">@L("afiliaciones_detallePlanExequial_recaudoMasivo_asignar_titulo")</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarRecaudo.selectedConvenio.$dirty && frmRegistrarRecaudo.selectedConvenio.$invalid }">
+                                                    <label class="control-label" for="selectedConvenio">@L("afiliaciones_detallePlanExequial_recaudoMasivo_recaudo_titulo")</label>
+                                                    <select ng-model="vm.recaudoMasivo.recaudoMasivoId" ng-options="convenio.id as convenio.nombre for convenio in vm.listadoConveniosRecaudo" class="form-control"
+                                                            name="selectedConvenio" id="selectedConvenio" required ng-disabled="vm.accionFormularioConvenioRecaudo == 'Modificar'">
+                                                        <option value="">@L("afiliaciones_detallePlanExequial_recaudoMasivo_recaudo_seleccione")</option>
+                                                    </select>
+                                                    <div ng-show="frmRegistrarRecaudo.selectedConvenio.$dirty && frmRegistrarRecaudo.selectedConvenio.$invalid">
+                                                        <small ng-show="frmRegistrarRecaudo.selectedConvenio.$error.required" class="text-danger">
+                                                            @L("afiliaciones_detallePlanExequial_recaudoMasivo_recaudo_requerido")
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <label class="control-label">@L("afiliaciones_detallePlanExequial_recaudoMasivo_esObligatorio_titulo")</label>
+                                                <br />
+                                                <div class="btn-group">
+                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.recaudoMasivo.esObligatorio" btn-radio="true">@L("afiliaciones_detallePlanExequial_recaudoMasivo_esObligatorio_si")</label>
+                                                    <label class="btn btn-primary" style="width: 50%;" ng-model="vm.recaudoMasivo.esObligatorio" btn-radio="false">@L("afiliaciones_detallePlanExequial_recaudoMasivo_esObligatorio_no")</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6 text-center">
+                                                    <br />
+                                                    <button type="button" class="btn btn-success" style="width: 90%;" ng-click="vm.guardarConvenioRecaudo()" ng-disabled="frmRegistrarRecaudo.$invalid">@L("afiliaciones_detallePlanExequial_recaudoMasivo_btn_registrar")</button>
+                                                </div>
+                                                <div class="col-md-6 text-center">
+                                                    <br />
+                                                    <button type="button" class="btn btn-danger" style="width: 90%;" ng-click="vm.mostrarFormularioRecaudoMasivo(false)">@L("afiliaciones_detallePlanExequial_recaudoMasivo_btn_cancelar")</button>
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <table class="table table-responsive table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">{{vm.listadoRecaudosMasivosAsignados.length}} <span ng-show="vm.listadoRecaudosMasivosAsignados.length == '1'">@L("afiliaciones_detallePlanExequial_recaudoMasivo_1_recaudo")</span><span ng-hide="vm.listadoRecaudosMasivosAsignados.length == '1'">@L("afiliaciones_detallePlanExequial_recaudoMasivo_masde1_recaudo")</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="recaudo in vm.listadoRecaudosMasivosAsignados"
+                                        ng-mouseenter="vm.controlesBeneficio.mostrar($index)"
+                                        ng-mouseleave="vm.controlesBeneficio.ocultar($index)">
+                                        <td>
+                                            {{recaudo.nombre}} (
+                                            <span ng-show="recaudo.esObligatorio">@L("afiliaciones_detallePlanExequial_recaudoMasivo_tabla_obligatorio")</span>
+                                            <span ng-hide="recaudo.esObligatorio">@L("afiliaciones_detallePlanExequial_recaudoMasivo_tabla_opcional")</span>
+                                            ) -
+                                            <a bow-recaudo-masivo-localidades
+                                               recaudo-masivo-id="recaudo.recaudoMasivoId"
+                                               recaudo-masivo-nombre="recaudo.nombre"
+                                               data-toggle="tooltip"
+                                               data-placement="right"
+                                               title="@L("afiliaciones_detallePlanExequial_recaudoMasivo_tabla_tooltip_consultar")">
+                                                {{recaudo.numeroLocalidades}}
+                                                <span ng-show="recaudo.numeroLocalidades == '1'">@L("afiliaciones_detallePlanExequial_recaudoMasivo_tabla_1_localidad")</span>
+                                                <span ng-hide="recaudo.numeroLocalidades == '1'">@L("afiliaciones_detallePlanExequial_recaudoMasivo_tabla_masde1_localidad")</span>
+                                            </a>
+                                            <span ng-show="vm.controlesBeneficio.visible[$index]" class="pull-right">
+                                                <bow-operacion-editar-fila operacion-editar="vm.editarRecaudoMasivo(recaudo.id)" mensaje-tooltip="@L("afiliaciones_detallePlanExequial_recaudoMasivo_tabla_editar")" posicion-tooltip="left"></bow-operacion-editar-fila>
+                                                <bow-operacion-eliminar-fila mensaje-confirmacion="@L("afiliaciones_detallePlanExequial_recaudoMasivo_tabla_eliminar_confirmacion")" mensaje-tooltip="@L("afiliaciones_detallePlanExequial_recaudoMasivo_tabla_eliminar_tooltip")" posicion-tooltip="left"
+                                                                             operacion-puede-eliminar="vm.puedeEliminarConvenioRecaudo(recaudo.id, funcionRetornarPuedeEliminar)" no-puede-eliminar="vm.noPuedeEliminarConvenioRecaudo()"
+                                                                             confirmacion-ok="vm.eliminarConvenioRecaudo(recaudo.id)"></bow-operacion-eliminar-fila>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>

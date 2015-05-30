@@ -1,0 +1,893 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EDF5D964-4C0F-4F19-B674-58A38A5E5401}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bow</RootNamespace>
+    <AssemblyName>Bow.Application</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Abp, Version=0.6.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Abp.0.6.1.1\lib\net451\Abp.dll</HintPath>
+    </Reference>
+    <Reference Include="Abp.Zero, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Abp.Zero.0.6.0.0\lib\net451\Abp.Zero.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=3.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Castle.LoggingFacility.3.3.0\lib\net45\Castle.Facilities.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidationNA">
+      <HintPath>..\packages\FluentValidationNA.1.2.16\lib\net40\FluentValidationNA.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Concurrent">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Enlightenment">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.Enlightenment.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.0.34.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Immutable.1.0.34\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\packages\System.Linq.Dynamic.Library.1.1.13\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Afiliaciones\AfiliacionesService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Afiliaciones\AutoMapperAfiliacionesProfile.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\AfiliadoProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\BeneficioPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\CopiarAfiliadosProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeleteBeneficioAdicionalPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeleteParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeletePlanExequialRecaudoMasivoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeleteAfiliadoProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeleteBeneficioPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeleteConveniosLocalidadByDepartamentoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeleteConveniosLocalidadByPaisInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeleteConvenioLocalidadInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllBeneficiosPlanExequialByTipoAndBeneficioAdicionalInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllRangosParentescoByGrupoAndParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllRangosParentescoByGrupoInput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllRecaudosMasivosByLocalidadInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DetalleClienteProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllBeneficiosAdicionalesPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllBeneficiosPlanExequialByTipoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllEmpleadosByGrupoInformalInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllGrupoInformalByContactoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllPlanesExequialesBySucursalAndTipoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetBeneficioAdicionalPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetGestionProspectoIniciarContactoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetGrupoInformalInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllPlanExequialRecaudoMasivoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllDepartamentosByConvenioInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllLocalidadesByConvenioInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllLocalidadesByConvenioAndDepartamentoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllLocalidadesByConvenioAndPaisInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllLocalidadesByNotConvenioAndDepartamentoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllLocalidadesByNotConvenioAndPaisInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllLocalidadesByNotConvenioInput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllPaisesByConvenioInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllConveniosRecaudoMasivoNoAsignadosInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAfiliadoProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAfiliadosProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllSucursalesPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllEmpresasPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllTiposBeneficioPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeleteRangoParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeleteGrupoFamiliarInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeletePlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllParentescosAllRangosInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllBeneficiosPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetAllGruposFamiliaresByPlanInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\EmpleadoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetBeneficiosPlanInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetPlanesProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetPlanExequialRecaudoMasivoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetBeneficiosPlanExequialByCategoriaInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetGrupoFamiliarParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetBeneficioPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetProspectoProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetRangoParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetGrupoFamiliarInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetPlanExequialWithMonedaInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\PlanProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\PuedeEliminarParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\PuedeEliminarPlanExequialRecaudoMasivoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\PuedeEliminarBeneficioPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\PuedeEliminarRangoParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\PuedeEliminarGrupoFamiliarInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\PuedeEliminarPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveBeneficioAdicionalPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveGrupoInformalEmpleadoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveGrupoInformalInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveAfiliacionInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SavePlanExequialRecaudoMasivoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveConveniosLocalidadByDepartamentoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveConveniosLocalidadByPaisInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveConvenioLocalidadInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveAfiliadoProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveGestionProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveProspectoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SucursalPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\UpdateBeneficioAdicionalPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\UpdatePlanExequialRecaudoMasivoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\UpdateSucursalesPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\UpdateBeneficioPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveOrUpdateGrupoFamiliarParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveBeneficioPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveRangoParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveGrupoFamiliarInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SavePlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\CambiarEstadoPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\UpdateRangoParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\UpdateGrupoFamiliarInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\UpdatePlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\BeneficioAdicionalPlanExequialOutPut.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\BeneficioPlanExequialByTipoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllBeneficiosPlanExequialByTipoAndBeneficioAdicionalOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllRangosParentescoByGrupoAndParentescoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\RecaudosMasivosByLocalidadOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\DetalleClienteProspectoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllBeneficiosAdicionalesPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllBeneficiosPlanExequialByTipoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\ValidarApellidosParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\ValidarCantidadParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\ValidarEdadParentescoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllEmpleadosByGrupoInformalOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllRecaudosMasivosByLocalidadOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllGrupoInformalByContactoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllPlanesExequialesBySucursalAndTipoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetBeneficioAdicionalPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetGestionProspectoIniciarContactoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetGrupoInformalOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetParentescoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetGestionProspectoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GrupoInformalByContactoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\EmpleadoByGrupoInformalOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GrupoInformalOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\ConvenioRecaudoMasivoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllConveniosRecaudoMasivoNoAsignadosOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetBeneficiosPlanOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetPlanesProspectoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllGrupoInformalOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetPlanExequialRecaudoMasivoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PlanExequialBySucursalAndTipoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GruposFamiliaresPlanOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PlanProspectoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PlanExequialRecaudoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\AfiliadoProspectoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\BeneficioPlanExequialOutPut.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\DepartamentoByConvenioOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllPlanExequialRecaudoMasivoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllDepartamentosByConvenioOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllLocalidadesByConvenioOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllLocalidadesByConvenioAndDepartamentoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllLocalidadesByConvenioAndPaisOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllLocalidadesByNotConvenioAndDepartamentoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllLocalidadesByNotConvenioOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllLocalidadesByNotConvenioAndPaisOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllPaisesByConvenioOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\LocalidadesByConvenioOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\LocalidadesByConvenioAndPaisOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\LocalidadesByNotConvenioAndDepartamentoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\LocalidadByNotConvenioOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\LocalidadByNotConvenioAndPaisOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PaisByConvenioOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GestionProspectoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PuedeEliminarParentescoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PuedeEliminarPlanExequialRecaudoMasivoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\FunerariaOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAfiliadoProspectoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAfiliadosProspectoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllFunerariasOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\SaveGestionProspectoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\SaveGrupoInformalOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\SaveProspectoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\SucursalPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllSucursalesPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllEmpresasPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllParentescosAllRangosOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllParentescosOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllBeneficiosPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllTiposBeneficioPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllRangosParentescoByGrupoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllGruposFamiliaresByPlanOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetBeneficiosPlanExequialByCategoriaOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\EmpresaPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\TipoBeneficioAdicionalPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\TipoBeneficioPlanExequial.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetGrupoFamiliarParentescoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetBeneficioPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\ParentescoAllRangosOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PuedeEliminarBeneficioPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\SaveGrupoFamiliarOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\SaveOrUpdateGrupoFamiliarParentescoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\ParentescoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetRangoParentescoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetGrupoFamiliarOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetPlanExequialWithMonedaOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PuedeEliminarRangoParentescoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\RangoParentescoOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GrupoFamiliarOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PuedeEliminarGrupoFamiliarOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PuedeEliminarPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetPlanExequialInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetAllPlanesExequialesOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeleteBeneficioInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\DeletePeriodosVentasInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\FechaFinPeriodoVentaInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetBeneficiosByCategoriaInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetVerificarPeriodosVentasInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\PeriodoVentaInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SaveBeneficioInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\SavePeriodosVentasInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\BeneficioOutPut.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\FechaFinPeriodoVentaOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetBeneficioOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetBeneficiosByCategoriaOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetPeriodosVentasRegistradosOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\GetVerificarPeriodosVentasOutput.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\PeriodoVentaOutPut.cs" />
+    <Compile Include="Afiliaciones\DTOs\OutputModels\TipoBeneficioPropioPlanExequialOutput.cs" />
+    <Compile Include="Afiliaciones\IAfiliacionesService.cs" />
+    <Compile Include="BowApplicationModule.cs" />
+    <Compile Include="BowAppServiceBase.cs" />
+    <Compile Include="Cartera\AutoMapperCarteraProfile.cs" />
+    <Compile Include="Cartera\DTOs\OutputModels\GetAllMonedaOutput.cs" />
+    <Compile Include="Cartera\DTOs\OutputModels\MonedaOutput.cs" />
+    <Compile Include="Cartera\CarteraService.cs" />
+    <Compile Include="Cartera\ICarteraService.cs" />
+    <Compile Include="CustomDataAnnotations\LocalizedRequired.cs" />
+    <Compile Include="Empleados\AutoMapperEmpleadosProfile.cs" />
+    <Compile Include="Empleados\DTOs\InputModels\GetEmpleadosByIdInput.cs" />
+    <Compile Include="Empleados\DTOs\InputModels\SaveEmpleadoInput.cs" />
+    <Compile Include="Afiliaciones\DTOs\InputModels\GetBeneficioInput.cs" />
+    <Compile Include="Empleados\DTOs\OutputModels\GetEmpleadosByIdOutput.cs" />
+    <Compile Include="Empleados\DTOs\OutputModels\EmpleadoWithSucursalAndLocalidadOutput.cs" />
+    <Compile Include="Empleados\DTOs\OutputModels\GetEmpleadosWithSucursalAndLocalidadOutput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetSucursalByIdWithEmpresaAndOrganizacionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllEmpresasWithSucursalesByOrganizacionInput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetSucursalByIdWithEmpresaAndOrganizacionOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\EmpresaWithSucursalesOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllEmpresasWithSucursalesByOrganizacionOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllConveniosRecaudoMasivoOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllSucursalesOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\SucursalesOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\RecaudoMasivoOutput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\DeleteCategoriaInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\GetEstadoInactivoByNombreParametroInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\GetEstadoActivoByNombreParametroInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\SaveCategoriaInput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTipoTelefonoFijoOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\CategoriaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\EstadoBeneficiosPlanExequialOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\EstadoClienteProspecto.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\EstadoGrupoFamiliarOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetAllEstadosBeneficiosPlanExequialOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetAllEstadosClienteProspectoOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetAllTiposBeneficioOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetCategoriasOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadoInactivoByNombreParametroOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadoInactivoBeneficiosPlanExequialOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadoActivoBeneficiosPlanExequialOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadoActivoGrupoFamiliarOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadoInactivoPlanExequialOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadoActivoPlanExequialOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetAllEstadosGrupoFamiliarOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposBeneficiosPlanExequialOutPut.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadoActivoByNombreParametroOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposByParametroEstadoCivilWithIdNoIdentificadoOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposByParametroProfesionesWithIdNoIdentificadoOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTipoUbicacionResidencialOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\TipoProfesionesOutput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\FechaFallecimientoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetBuscadorPersonaGrupoInformalInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetBuscadorPersonaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\PuedeEliminarOpcionPreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\SavePersonaProspectoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\UpdatePreferenciaWithEstadoBoolInput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\BuscadorPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetBuscadorPersonaGrupoInformalOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetBuscadorPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetAllTiposDocumentoWithPaisOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetPreferenciasWithEstadoBoolOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetPreferenciaWithEstadoBoolOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\PuedeEliminarOpcionPreferenciaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\SavePersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\SavePersonaProspectoOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\TipoDocumentoWithPaisOutput.cs" />
+    <Compile Include="Resources\TextosValidacionDTO.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextosValidacionDTO.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados\DTOs\InputModels\GetBuscadorEmpleadoInput.cs" />
+    <Compile Include="Seguridad\ISeguridadService.cs" />
+    <Compile Include="Seguridad\SeguridadService.cs" />
+    <Compile Include="Utilidades\DTOs\InputModels\ReadFileInput.cs" />
+    <Compile Include="Utilidades\UtilidadesService.cs" />
+    <Compile Include="Utilidades\AutoMapperUtilidadesProfile.cs" />
+    <Compile Include="Utilidades\IUtilidadesService.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetLocalidadByIdWithDepartamentoAndPaisInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetZonaEmpleadoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\PuedeEliminarManzanaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\PuedeEliminarZonaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveZonaEmpleadoInput.cs" />
+    <Compile Include="Empleados\EmpleadosService.cs" />
+    <Compile Include="Empleados\IEmpleadosService.cs" />
+    <Compile Include="Empresas\AutoMapperEmpresasProfile.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\EmpresaInfoTributariaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllSucursalesEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetSucursalEmpresaOrganizacionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\SucursalTelefonoInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllInfoTributariaByLocalidadInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\EmpresaContactoInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\EmpresaContactoWebInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllOpcionesInfoTributariaEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetContactosEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetTiposAreaFilterByEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetContactosWebFilterByEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetContactosWebEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\DeleteActividadEconomicaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\DeleteInfoTributariaLocalidadByDepartamentoInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\DeleteInfoTributariaLocalidadByPaisInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\DeleteInfoTributariaOpcionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\DeleteInfoTributariaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\EmpresaTelefonoInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\SaveSucursalEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateEmpresaContactosInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateEmpresaContactosWebInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateEmpresaInfoTributariaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateSucursalEmpresaTelefonoInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateSucursalEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateEmpresaTelefonoInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllTelefonosEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllLocalidadesByInfoTributariaAndDepartamentoInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllLocalidadesByInfoTributariaAndPaisInput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Empresas\DTOs\InputModels\GetAllDepartamentosByInfoTributariaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllLocalidadesByNotInfoTributariaDepartamentoInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllLocalidadesByNotInfoTributariaPaisInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllPaisesByInfoTributariaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllLocalidadesByNotInfoTributariaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetAllLocalidadesByInfoTributariaInput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Empresas\DTOs\InputModels\GetAllEmpresasByOrganizacionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetEmpresaOrganizacionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetOrganizacionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetActividadEconomicaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetInfoTributariaOpcionesInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetInfoTributariaOpcionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\GetInfoTributariaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\PuedeEliminarActividadEconomicaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\PuedeEliminarInfoTributariaOpcionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\PuedeEliminarInfoTributariaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\DeleteInfoTributariaLocalidadInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\SaveEmpresaOrganizacionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\SaveEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\SaveInfoTributariaLocalidadnput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\SaveInfoTributariaLocalidadByDepartamentoInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\SaveInfoTributariaLocalidadByPaisInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\SaveActividadEconomicaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\SaveInfoTributariaOpcionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\SaveInfoTributariaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateActividadEconomicaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateEmpresaOrganizacionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateEmpresaInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateOrganizacionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateInfoTributariaOpcionInput.cs" />
+    <Compile Include="Empresas\DTOs\InputModels\UpdateInfoTributariaInput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\ContactoEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetSucursalEmpresaOrganizacionOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\SaveSucursalEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\SucursalOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllSucursalesEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllOpcionesInfoTributariaEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetContactosEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllInfoTributariaByLocalidadOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetTiposAreaFilterByEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetContactosWebFilterByEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetContactosWebEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllTelefonosEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllLocalidadesByNotInfoTributariaPaisOutput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Empresas\DTOs\OutputModels\ContactoWebEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\InfoTributariaByLocalidadOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\SaveEmpresaOrganizacionOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\OpcionesInfoTributariaEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\TelefonoSucursalOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\TiposAreaEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\TipoContactoWebEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\TelefonoEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetEmpresaOrganizacionOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllLocalidadesByNotInfoTributariaDepartamentoOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\LocalidadesByNotInfoTributariaDepartamentoOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\LocalidadesByNotInfoTributariaPaisOutput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Empresas\DTOs\OutputModels\SaveEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllLocalidadesByInfoTributariaAndDepartamentoOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllLocalidadesByInfoTributariaAndPaisOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllDepartamentosByInfoTributariaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllLocalidadesByNotInfoTributariaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllPaisesByInfoTributariaOutput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Empresas\DTOs\OutputModels\GetActividadEconomicaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetInfoTributariaOpcionOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllEmpresasByOrganizacionOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetOrganizacionOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetInfoTributariaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetInfoTributariaOpcionesOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetInfoTributariasOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\InfoTributariaOpcionOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetEmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\EmpresaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\LocalidadesByInfoTributariaAndPaisOutput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Empresas\DTOs\OutputModels\DepartamentosByInfoTributariaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\LocalidadesByNotInfoTributariaOutput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Empresas\DTOs\OutputModels\PaisesByInfoTributariaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\LocalidadesByInfoTributariaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\InfoTributariaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\PuedeEliminarActividadEconomicaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\PuedeEliminarInfoTributariaOpcionOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\PuedeEliminarInfoTributariaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\ActividadEconomicaOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetActividadesEconomicasOutput.cs" />
+    <Compile Include="Empresas\IEmpresasService.cs" />
+    <Compile Include="Empresas\EmpresasService.cs" />
+    <Compile Include="Parametros\AutoMapperParametrosProfile.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\DeleteEstadoInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\DeleteTipoInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\GetEstadoByNombreEstadoAndNombreParametroInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\GetEstadoInput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadosSucursalEmpresaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposSucursalEmpresaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\EstadoSucursalEmpresaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\TipoSucursalEmpresaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\EstadoEmpleadoOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadoActivoZonaEmpleadoOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadoInactivoZonaEmpleadoOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadosEmpleadoOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposRolOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\TipoRolOutput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\FechaAsignacionInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetAuditoriaPersonaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetOpcionPreferenciaPersonaInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\SaveEstadoInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\SaveNombreEstadoInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\SaveTipoInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\TipoInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\UpdateEstadoParametroInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\GetAllTiposWithFilterInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\UpdateTipoInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\GetAllTiposContactoWebWithFilterPersonaInput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetAllTiposContactoWebWithFilterPersonaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadoPreferenciaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadoActivoTipoUbicacionOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadosTipoUbicacionOutput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetPersonaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetPersonasInput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Personas\DTOs\InputModels\PersonaEditadaAuditoriaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\PersonaOriginalAuditoriaInput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\AuditoriaPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\FechaAsignacionOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetAuditoriaPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetOpcionPreferenciaPersonaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposByParametroUbicacionOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTipoJuridicaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposNaturalezaEmpresaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposInfoTributariaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetNombresEstadosOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTipoOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposByParametroEstadoCivilOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposByParametroProfesionesOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetAllTiposWithFilterOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposZonaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\NombreEstadoOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\OpcionPreferenciaPersonaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\PuedeEliminarParametroOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\TipoNaturalezaEmpresaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\TipoInfoTributariaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\TipoZonaOutput.cs" />
+    <Compile Include="Parametros\IParametrosService.cs" />
+    <Compile Include="Parametros\ParametrosService.cs" />
+    <Compile Include="Personas\AutoMapperPersonasProfile.cs" />
+    <Compile Include="Personas\DTOs\InputModels\DeleteOpcionPreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\DeletePreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetContactosWebFilterByPersonaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetDireccionesPersonaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetOpcionesPreferenciasInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetOpcionPreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetPersonaContactoWebInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetPersonaWithTelefonoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetPersonaEditarInput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Personas\DTOs\InputModels\GetTipoDocumentoPorDefectoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\PersonaContactoWebInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\PersonaDireccionInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\SavePersonaContactoWebInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\SavePersonaDireccionInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\ProbarFechasInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\ValidarTipoDocumentoConEdadInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\ValidarDocumentoExisteInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\ValidarTipoDocumentoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetPreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetTelefonosPersonaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\PersonaTelefonoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetTiposDocumentoOrganizacionInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\PuedeEliminarPreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\SaveOpcionPreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\DeleteTipoDocumentoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetTipoDocumentoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetTiposDocumentoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\PuedeEliminarTipoDocumentoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\GetTiposDocumentoPersonaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\SavePersonaTelefonoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\SaveTipoDocumentoInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\SavePersonaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\SavePreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\UpdateOpcionPreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\UpdatePreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\DireccionPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetContactosWebFilterByPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetDireccionesPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetOpcionesPreferenciaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetOpcionPreferenciaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetPersonaContactoWebOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetPersonaWithTelefonoOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetPreferenciaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetPreferenciaPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetPreferenciasOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetTipoDocumentoPorDefectoOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetTiposDocumentoOrganizacionOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetTelefonosPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\OpcionPreferenciaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\PersonaTelefonoOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\PersonaContactoWebOutput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\PersonaPreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\PreferenciaPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\SavePersonaPreferenciaInput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\TipoContactoWebPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\ValidarTipoDocumentoConEdadOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\ValidarDocumentoExisteOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\ValidarTipoDocumentoOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\PersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\PreferenciaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\PuedeEliminarPreferenciaOutput.cs" />
+    <Compile Include="Personas\DTOs\InputModels\UpdateTipoDocumentoInput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\FechaExpedicionOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\FechaFallecimientoOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\FechaNacimientoOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetPersonaEditarOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetPersonasOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetTiposDocumentoPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\PuedeEliminarTipoDocumentoOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\TelefonoPersonaOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\TipoDocumentoOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetTiposDocumentoOutput.cs" />
+    <Compile Include="Personas\DTOs\OutputModels\GetTipoDocumentoOutput.cs" />
+    <Compile Include="Personas\IPersonasService.cs" />
+    <Compile Include="Personas\PersonasService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilidades\AutoMapper\AutoMapperBaseProfile.cs" />
+    <Compile Include="Zonificacion\AutoMapperZonificacionProfile.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\DeleteZonaBarrioInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\DeleteZonaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetAllLocalidadesByDepartamentoWithFilterInput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Zonificacion\DTOs\InputModels\GetAllLocalidadesByPaisWithFilterInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetDireccionInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\EsTipoOrientacionAvenidaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetBarriosByZonaDisponiblesInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetBarriosByZonaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetAllLocalidadesWithFilterInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetEmpleadosActivosByZonaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetEmpleadosInactivosByZonaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetLocalidadesByPaisInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetTelefonosByPersonaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetLocalidadesWithDepartamentoByPaisInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetManzanasByBarrioInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetSufijosSinAsignarALocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetTelefonoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetTiposOrientacionSinAsignarALocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetZonaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetZonasByLocalidadAndTipoZonaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetZonasByLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\LocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\PuedeEliminarAvenidaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\DeleteBarrioInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\DeleteLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\DeleteAvenidaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\DeleteDepartamentoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\DeleteManzanaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\DeletePaisInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\DeleteSufijoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\DeleteSufijoLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\DeleteTorieLocalidadInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\DeleteParametroInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetAvenidasByLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetBarrioInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetBarriosByLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetDepartamentosInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetDepartamentoWithPaisInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetLocalidadesInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetAvenidaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetLocalidadWithDepartamentoAndPaisInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetDepartamentoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\EsPaisUsaInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\GetParametroInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\GetTipoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetSufijoLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetSufijoLocalidadWithSufijoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetSufijosLocalidadByLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetToriesLocalidadDisponiblesWithTipoOrientacionByTorieLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetTorieLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\GetToriesLocalidaByLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\PuedeEliminarBarrioInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\PuedeEliminarDepartamentoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\PuedeEliminarLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\PuedeEliminarPaisInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\PuedeEliminarSufijoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\PuedeEliminarSufijoLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\PuedeEliminarTorieLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveAvenidaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveBarrioInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveDepartamentoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveDireccionConNomenclaturaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveDireccionConNomenclaturaUsaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveDireccionInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveDireccionSinNomenclaturaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveDireccionSinNomenclaturaUsaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveManzanaConNomenclaturaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveManzanaSinNomenclaturaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\UpdateZonaEmpleadoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\ValidarTelefonoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveTelefonoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SavePaisInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\SaveParametroInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveZonaBarrioInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveZonaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\UpdateBarrioInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\UpdateLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveSufijoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveSufijoLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveTipoOrientacionInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\SaveTipoOrientacionLocalidadInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\UpdateAvenidaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\UpdateDepartamentoInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\UpdatePaisInput.cs" />
+    <Compile Include="Parametros\DTOs\InputModels\UpdateParametroInput.cs" />
+    <Compile Include="Zonificacion\DTOs\InputModels\UpdateZonaInput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\AvenidaLocalidadManzanaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\AvenidaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\BarrioOutput.cs" />
+    <Compile Include="Empleados\DTOs\OutputModels\BuscadorEmpleadoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\DepartamentoOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\EstadoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\EmpleadoByZonaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\EsTipoOrientacionAvenidaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\EsPaisUsaOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetAllTiposOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetAllDepartamentosOutput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetAllLocalidadesByDepartamentoWithFilterOutput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetAllLocalidadesByPaisWithFilterOutput.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetAllLocalidadesWithFilterOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetAvenidaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetAvenidasLocalidadManzanaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetAvenidasByLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetBarrioOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetBarriosByLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetBarriosByZonaDisponiblesOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetBarriosByZonaOutput.cs" />
+    <Compile Include="Empleados\DTOs\OutputModels\GetBuscadorEmpleadoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetDepartamentoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetDepartamentosOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadosOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetEstadosWithNombresEstadosOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetDepartamentoWithPaisOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetAllLocalidadesOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetEmpleadosActivosByZonaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetEmpleadosInactivosByZonaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetLocalidadesByPaisOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetLocalidadByIdWithDepartamentoAndPaisOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetTelefonosByPersonaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetLocalidadesWithDepartamentoByPaisOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetLocalidadesOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetZonaEmpleadoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\LocalidadDepartamentoPaisWithFilterOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\LocalidadesWithDepartamentoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetLocalidadOutput.cs" />
+    <Compile Include="Empresas\DTOs\OutputModels\GetAllLocalidadesByInfoTributariaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetLocalidadWithDepartamentoAndPaisOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetManzanasByBarrioOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetPaisesOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetPaisOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetParametroOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetParametrosOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetTelefonoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetToriesLocalidadDisponiblesWithTipoOrientacionByTorieLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetZonaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetZonasByLocalidadAndTipoZonaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetZonasByLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\LocalidadDepartamentoPaisOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\PuedeEliminarZonaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\PuedeEliminarManzanaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\TelefonoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\LocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetSufijoLocalidadByLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetSufijosSinAsignarALocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetSufijosLocalidadByLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetSufijosOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetTiposOrientacionOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\GetTiposOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\EstadoWithNombreEstadoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetTorieLocalidadByLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetTorieLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetTiposOrientacionSinAsignarALocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetToriesLocalidadByLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\ManzanaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetDireccionOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\PaisOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\ParametroOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\PuedeEliminarAvenidaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\PuedeEliminarBarrioOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\PuedeEliminarDepartamentoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\PuedeEliminarLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\PuedeEliminarSufijoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\PuedeEliminarSufijoLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\PuedeEliminarTorieLocalidadOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\SaveDireccionConNomenclaturaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\SaveDireccionConNomenclaturaUsaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\SaveDireccionSinNomenclaturaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\SaveDireccionSinNomenclaturaUsaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\ValidarTelefonoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\SaveTelefonoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\SufijoDisponibleOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\SufijoLocalidadManzanaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\GetSufijoLocalidadWithSufijoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\SufijoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\PuedeEliminarPaisOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\TipoOrientacionOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\TipoOutput.cs" />
+    <Compile Include="Parametros\DTOs\OutputModels\TipoTelefonoOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\TorieDisponibleOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\TorieLocalidadManzanaOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\ZonaBarrioOutput.cs" />
+    <Compile Include="Zonificacion\DTOs\OutputModels\ZonaOutput.cs" />
+    <Compile Include="Zonificacion\IZonificacionService.cs" />
+    <Compile Include="Zonificacion\ZonificacionService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bow.Core\Bow.Core.csproj">
+      <Project>{17298EA0-AF73-4F30-B6F1-2066100D7D74}</Project>
+      <Name>Bow.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cartera\DTOs\InputModels\" />
+    <Folder Include="Utilidades\DTOs\OutputModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TextosValidacionDTO.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextosValidacionDTO.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

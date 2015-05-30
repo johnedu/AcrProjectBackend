@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="personas_nuevapersona_paisRequerido" xml:space="preserve">
+    <value>Debe indicar la nacionalidad de la persona</value>
+  </data>
+  <data name="persona_apellido1_max_longitud" xml:space="preserve">
+    <value>La longitud del primer apellido no puede ser superior a 50 caracteres, por favor verifique</value>
+  </data>
+  <data name="persona_apellido1_requerido" xml:space="preserve">
+    <value>Debe indicar el primer apellido de la persona</value>
+  </data>
+  <data name="persona_apellido2_max_longitud" xml:space="preserve">
+    <value>La longitud del segundo apellido no puede ser superior a 50 caracteres, por favor verifique</value>
+  </data>
+  <data name="persona_tipo_documento_requerido" xml:space="preserve">
+    <value>Debe indicar el documento de identificación de la persona</value>
+  </data>
+  <data name="persona_nacionalidad_requerido" xml:space="preserve">
+    <value>Debe indicar la nacionalidad de la persona</value>
+  </data>
+  <data name="persona_nombre_max_longitud" xml:space="preserve">
+    <value>La longitud del nombre no puede ser superior a 50 caracteres, por favor verifique</value>
+  </data>
+  <data name="persona_nombre_requerido" xml:space="preserve">
+    <value>Debe Indicar el nombre de la Persona</value>
+  </data>
+  <data name="persona_tiene_documento_requerido" xml:space="preserve">
+    <value>Debe indicar si la persona tiene o no documento de identificación</value>
+  </data>
+  <data name="grupoFamiliar_save_nombre_requerido" xml:space="preserve">
+    <value>Debe indicar el nombre del grupo familiar</value>
+  </data>
+  <data name="grupoFamiliarParentesco_get_parentescoId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="grupoFamiliarParentesco_save_grupoFamiliarId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del grupo familiar</value>
+  </data>
+  <data name="grupoFamiliarParentesco_save_parentescoId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del parentesco</value>
+  </data>
+  <data name="grupoFamiliarParentesco_save_validarSoloIngreso_longitud" xml:space="preserve">
+    <value>Validar solo ingreso debe ser de 1 caracter</value>
+  </data>
+  <data name="grupoFamiliarParentesco_save_validarSoloIngreso_requerido" xml:space="preserve">
+    <value>Debe indicar si el parentesco solo se valida al ingreso</value>
+  </data>
+  <data name="grupoFamiliar_delete_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del grupo familiar</value>
+  </data>
+  <data name="grupoFamiliar_getAll_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="grupoFamiliar_get_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del grupo familiar</value>
+  </data>
+  <data name="grupoFamiliar_puedeEliminar_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del grupo familiar</value>
+  </data>
+  <data name="grupoFamiliar_save_descripcion_longitud" xml:space="preserve">
+    <value>La longitud de la descripción no puede ser superior a 200 caracteres</value>
+  </data>
+  <data name="grupoFamiliar_save_descripcion_requerido" xml:space="preserve">
+    <value>Debe indicar la descripción del grupo familiar</value>
+  </data>
+  <data name="grupoFamiliar_save_estadoId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del estado</value>
+  </data>
+  <data name="grupoFamiliar_save_id_requerido" xml:space="preserve">
+    <value>Debe indicar el id del grupo familiar</value>
+  </data>
+  <data name="grupoFamiliar_save_nombre_longitud" xml:space="preserve">
+    <value>La longitud del nombre no puede ser superior a 50 caracteres</value>
+  </data>
+  <data name="grupoFamiliar_save_permitirAfiliadosAdicionales_longitud" xml:space="preserve">
+    <value>Permitir afiliados adicionales debe ser de 1 caracter</value>
+  </data>
+  <data name="grupoFamiliar_save_permitirAfiliadosAdicionales_requerido" xml:space="preserve">
+    <value>Debe indicar si permite afiliados adicionales en el grupo familiar</value>
+  </data>
+  <data name="grupoFamiliar_save_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="grupoFamiliar_save_tieneCuotaInicial_longitud" xml:space="preserve">
+    <value>Tiene cuota inicial debe ser de 1 caracter</value>
+  </data>
+  <data name="grupoFamiliar_save_tieneCuotaInicial_requerido" xml:space="preserve">
+    <value>Debe indicar si tiene cuota inicial el grupo familiar</value>
+  </data>
+  <data name="grupoFamiliar_save_valorBase_requerido" xml:space="preserve">
+    <value>Debe indicar el valor base del grupo familiar</value>
+  </data>
+  <data name="grupoFamiliar_save_valorInicial_requerido" xml:space="preserve">
+    <value>Debe indicar el valor inicial del grupo familiar</value>
+  </data>
+  <data name="parentescos_getall_grupoFamiliarId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del grupo familiar</value>
+  </data>
+  <data name="parentescos_getall_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="planExequialMoneda_get_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="planExequial_cambiarEstado_estado_requerido" xml:space="preserve">
+    <value>Debe indicar el estado del plan exequial</value>
+  </data>
+  <data name="planExequial_cambiarEstado_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="planExequial_delete_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="planExequial_get_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="planExequial_puedeEliminar_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="planExequial_save_descripcion_longitud" xml:space="preserve">
+    <value>La longitud del nombre no puede ser superior a 300 caracteres</value>
+  </data>
+  <data name="planExequial_save_descripcion_requerido" xml:space="preserve">
+    <value>Debe indicar la descripción del plan exequial</value>
+  </data>
+  <data name="planExequial_save_estadoId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del estado</value>
+  </data>
+  <data name="planExequial_save_id_requerido" xml:space="preserve">
+    <value>Debe indicar el id del plan exequial</value>
+  </data>
+  <data name="planExequial_save_monedaId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id de la moneda</value>
+  </data>
+  <data name="planExequial_save_nombre_longitud" xml:space="preserve">
+    <value>La longitud del nombre no puede ser superior a 150 caracteres</value>
+  </data>
+  <data name="planExequial_save_nombre_requerido" xml:space="preserve">
+    <value>Debe indicar el nombre del plan exequial</value>
+  </data>
+  <data name="planExequial_save_planEmpresarial_requerido" xml:space="preserve">
+    <value>Debe indicar si el plan exequial aplica para empresa</value>
+  </data>
+  <data name="planExequial_save_planFamiliar_requerido" xml:space="preserve">
+    <value>Debe indicar si el plan exequial aplica para familia</value>
+  </data>
+  <data name="planExequial_save_planGrupo_requerido" xml:space="preserve">
+    <value>Debe indicar si el plan exequial aplica para grupo</value>
+  </data>
+  <data name="rangoParentesco_delete_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del rango del parentesco</value>
+  </data>
+  <data name="rangoParentesco_get_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del rango del parentesco</value>
+  </data>
+  <data name="rangoParentesco_puedeEliminar_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del rango del parentesco</value>
+  </data>
+  <data name="rangoParentesco_save_edadMaxima_requerido" xml:space="preserve">
+    <value>Debe indicar la edad máxima del rango del parentesco</value>
+  </data>
+  <data name="rangoParentesco_save_edadMinima_requerido" xml:space="preserve">
+    <value>Debe indicar la edad mínima del rango del parentesco</value>
+  </data>
+  <data name="rangoParentesco_save_grupoParentescoId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id grupo parentesco</value>
+  </data>
+  <data name="rangoParentesco_save_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del rango del parentesco</value>
+  </data>
+  <data name="rangoParentesco_save_periodoCarencia_requerido" xml:space="preserve">
+    <value>Debe indicar el periodo de carencia del rango del parentesco</value>
+  </data>
+  <data name="rangoParentesco_save_tipoValorAdicional_longitud" xml:space="preserve">
+    <value>El tipo de valor adicional debe ser de 1 caracter</value>
+  </data>
+  <data name="rangoParentesco_save_tipoValorAdicional_requerido" xml:space="preserve">
+    <value>Debe indicar el tipo de valor adicional del rango del parentesco</value>
+  </data>
+  <data name="rangoParentesco_save_tipoValorBasico_longitud" xml:space="preserve">
+    <value>El tipo de valor básico debe ser de 1 caracter</value>
+  </data>
+  <data name="rangoParentesco_save_tipoValorBasico_requerido" xml:space="preserve">
+    <value>Debe indicar el tipo de valor básico del rango del parentesco</value>
+  </data>
+  <data name="rangoParentesco_save_unidadPeriodoCarencia_longitud" xml:space="preserve">
+    <value>La unidad del periodo de carencia debe ser de 1 caracter</value>
+  </data>
+  <data name="rangoParentesco_save_unidadPeriodoCarencia_requerido" xml:space="preserve">
+    <value>Debe indicar la unidad del periodo de carencia del rango del parentesco</value>
+  </data>
+  <data name="rangoParentesco_save_valorAdicional_requerido" xml:space="preserve">
+    <value>Debe indicar el valor adicional del rango del parentesco</value>
+  </data>
+  <data name="rangoParentesco_save_valorBasico_requerido" xml:space="preserve">
+    <value>Debe indicar el valor básico del rango del parentesco</value>
+  </data>
+  <data name="rangosParentescos_getall_grupoFamiliarId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del grupo familiar</value>
+  </data>
+  <data name="rangosParentescos_getall_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="grupoFamiliarParentesco_get_grupoFamiliarId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del grupo familiar</value>
+  </data>
+  <data name="persona_numero_documento_requerido" xml:space="preserve">
+    <value>Debe indicar el número de documento</value>
+  </data>
+  <data name="persona_fecha_nacimiento_requerido" xml:space="preserve">
+    <value>Debe indicar la fecha de nacimiento</value>
+  </data>
+  <data name="persona_tiene_fechanacimiento_requerido" xml:space="preserve">
+    <value>Debe indicar si la persona tiene o no fecha de nacimiento</value>
+  </data>
+  <data name="persona_correo_electronico_invalido" xml:space="preserve">
+    <value>El correo electrónico es inválido</value>
+  </data>
+  <data name="persona_estadocivil_requerido" xml:space="preserve">
+    <value>Debe indicar el estado civil de la persona</value>
+  </data>
+  <data name="persona_profesion_requerido" xml:space="preserve">
+    <value>Debe indicar la profesión de la persona</value>
+  </data>
+  <data name="persona_correo_electronico_max_longitud" xml:space="preserve">
+    <value>La longitud del correo electrónico no puede ser superiror a 80 caracteres, por favor verifique</value>
+  </data>
+  <data name="beneficiosPlanExequial_delete_Id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del beneficio del plan exequial</value>
+  </data>
+  <data name="beneficiosPlanExequial_getall_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="beneficiosPlanExequial_get_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del beneficio del plan exequial</value>
+  </data>
+  <data name="beneficiosPlanExequial_puedeEliminar_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del beneficio del plan exequial</value>
+  </data>
+  <data name="beneficiosPlanExequial_save_beneficioId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del beneficio</value>
+  </data>
+  <data name="beneficiosPlanExequial_save_esAsignable_longitud" xml:space="preserve">
+    <value>El valor si es asignable o no debe ser '1' si es verdadero o '0' si es falso</value>
+  </data>
+  <data name="beneficiosPlanExequial_save_esAsignable_requerido" xml:space="preserve">
+    <value>Debe indicar si el beneficio del plan exequial es asignable o no</value>
+  </data>
+  <data name="beneficiosPlanExequial_save_estadoId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del estado</value>
+  </data>
+  <data name="beneficiosPlanExequial_save_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="beneficiosPlanExequial_save_valor_requerido" xml:space="preserve">
+    <value>Debe indicar el valor del beneficio del plan exequial</value>
+  </data>
+  <data name="beneficiosPlanExequial_update_beneficioId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del beneficio</value>
+  </data>
+  <data name="beneficiosPlanExequial_update_esAsignable_longitud" xml:space="preserve">
+    <value>El valor si es asignable o no debe ser '1' si es verdadero o '0' si es falso</value>
+  </data>
+  <data name="beneficiosPlanExequial_update_esAsignable_requerido" xml:space="preserve">
+    <value>Debe indicar si el beneficio del plan exequial es asignable o no</value>
+  </data>
+  <data name="beneficiosPlanExequial_update_estadoId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del estado</value>
+  </data>
+  <data name="beneficiosPlanExequial_update_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del beneficio del plan exequial</value>
+  </data>
+  <data name="beneficiosPlanExequial_update_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="beneficiosPlanExequial_update_valor_requerido" xml:space="preserve">
+    <value>Debe indicar el valor del beneficio del plan exequial</value>
+  </data>
+  <data name="beneficiosPlanExequial_save_cantidadAsignables_requerido" xml:space="preserve">
+    <value>Debe indicar la cantidad de beneficiarios asignables al beneficio</value>
+  </data>
+  <data name="beneficiosPlanExequial_update_cantidadAsignables_requerido" xml:space="preserve">
+    <value>Debe indicar la cantidad de beneficiarios asignables al beneficio</value>
+  </data>
+  <data name="beneficiosPlanExequial_tipos_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="beneficiosPlanExequial_getall_TipoId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del tipo de beneficio</value>
+  </data>
+  <data name="zonificacion_savedireccionconnomenclatura_barrio_requerido" xml:space="preserve">
+    <value>Debe indicar el barrio de la dirección</value>
+  </data>
+  <data name="zonificacion_savedireccionconnomenclatura_viaprincipal_requerido" xml:space="preserve">
+    <value>Debe indicar la vía principal de la dirección</value>
+  </data>
+  <data name="zonificacion_savedireccionsinnomenclatura_barrio_requerido" xml:space="preserve">
+    <value>Debe indicar el barrio de la dirección</value>
+  </data>
+  <data name="zonificacion_savedireccionsinnomenclatura_nombre_max_longitud" xml:space="preserve">
+    <value>La longitud del nombre de la dirección no puede ser superior a 150 caracteres</value>
+  </data>
+  <data name="zonificacion_savedireccionsinnomenclatura_nombre_requerido" xml:space="preserve">
+    <value>Debe indicar el nombre de la dirección</value>
+  </data>
+  <data name="zonificacion_savedireccionsinnomenclatura_pista_max_longitud" xml:space="preserve">
+    <value>La longitud de la pista de la dirección no puede ser superior a 300 caracteres</value>
+  </data>
+  <data name="zonificacion_savedireccionconnomenclaturausa_nombrevia_requerido" xml:space="preserve">
+    <value>Debe indicar el nombre de la vía</value>
+  </data>
+  <data name="zonificacion_savedireccionconnomenclaturausa_numero_requerido" xml:space="preserve">
+    <value>Debe indicar el número de la dirección</value>
+  </data>
+  <data name="zonificacion_savedireccionconnomenclaturausa_porton_max_longitud" xml:space="preserve">
+    <value>La longitud del número de la dirección no puede ser superior a 20 caracteres</value>
+  </data>
+  <data name="zonificacion_savedireccionconnomenclaturausa_tipovia_requerido" xml:space="preserve">
+    <value>Debe indicar el tipo de vía de la dirección</value>
+  </data>
+  <data name="zonificacion_savedireccionconnomenclaturausa_zipcode_requerido" xml:space="preserve">
+    <value>Debe indicar el ZipCode de la dirección</value>
+  </data>
+  <data name="zonificacion_savedireccionconnomenclatura_porton_max_longitud" xml:space="preserve">
+    <value>La longitud del portón de la dirección no puede ser superior a 20 caracteres</value>
+  </data>
+  <data name="zonificacion_savedireccionconnomenclatura_porton_requerido" xml:space="preserve">
+    <value>Debe indicar el portón de la dirección</value>
+  </data>
+  <data name="zonificacion_savedireccionconnomenclatura_viasecundaria_requerido" xml:space="preserve">
+    <value>Debe indicar la vía secundaría de la dirección</value>
+  </data>
+  <data name="zonificacion_savedireccionsinnomenclaturausa_nombre_max_longitud" xml:space="preserve">
+    <value>La longitud del nombre de la dirección no puede ser superior a 150 caracteres</value>
+  </data>
+  <data name="zonificacion_savedireccionsinnomenclaturausa_nombre_requerido" xml:space="preserve">
+    <value>Debe indicar el nombre de la dirección</value>
+  </data>
+  <data name="zonificacion_savedireccionsinnomenclaturausa_zipcode_requerido" xml:space="preserve">
+    <value>Debe indicar el ZipCode de la dirección</value>
+  </data>
+  <data name="empresasPlanExequial_getall_organizacionId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id de la organización</value>
+  </data>
+  <data name="empresasPlanExequial_getall_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="sucursalesPlanExequial_getall_empresaOrganizacionId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id de la empresa-organización</value>
+  </data>
+  <data name="sucursalesPlanExequial_getall_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="sucursalPlanExequial_update_asignadoAlPlan_requerido" xml:space="preserve">
+    <value>Debe indicar si la sucursal se asigna al plan o no</value>
+  </data>
+  <data name="sucursalPlanExequial_update_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="sucursalPlanExequial_update_sucursald_requerido" xml:space="preserve">
+    <value>Debe indicar el Id de la sucursal</value>
+  </data>
+  <data name="planExequialRecaudoMasivo_getall_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="planExequialRecaudoMasivo_delete_Id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del recaudo masivo plan exequial</value>
+  </data>
+  <data name="planExequialRecaudoMasivo_save_esObligatorio_requerido" xml:space="preserve">
+    <value>Debe indicar si el recaudo es obligatorio o no</value>
+  </data>
+  <data name="planExequialRecaudoMasivo_save_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="planExequialRecaudoMasivo_save_recaudoMasivoId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del recaudo masivo</value>
+  </data>
+  <data name="planExequialRecaudoMasivo_update_esObligatorio_requerido" xml:space="preserve">
+    <value>Debe indicar si el recaudo masivo es obligatorio o no</value>
+  </data>
+  <data name="planExequialRecaudoMasivo_update_id_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del convenio de recaudo del plan exequial</value>
+  </data>
+  <data name="planExequialRecaudoMasivo_update_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del plan exequial</value>
+  </data>
+  <data name="planExequialRecaudoMasivo_update_recaudoMasivoId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id de recaudo masivo</value>
+  </data>
+  <data name="planExequialRecaudoMasivo_puedeEliminar_id_requerido" xml:space="preserve">
+    <value>Debe indicar el id del recaudo masivo del plan exequial</value>
+  </data>
+  <data name="afiliaciones_convenioRecaudoMasivo_getall_planExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id del Plan Exequial</value>
+  </data>
+  <data name="afiliaciones_grupoInformal_getall_gruposByContacto_personaId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id de la persona encargada del grupo informal</value>
+  </data>
+  <data name="afiliaciones_grupoInformalEmpleado_getall_grupoId_requerido" xml:space="preserve">
+    <value>Debe indicar el id del grupo informal</value>
+  </data>
+  <data name="beneficiosPlanExequial_save_beneficioPlanExequialId_requerido" xml:space="preserve">
+    <value>Debe indicar el id del beneficio del plan exequial</value>
+  </data>
+  <data name="beneficiosPlanExequial_getall_categoriaId_requerido" xml:space="preserve">
+    <value>Debe indicar el Id de la categoría del beneficio</value>
+  </data>
+  <data name="bowAfiliacionPlanExequial_sucursalId_requerido" xml:space="preserve">
+    <value>Debe indicar el id de la sucursal</value>
+  </data>
+  <data name="bowAfiliacionPlanExequial_tipoPlan_requerido" xml:space="preserve">
+    <value>Debe indicar el tipo de plan exequial</value>
+  </data>
+</root>

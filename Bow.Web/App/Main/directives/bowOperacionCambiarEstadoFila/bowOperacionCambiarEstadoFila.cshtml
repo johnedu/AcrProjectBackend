@@ -1,0 +1,22 @@
+﻿<span ng-show="mostrarOperacion">
+    <button class="btn btn-info btn-circle btn-lg" ng-show="{{estadoActualActivo}}" ng-click="mostrarConfirmacion()" title="{{mensajeTooltipActivo}}">
+        <em class="fa fa-caret-square-o-up"></em>
+    </button>
+    <button class="btn btn-info btn-circle btn-lg" ng-hide="{{estadoActualActivo}}" ng-click="mostrarConfirmacion()" title="{{mensajeTooltipInactivo}}">
+        <em class="fa fa-caret-square-o-down"></em>
+    </button>
+</span>
+<span ng-hide="mostrarOperacion">
+    <span ng-show="{{estadoActualActivo}}">
+        {{mensajeConfirmacionActivo}}
+    </span>
+    <span ng-hide="{{estadoActualActivo}}">
+        {{mensajeConfirmacionInactivo}}
+    </span>
+    <button class="btn btn-success btn-circle btn-lg" ng-click="confirmacionOk()" title="{{mensajeOk}}">
+        <em class="fa fa-check"></em>
+    </button>
+    <button class="btn btn-warning btn-circle btn-lg" ng-click="confirmacionCancel()" title="{{mensajeCancel}}">
+        <em class="fa fa-close"></em>
+    </button>
+</span>

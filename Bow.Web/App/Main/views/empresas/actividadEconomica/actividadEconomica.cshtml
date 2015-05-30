@@ -1,0 +1,173 @@
+﻿<div class="app-container" ng-controller="app.views.empresas.actividadEconomica as vm">
+    <div class="app-view-header page-header">
+        @L("empresas_actividadEconomica_titulo")
+        <small>@L("empresas_actividadEconomica_subtitulo")</small>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                    <span ng-if="!vm.editandoActividad">@L("empresas_actividadEconomica_nuevo")</span>
+                    <span ng-if="vm.editandoActividad">@L("empresas_actividadEconomica_editar") {{vm.nombreActividadEditar | uppercase}}</span>
+                </div>
+                <div class="panel-body" ng-form="frmActividad">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group" ng-class="{'has-error' : frmActividad.iptCodigoActividadEconomica.$dirty && frmActividad.iptCodigoActividadEconomica.$invalid}">
+                                <label class="control-label" for="iptCodigoActividadEconomica">@L("empresas_actividadEconomica_modalNuevaActividad_codigoActividad")</label>
+                                <input type="text" ng-pattern="/^[0-9]+$/" class="form-control" id="iptCodigoActividadEconomica" name="iptCodigoActividadEconomica" placeholder=@L("empresas_actividadEconomica_modalNuevaActividad_codigoActividad") ng-model="vm.nuevaActividad.codigo" required maxlength="8" />
+                                <div ng-show="frmActividad.iptCodigoActividadEconomica.$dirty && frmActividad.iptCodigoActividadEconomica.$invalid">
+                                    <small ng-show="frmActividad.iptCodigoActividadEconomica.$error.required" class="text-danger">
+                                        @L("empresas_actividadEconomica_modalNuevaActividad_codigoRequerido")
+                                    </small>
+                                    <small ng-show="frmActividad.iptCodigoActividadEconomica.$error.pattern" class="text-danger">
+                                        @L("empresas_actividadEconomica_modalNuevaActividad_codigoNumerico")
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-class="{'has-error' : frmActividad.iptNombreActividadEconomica.$dirty && frmActividad.iptNombreActividadEconomica.$invalid}">
+                                <label class="control-label" for="iptNombreActividadEconomica">@L("empresas_actividadEconomica_modalNuevaActividad_nombreActividad")</label>
+                                <textarea type="text" class="form-control" id="iptNombreActividadEconomica" name="iptNombreActividadEconomica" placeholder="@L("empresas_actividadEconomica_modalNuevaActividad_nombreActividad")" ng-model="vm.nuevaActividad.nombre" required maxlength="200" />
+                                <div ng-show="frmActividad.iptNombreActividadEconomica.$dirty && frmActividad.iptNombreActividadEconomica.$invalid">
+                                    <small ng-show="frmActividad.iptNombreActividadEconomica.$error.required" class="text-danger">
+                                        @L("empresas_actividadEconomica_modalNuevaActividad_nombreRequerido")
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button class="btn btn-success btn-circle btn-lg" ng-click="vm.saveOrUpdateActividad()" ng-disabled="frmActividad.$invalid" title='@L("empresas_actividadEconomica_modalNuevaActividad_guardarActividadToolTip")'>
+                                    <em class="fa fa-save"></em>
+                                </button>
+                                &nbsp;
+                                <button class="btn btn-warning btn-circle btn-lg" ng-click="vm.cancelarUpdateActividad()" title='@L("empresas_actividadEconomica_modalNuevaActividad_cancelarActividadToolTip")'>
+                                    <em class="fa" ng-class="{'fa-ban': vm.editandoActividad, 'fa-eraser': !vm.editandoActividad}"></em>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                    {{vm.actividadesEconomicas.totalFilas}} @L("empresas_actividadEconomica_modalNuevaActividad_actividadesRegistradas")
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr ng-repeat="actividadEconomica in vm.actividadesEconomicas.filasMostrar track by $index"
+                                            ng-mouseenter="vm.controles.mostrar($index)"
+                                            ng-mouseleave="vm.controles.ocultar($index)">
+                                            <td>
+                                                <h4 class="media-heading">
+                                                    {{actividadEconomica.nombre}}
+                                                </h4>
+                                                <span class="text-muted">
+                                                    @L("")Código {{actividadEconomica.codigo}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="pull-right" ng-show="vm.controles.visible[$index] && !vm.editandoActividad">
+                                                    <button class="btn btn-success btn-circle btn-lg" ng-click="vm.editarActividad(actividadEconomica)" ng-hide="vm.eliminandoActividad" title="@L("empresas_actividadEconomica_modalNuevaActividad_actividadEditar")">
+                                                        <em class="fa fa-pencil"></em>
+                                                    </button>
+                                                    &nbsp;
+                                                    <bow-operacion-eliminar-fila mensaje-confirmacion='@L("empresas_actividadEconomica_modalNuevaActividad_confirmacionEliminar")'
+                                                                                 mensaje-tooltip='@L("empresas_actividadEconomica_modalNuevaActividad_eliminarActividadTooltip")'
+                                                                                 operacion-puede-eliminar="vm.puedeEliminarActividad(actividadEconomica.id, funcionRetornarPuedeEliminar)"
+                                                                                 no-puede-eliminar="vm.noPuedeEliminar()"
+                                                                                 confirmacion-ok="vm.eliminarActividadOk(actividadEconomica)"
+                                                                                 confirmacion-cancel="vm.eliminarActividadCancel()">
+                                                    </bow-operacion-eliminar-fila>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-right">
+                                    <pagination ng-show="vm.actividadesEconomicas.filasPorPagina < vm.actividadesEconomicas.totalFilas" items-per-page="vm.actividadesEconomicas.filasPorPagina"
+                                                total-items="vm.actividadesEconomicas.totalFilas"
+                                                ng-model="vm.actividadesEconomicas.paginaActual"
+                                                ng-change="vm.actividadesEconomicas.pageChanged()"
+                                                class="pagination-sm"></pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="container" ng-controller="app.views.empresas.actividadEconomica as vm">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1>@L("empresas_actividadEconomica_titulo")</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <a ng-click="vm.abrirModalNuevaActividadEconomica()" title="@L("empresas_actividadEconomica_nueva")">@L("empresas_actividadEconomica_nuevaActividad") <span class="glyphicon glyphicon-plus-sign font-size-16"></span></a>
+            </div>
+            <div class="col-md-6 text-right">
+                <p>{{ vm.actividadesEconomicas.totalFilas }} @L("empresas_actividadEconomica_cantidad")</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>@L("empresas_actividadEconomica_lbNombreAcividad")</th>
+                            <th class="text-center">@L("empresas_actividadEconomica_lbCodigo")</th>
+                            <th class="text-center">@L("empresas_actividadEconomica_operacionEditar")</th>
+                            <th class="text-center">@L("empresas_actividadEconomica_operacionEliminar")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="actividadEconomica in vm.actividadesEconomicas.filasMostrar track by $index">
+
+                            <td>
+                                {{actividadEconomica.nombre}}
+                            </td>
+                            <td class="text-center">
+                                {{actividadEconomica.codigo}}
+                            </td>
+                            <td class="text-center">
+                                <a ng-click="vm.abrirModalEditarActividadEconomica(actividadEconomica.id)" title="@L("empresas_actividadEconomica_operacionEditarTooltip")"><span class="glyphicon glyphicon-pencil"></span></a>
+                            </td>
+                            <td class="text-center">
+                                <a ng-click="eliminarActividad(actividadEconomica.id,$index)" ng-show="!mensajeEliminar[$index]" title="@L("empresas_actividadEconomica_eliminarOpcion_btEliminarTooltip")"><span class="glyphicon glyphicon-trash font-size-16"></span></a>
+                                <div ng-show="mensajeEliminar[$index]">
+                                    @L("empresas_actividadEconomica_eliminarActividad_confirmacion")<br />
+                                    <button class="btn btn-success btn-xs" ng-click="eliminarOpcionOk(actividadEconomica.id, $index)">@L("empresas_actividadEconomica_eliminarOpcion_btEliminar")</button>
+                                    <button class="btn btn-danger btn-xs" ng-click="eliminarOpcionCancel($index)">@L("empresas_actividadEconomica_eliminarOpcion_btCancelar")</button>
+                                </div>
+                            </td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <pagination items-per-page="vm.actividadesEconomicas.filasPorPagina"
+                                total-items="vm.actividadesEconomicas.totalFilas"
+                                ng-model="vm.actividadesEconomicas.paginaActual"
+                                ng-change="vm.actividadesEconomicas.pageChanged()"
+                                class="pagination-sm"></pagination>
+                </div>
+            </div>
+        </div>
+
+    </div>*@

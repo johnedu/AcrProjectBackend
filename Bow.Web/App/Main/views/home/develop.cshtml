@@ -1,0 +1,89 @@
+﻿<div ng-controller="app.views.develop as vm">
+    <em class="icon-cross"></em>
+    <i class="fa fa-anchor"></i>
+    <i class="icon-square-cross"></i>
+    <div class="btn-switch mb mr btn-switch-primary">
+        <input type="checkbox" id="input-btn-switch-primary" checked="checked" />
+        <label for="input-btn-switch-primary" class="btn btn-primary">
+            <em class="fa fa-check"></em>Tiene Documento
+        </label>
+    </div>
+    <a ng-click="vm.abrirModalRegistrarDireccion()" title="@L("")">
+        @L("")Registrar Direccion<span class="glyphicon glyphicon-plus-sign font-size-16"></span>
+    </a>
+
+    <a ng-click="vm.abrirModalRegistrarTelefono()" title="@L("")">
+        @L("")Registrar Teléfono<span class="glyphicon glyphicon-plus-sign font-size-16"></span>
+    </a>
+
+    <div>
+        <button bow-modalpersona ng-model="personaEstadoNuevo" titulo="Nueva persona" fecha-nacimiento-required="true" bow-personaregistrada="mostrarPersona(persona)">Nueva Persona</button>
+        <button bow-modalpersona ng-model="personaEstadoEditar" titulo="Editar persona" fecha-nacimiento-required="true" bow-personaregistrada="mostrarPersona(persona)">Editar Persona</button>
+        <button bow-modalpersona ng-model="personaEstadoConsultar" titulo="Consultar persona" fecha-nacimiento-required="true" bow-personaregistrada="mostrarPersona(persona)">Consultar Persona</button>
+    </div>
+
+    @*<a ng-click="vm.abrirModalGestionarNuevaPersona({personaId: 16, estado: 'E'})" title="@L("")">@L("")Editar Persona<span class="glyphicon glyphicon-plus-sign font-size-16"></span></a>
+        <a ng-click="vm.abrirModalGestionarNuevaPersona({personaId: 0, estado: 'N'})" title="@L("")">@L("")Registrar Nueva persona<span class="glyphicon glyphicon-plus-sign font-size-16"></span></a>
+        <a ng-click="vm.abrirModalGestionarNuevaPersona({personaId: 16, estado: 'C'})" title=" @L("") ">@L("")Consultar persona<span class="glyphicon glyphicon-plus-sign font-size-16"></span></a>*@
+
+    <div>
+        @*<bow-buscarsucursal ng-model="selectedSucursal" ng-required="false" titulolabel="@L("empresas_sucursales_sucursal")" tituloplaceholder="@L("empresas_sucursales_sucursal")" bow-seleccionosucursal="seleccionoSucursal(sucursal)"></bow-buscarsucursal>*@
+    </div>
+
+    <div>
+        @*<bow-buscarnombrepersona ng-model="selectedNombre" titulolabel="@L("")Nombres" tituloplaceholder="@L("")Nombres" bow-selecciononombre="seleccionoNombre(nombre)"></bow-buscarnombrepersona>*@
+    </div>
+
+    <div>
+        @*<bow-buscarapellidopersona ng-model="selectedApellido" titulolabel="@L("")Apellidos" tituloplaceholder="@L("")Apellido" bow-seleccionoapellido="seleccionoApellido(apellido)"></bow-buscarapellidopersona>*@
+    </div>
+
+    @*<br />
+        <button bow-modalnuevadireccion bow-nuevadireccionregistrada="mostrarDireccion(direccion)">Prueba</button>
+        <br />*@
+    <div>
+        @*<button bow-modalbuscarempleado titulo="Buscador Empleado Modal" bow-seleccionoempleado="seleccionoEmpleado(empleadoSeleccion)">Buscador Empleado</button>*@
+    </div>
+
+    <div>
+        @*<bow-buscarempleado bow-seleccionoempleado="seleccionoEmpleado(empleadoSeleccion)"></bow-buscarempleado>*@
+    </div>
+
+    <div>
+        <button bow-modalbuscarpersona titulo="Buscador Persona Modal" bow-seleccionopersona="seleccionoPersona(personaSeleccion)">Buscador Persona</button>
+    </div>
+
+    <div>
+        @*<bow-buscarpersona bow-seleccionopersona="seleccionoPersona(personaSeleccion)"></bow-buscarpersona>*@
+    </div>
+
+    <div>
+        @*<bow-persona ng-model="personaEstadoNuevo" fecha-nacimiento-required="false" bow-registro-persona="mostrarPersona(persona)" mostrar-auditoria="false"></bow-persona>*@
+    </div>
+
+    <a ui-sref="clienteProspecto">@L("")Cliente prospecto<i class="fa fa-car font-size-16"></i></a>
+    <a ui-sref="seguridad">sssseguridad<i class="fa fa-bed font-size-16"></i></a>
+
+    <div>
+        @*<button bow-modalbuscarpersona-grupoinformal titulo="Buscador Persona Modal" bow-seleccionopersona="seleccionoPersona(personaSeleccion)">Buscador Persona Grupo Informal</button>*@
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <bow-nuevotelefono></bow-nuevotelefono>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="btn btn-info" ngf-select ngf-change="upload($files)">Upload to AWS</div>
+        </div>
+    </div>
+</div>
+<div ng-controller="UploadCtrl">
+    <div class="row bow-margin-top-10">
+        <div class="col-md-12">
+            <div class="btn btn-info" ngf-select ngf-change="onFileSelect($files)">Upload to Bow Server</div>
+        </div>
+    </div>
+</div>

@@ -73,15 +73,7 @@ namespace Bow.Web.Controllers
                     break;
                 case AbpLoginResultType.InvalidUserNameOrEmailAddress:
                 case AbpLoginResultType.InvalidPassword:
-                    User usuario = new User();
-                    usuario.TenantId = 1;
-                    usuario.UserName = loginModel.Username;
-                    usuario.Name = "ACR";
-                    usuario.Surname = "ACR";
-                    usuario.EmailAddress = "acr@gmail.com";
-                    usuario.IsEmailConfirmed = true;
-                    var result = await _userManager.CreateAsync(usuario, loginModel.Password);
-                    throw new UserFriendlyException("Es la primera vez que ingresa al sitio web administrativo, por favor vuelva a ingresar el nombre de usuario y contraseña");
+                    throw new UserFriendlyException("Invalid user name or password!");
                 case AbpLoginResultType.InvalidTenancyName:
                     throw new UserFriendlyException("No tenant with name: " + loginModel.TenancyName);
                 case AbpLoginResultType.TenantIsNotActive:

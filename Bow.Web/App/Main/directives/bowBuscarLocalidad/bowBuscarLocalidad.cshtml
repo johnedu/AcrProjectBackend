@@ -1,0 +1,31 @@
+﻿<div ng-form="formBuscarLocalidad" class="form-group" ng-class="{'has-error' : formBuscarLocalidad.iptLocalidad.$dirty && formBuscarLocalidad.iptLocalidad.$invalid}">
+    <label class="control-label" for="iptLocalidad">{{titulo}}</label>
+    <div ng-show="!disabled">
+        <input id="iptLocalidad"
+               placeholder="{{titulo}}"
+               name="iptLocalidad"
+               type="text"
+               ng-model="selected"
+               class="form-control"
+               typeahead-editable="false"
+               typeahead={{exprMostrar}}
+               typeahead-on-select="onSelect($item, $model, $label)"
+               required>
+        <div ng-show="formBuscarLocalidad.iptLocalidad.$dirty && formBuscarLocalidad.iptLocalidad.$invalid">
+            <small ng-show="formBuscarLocalidad.iptLocalidad.$error.required" class="text-danger">
+                @L("zonificacion_telefono_registrar_localidadRequerida")
+            </small>
+            <small ng-show="formBuscarLocalidad.iptLocalidad.$invalid && !formBuscarLocalidad.iptLocalidad.$error.required" class="text-danger">
+                @L("zonificacion_telefono_registrar_localidadNoSeleccionada")
+            </small>
+        </div>
+    </div>
+    <div ng-show="disabled && selected">
+        <label class="control-label" ng-show="mostrarindicativo">
+            {{selected.localidad}} - {{selected.departamento}} ({{selected.departamentoIndicativo}}), {{selected.pais}} ({{selected.paisIndicativo}})
+        </label>
+        <label class="control-label" ng-show="!mostrarindicativo">
+            {{selected.localidad}} - {{selected.departamento}}, {{selected.pais}}
+        </label>
+    </div>
+</div>

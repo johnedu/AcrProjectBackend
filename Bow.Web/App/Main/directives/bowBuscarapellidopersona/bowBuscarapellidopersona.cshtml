@@ -1,0 +1,11 @@
+﻿<div class="text-left">
+    <label class="control-label" for="iptApellido" ng-show="mostrarTitulo">{{titulolabel}}</label>
+    <input id="iptApellido"
+           placeholder="{{tituloplaceholder}}"
+           name="iptApellido"
+           maxlength="50"
+           type="text"
+           ng-model="selected"
+           class="form-control"
+           typeahead="apellido for apellido in apellidos | filter: $viewValue | limitTo:10">
+</div>

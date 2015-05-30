@@ -1,0 +1,142 @@
+﻿<div class="container" ng-controller="app.views.afiliaciones.infoAfiliacionVenta as vm">
+    <div class="modal-header text-center">
+        <h2>@L("afiliaciones_infoAfiliacionVenta_titulo")</h2>
+    </div>
+    <div class="alert alert-danger text-center" ng-show="mensajeError">
+        <strong>{{mensajeError}}</strong>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <bow-info-afiliacion-venta modo-consulta="modoConsulta"
+                                       bow-validar-seleccion="validarSeleccion(modelo)"
+                                       control-operaciones="controlAfiliacionVenta">
+            </bow-info-afiliacion-venta>
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <button type="button" class="btn btn-warning" ng-click="consultarSeleccionado()">@L("")Consultar Modelos Seleccionados</button>
+                    <button type="button" class="btn btn-warning" ng-click="asignarModelos()">@L("")Asignar Modelos</button>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <input type="checkbox" class="checkbox" ng-model="modoConsulta" />
+                        </div>
+                        &nbsp;&nbsp; @L("")Modo Consulta
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="line-top"></div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <bow-afiliacion-tipo-plan-exequial modo-consulta="modoConsultaTipoPlanExequial"
+                                               bow-selecciono-modelo="validarSeleccionTipoPlanExequial(tipoPlanExequial)"
+                                               control-operaciones="controlAfiliacionTipoPlanExequial">
+            </bow-afiliacion-tipo-plan-exequial>
+            <br />
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-warning" ng-click="consultarTipoPlanExequialSeleccionado()">@L("")Consultar Tipo Plan Seleccionado</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-warning" ng-click="asignarTipoPlanExequial()">@L("")Asignar Tipo Plan</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <input type="checkbox" class="checkbox" ng-model="modoConsultaTipoPlanExequial" />
+                        </div>
+                        &nbsp;&nbsp; @L("")Modo Consulta
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="line-top"></div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <bow-afiliacion-recaudo-localidad modo-consulta="modoConsultaRecaudoLocalidad"
+                                              bow-selecciono-modelo="obtenerSeleccionRecaudoLocalidad(recaudoMasivo)"
+                                              control-operaciones="controlAfiliacionRecaudoLocalidad">
+            </bow-afiliacion-recaudo-localidad>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-warning" ng-click="listarRecaudosLocalidad()">@L("")Listar Recaudos</button>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-warning" ng-click="asignarRecaudoLocalidad()">@L("")Asignar Recaudo</button>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-warning" ng-click="consultarRecaudoLocalidadSeleccionado()">@L("")Consultar Recuado</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <input type="checkbox" class="checkbox" ng-model="modoConsultaRecaudoLocalidad" />
+                </div>
+                &nbsp;&nbsp; @L("")Modo Consulta
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="line-top"></div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <bow-afiliacion-plan-exequial modo-consulta="modoConsultaPlanExequial"
+                                          bow-selecciono-modelo="validarSeleccionPlanExequial(planExequial)"
+                                          control-operaciones="controlAfiliacionPlanExequial">
+            </bow-afiliacion-plan-exequial>
+            <br />
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-warning" ng-click="consultarPlanExequialSeleccionado()">@L("")Consultar Plan Seleccionado</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-warning" ng-click="asignarModelosPlanExequial()">@L("")Listar Planes Exequiales</button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-warning" ng-click="asignarPlanExequial()">@L("")Asignar Plan Exequial</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-warning" ng-click="asignarBeneficiosPlanExequial()">@L("")Asignar Beneficios Plan Exequial</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <input type="checkbox" class="checkbox" ng-model="modoConsultaPlanExequial" />
+                        </div>
+                        &nbsp;&nbsp; @L("")Modo Consulta
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</div>
+
+
+

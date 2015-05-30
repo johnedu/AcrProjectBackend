@@ -8,7 +8,6 @@
     /* DEFAULTS *************************************************/
 
     toastr.options.positionClass = 'toast-bottom-right';
-    toastr.options.closeButton = true;
 
     /* NOTIFICATION *********************************************/
 

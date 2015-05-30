@@ -1,0 +1,196 @@
+﻿<script type="text/ng-template" id="customTemplate.html">
+    <a>
+        <span bind-html-unsafe="match.model.nombre | typeaheadHighlight:query"></span>
+    </a>
+</script>
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-10">
+            <h3>{{nombreConvenioRecaudo}}</h3>
+        </div>
+        <div class="col-md-2 text-right">
+            <button class="btn btn-danger btn-circle btn-lg" ng-click="cancelModal()">
+                <em class="fa fa-close"></em>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="alert alert-danger text-center" ng-show="mensajeError">
+        <strong>{{mensajeError}}</strong>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row" ng-show="mostrarLocalidadesLista">
+                <div class="col-md-3">
+                    <button class="btn btn-success btn-circle btn-lg" ng-click="mostrarFormularioAsignarLocalidad()" title="@L("empresas_empresaOrganizacion_modalLocalidades_asignar_tooltip")">
+                        <em class="fa fa-plus"></em>
+                    </button>
+                </div>
+                <div class="col-md-6 text-center">
+                    <h4>{{listaLocalidadesTabla.totalFilas}} <span ng-show="listaLocalidadesTabla.totalFilas == '1'">@L("empresas_empresaOrganizacion_modalLocalidades_tabla_conteo_1localidad")</span><span ng-hide="listaLocalidadesTabla.totalFilas == '1'">@L("empresas_empresaOrganizacion_modalLocalidades_tabla_conteo_masde1localidad")</span></h4>
+                </div>
+                <div class="col-md-3 text-right">
+                    <button class="btn btn-warning btn-circle btn-lg" ng-click="mostrarFormularioEliminarLocalidad()" title="@L("empresas_empresaOrganizacion_modalLocalidades_btn_eliminar")">
+                        <em class="fa fa-trash"></em>
+                    </button>
+                </div>
+            </div>
+            <div ng-show="mostrarLocalidadesLista" class="bow-padding-top-10">
+                <form role="form" name="formLocalidad">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input id="iptLocalidad" name="iptLocalidad" type="text" ng-model="selected" class="form-control" typeahead-editable="false" ng-change="validarTypeaheadVacio(selected.id)"
+                                   typeahead="localidad as localidad.nombre for localidad in filterByLocalidadAndDepartamentoAndPais(localidades, $viewValue)" placeholder="@L("empresas_empresaOrganizacion_modalLocalidades_filtrar_titulo")"
+                                   typeahead-template-url="customTemplate.html" typeahead-on-select="cargarLocalidadesLista(selected.id, selected.nombre, selected.tipoEntrada)" required>
+                            <div ng-show="formLocalidad.iptLocalidad.$dirty && formLocalidad.iptLocalidad.$invalid">
+                                <small ng-show="formLocalidad.iptLocalidad.$invalid && !formLocalidad.iptLocalidad.$error.required" class="text-danger">
+                                    @L("empresas_empresaOrganizacion_modalLocalidades_filtrar_noSeleccionado")
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="localidad in listaLocalidadesTabla.filasMostrar track by $index">
+                                        <td>
+                                            <h4 class="media-heading">
+                                                <i class="fa fa-map-marker fa-2x text-primary"></i>&nbsp;&nbsp;&nbsp;{{localidad.nombre}}
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <pagination items-per-page="listaLocalidadesTabla.filasPorPagina"
+                                            total-items="listaLocalidadesTabla.totalFilas"
+                                            ng-model="listaLocalidadesTabla.paginaActual"
+                                            ng-change="listaLocalidadesTabla.pageChanged()"
+                                            class="pagination-sm"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-hide="mostrarLocalidadesLista">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form role="form" name="formAsignarOrEliminarLocalidad">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label ng-show="mostrarFormulario == 'Asignar'" class="control-label">@L("empresas_empresaOrganizacion_modalLocalidades_asignar_titulo")</label>
+                                    <label ng-show="mostrarFormulario == 'Eliminar'" class="control-label">@L("empresas_empresaOrganizacion_modalLocalidades_eliminar_titulo")</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 bow-padding-bottom-15">
+                                    <div class="btn-group">
+                                        <div class="radio-inline c-radio">
+                                            <label>
+                                                <input type="radio" name="i-radio" value="P" checked="checked" ng-model="opcionBusqueda" ng-change="cambiarListaFiltro()">
+                                                <span class="fa fa-globe"></span>@L("empresas_empresaOrganizacion_modalLocalidades_radiobtn_pais")
+                                            </label>
+                                        </div>
+                                        <div class="radio-inline c-radio">
+                                            <label>
+                                                <input type="radio" name="i-radio" value="D" checked="checked" ng-model="opcionBusqueda" ng-change="cambiarListaFiltro()">
+                                                <span class="fa fa-globe"></span>@L("empresas_empresaOrganizacion_modalLocalidades_radiobtn_departamento")
+                                            </label>
+                                        </div>
+                                        <div class="radio-inline c-radio">
+                                            <label>
+                                                <input type="radio" name="i-radio" value="L" checked="checked" ng-model="opcionBusqueda" ng-change="cambiarListaFiltro()">
+                                                <span class="fa fa-map-marker"></span>@L("empresas_empresaOrganizacion_modalLocalidades_radiobtn_localidad")
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input id="iptAsignarLocalidad" name="iptAsignarLocalidad" type="text" ng-model="selectedAsignarOrEliminar" class="form-control" typeahead-editable="false"
+                                           typeahead="localidad as localidad.nombre for localidad in filterByLocalidadAndDepartamentoAndPaisAsignarOrEliminar(localidadesAsignarOrEliminar, $viewValue)"
+                                           typeahead-template-url="customTemplate.html" required typeahead-on-select="cargarLocalidadesListaAsignarEliminar(selectedAsignarOrEliminar.id, selectedAsignarOrEliminar.nombre)">
+                                    <div ng-show="formAsignarOrEliminarLocalidad.iptAsignarLocalidad.$dirty && formAsignarOrEliminarLocalidad.iptAsignarLocalidad.$invalid">
+                                        <small ng-show="formAsignarOrEliminarLocalidad.iptAsignarLocalidad.$error.required" class="text-danger">
+                                            @L("empresas_empresaOrganizacion_modalLocalidades_localidad_requerido")
+                                        </small>
+                                        <small ng-show="formAsignarOrEliminarLocalidad.iptAsignarLocalidad.$invalid && !formAsignarOrEliminarLocalidad.iptAsignarLocalidad.$error.required" class="text-danger">
+                                            @L("empresas_empresaOrganizacion_modalLocalidades_localidad_noSeleccionado")
+                                        </small>
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row" ng-show="selectedAsignarOrEliminar">
+                    <div class="col-md-12 text-right">
+                        <p>{{listaLocalidadesAsignarTabla.totalFilas}} <span ng-show="listaLocalidadesAsignarTabla.totalFilas == '1'">@L("empresas_empresaOrganizacion_modalLocalidades_tablaAsignar_conteo_1localidad")</span><span ng-hide="listaLocalidadesAsignarTabla.totalFilas == '1'">@L("empresas_empresaOrganizacion_modalLocalidades_tablaAsignar_conteo_masde1localidad")</span></p>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="localidad in listaLocalidadesAsignarTabla.filasMostrar track by $index">
+                                        <td>
+                                            <h4 class="media-heading">
+                                                <i class="fa fa-map-marker fa-2x text-primary"></i>&nbsp;&nbsp;&nbsp;{{localidad.nombre}}
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <pagination items-per-page="listaLocalidadesAsignarTabla.filasPorPagina"
+                                            total-items="listaLocalidadesAsignarTabla.totalFilas"
+                                            ng-model="listaLocalidadesAsignarTabla.paginaActual"
+                                            ng-change="listaLocalidadesAsignarTabla.pageChanged()"
+                                            class="pagination-sm"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success btn-circle btn-lg" ng-show="mostrarFormulario == 'Asignar' && !confirmacionAsignar" ng-click="asignarLocalidad()" ng-disabled="!selectedAsignarOrEliminar || listaLocalidadesAsignarTabla.totalFilas == '0'" title="@L("empresas_empresaOrganizacion_modalLocalidades_asignar_btn")">
+                        <em class="fa fa-save"></em>
+                    </button>
+                    @*<button ng-hide="confirmacionAsignar" ng-show="mostrarFormulario == 'Asignar'" class="btn btn-success" ng-click="asignarLocalidad()" ng-disabled="!selectedAsignarOrEliminar || listaLocalidadesAsignarTabla.totalFilas == '0'">@L("empresas_empresaOrganizacion_modalLocalidades_asignar_btn")</button>*@
+                    <div ng-show="mostrarFormulario == 'Asignar' && confirmacionAsignar && selectedAsignarOrEliminar">
+                        @L("empresas_empresaOrganizacion_modalLocalidades_asignar_confirmacion")
+                        <br />
+                        <button class="btn btn-success btn-circle btn-lg" ng-click="mostrarConfirmacionAsignar()" title="@L("empresas_empresaOrganizacion_modalLocalidades_asignar_confirmacion_si")">
+                            <em class="fa fa-check"></em>
+                        </button>
+                        <button class="btn btn-warning btn-circle btn-lg" ng-click="asignarCancel()" title="@L("empresas_empresaOrganizacion_modalLocalidades_asignar_confirmacion_no")">
+                            <em class="fa fa-times"></em>
+                        </button>
+                        @*<button class="btn btn-success" ng-click="mostrarConfirmacionAsignar()">@L("empresas_empresaOrganizacion_modalLocalidades_asignar_confirmacion_si")</button>
+                        <button class="btn btn-danger" ng-click="asignarCancel()">@L("empresas_empresaOrganizacion_modalLocalidades_asignar_confirmacion_no")</button>*@
+                    </div>
+                    <button class="btn btn-success btn-circle btn-lg" ng-hide="confirmacionEliminar || mostrarFormulario == 'Asignar'" ng-click="eliminarLocalidad()" ng-disabled="!selectedAsignarOrEliminar || listaLocalidadesAsignarTabla.totalFilas == '0'" title="@L("empresas_empresaOrganizacion_modalLocalidades_eliminar_btn")">
+                        <em class="fa fa-trash"></em>
+                    </button>
+                    <div ng-show="mostrarFormulario == 'Eliminar' && confirmacionEliminar && selectedAsignarOrEliminar">
+                        <span ng-show="opcionBusqueda == 'L'">@L("empresas_empresaOrganizacion_modalLocalidades_eliminar_confirmacion_localidad")</span><span ng-hide="opcionBusqueda == 'L'">@L("empresas_empresaOrganizacion_modalLocalidades_eliminar_confirmacion")</span>
+                        <br />
+                        <button class="btn btn-success btn-circle btn-lg" ng-click="mostrarConfirmacionEliminar()" title="@L("empresas_empresaOrganizacion_modalLocalidades_eliminar_confirmacion_si")">
+                            <em class="fa fa-check"></em>
+                        </button>
+                        <button class="btn btn-warning btn-circle btn-lg" ng-click="eliminarCancel()" title="@L("empresas_empresaOrganizacion_modalLocalidades_eliminar_confirmacion_no")">
+                            <em class="fa fa-times"></em>
+                        </button>
+                    </div>
+                    <button class="btn btn-warning btn-circle btn-lg" ng-hide="confirmacionAsignar || confirmacionEliminar" ng-click="cancelFormulario()" title="@L("empresas_empresaOrganizacion_modalLocalidades_eliminar_btn_cancelar")">
+                        <em class="fa fa-close"></em>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

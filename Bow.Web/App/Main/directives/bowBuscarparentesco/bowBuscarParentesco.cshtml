@@ -1,0 +1,21 @@
+﻿<div ng-form="formBuscarParentesco">
+    <label class="control-label" for="iptParentesco">{{titulolabel}}</label>
+    <input id="iptParentesco"
+           placeholder="{{tituloplaceholder}}"
+           name="iptParentesco"
+           type="text"
+           ng-model="selected"
+           class="form-control"
+           typeahead-editable="false"
+           typeahead="parentesco as parentesco.nombre for parentesco in parentescos | filter: $viewValue | limitTo:10"
+           typeahead-on-select="onSelect($item, $model, $label)"
+           ng-required="{{requerido}}">
+    <div ng-show="formBuscarParentesco.iptParentesco.$dirty && formBuscarParentesco.iptParentesco.$invalid">
+        <small ng-show="formBuscarParentesco.iptParentesco.$error.required" class="text-danger">
+            @L("directiva_buscarParentesco_parentescoRequerido")
+        </small>
+        <small ng-show="formBuscarParentesco.iptParentesco.$invalid && !formBuscarParentesco.iptParentesco.$error.required" class="text-danger">
+            @L("directiva_buscarParentesco_parentescoInvalido")
+        </small>
+    </div>
+</div>

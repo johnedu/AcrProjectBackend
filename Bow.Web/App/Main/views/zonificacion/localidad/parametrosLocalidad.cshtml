@@ -1,0 +1,497 @@
+﻿<div class="app-container" ng-controller="app.views.zonificacion.parametrosLocalidad as vm">
+    <div class="app-view-header page-header">
+        @L("zonificacion_parametrosLocalidad_titulo"){{vm.localidad.nombre}}
+        <small>{{vm.localidad.paisNombre}} - {{vm.localidad.departamentoNombre}}</small>
+        <a class="pull-right" ui-sref="zonificacionLocalidad({departamentoId:vm.localidad.departamentoId})">@L("zonificacion_zona_listaLocalidades")<i class="fa fa-chevron-left font-size-16"></i></a>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-2 visible-sm visible-xs">
+                        <div class="row text-center text-muted m0">
+                            <div class="col-xs-4 bb br pv-xxl clickable" ng-class="{'bg-info': vm.opcionParametro[0]}" ripple="" title='@L("zonificacion_parametrosLocalidad_opcion_tipo_orientacion")' ng-click="vm.opcionTipoOrientacion()">
+                                <em class="fa fa-arrows fa-2x mv"></em>
+                                <br />
+                                <span style="font-size:8pt">@L("zonificacion_parametrosLocalidad_opcion_tipo_orientacion")</span> 
+                                <span class="ripple"></span>
+                            </div>
+                            <div class="col-xs-4 bb br pv-xxl clickable" ng-class="{'bg-purple': vm.opcionParametro[1]}" ripple="" title='@L("zonificacion_parametrosLocalidad_opcion_sufijo")' ng-click="vm.opcionSufijo()">
+                                <em class="fa fa-font fa-2x mv"></em>
+                                <br />
+                                @L("zonificacion_parametrosLocalidad_opcion_sufijo")
+                                <span class="ripple"></span>
+                            </div>
+                            <div class="col-xs-4 bb br pv-xxl clickable" ng-class="{'bg-orange': vm.opcionParametro[2]}" ripple="" title='@L("zonificacion_parametrosLocalidad_opcion_avenida")' ng-click="vm.opcionAvenida()">
+                                <em class="fa fa-car fa-2x mv"></em>
+                                <br />
+                                @L("zonificacion_parametrosLocalidad_opcion_avenida")
+                                <span class="ripple"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 hidden-sm hidden-xs">
+                        <div class="row row-flush text-center text-muted m0">
+                            <div class="col-md-12 bb br pv-xxl clickable" ng-class="{'bg-info': vm.opcionParametro[0]}" ripple="" title='@L("zonificacion_parametrosLocalidad_opcion_tipo_orientacion")' ng-click="vm.opcionTipoOrientacion()">
+                                <em class="fa fa-arrows fa-2x mv"></em>
+                                <br />
+                                @L("zonificacion_parametrosLocalidad_opcion_tipo_orientacion")
+                                <span class="ripple"></span>
+                            </div>
+                        </div>
+                        <div class="row row-flush text-center text-muted m0">
+                            <div class="col-md-12 bb br pv-xxl clickable" ng-class="{'bg-purple': vm.opcionParametro[1]}" ripple="" title='@L("zonificacion_parametrosLocalidad_opcion_sufijo")' ng-click="vm.opcionSufijo()">
+                                <em class="fa fa-font fa-2x mv"></em>
+                                <br />
+                                @L("zonificacion_parametrosLocalidad_opcion_sufijo")
+                                <span class="ripple"></span>
+                            </div>
+                        </div>
+                        <div class="row row-flush text-center text-muted m0">
+                            <div class="col-md-12 bb br pv-xxl clickable" ng-class="{'bg-orange': vm.opcionParametro[2]}" ripple="" title='@L("zonificacion_parametrosLocalidad_opcion_avenida")' ng-click="vm.opcionAvenida()">
+                                <em class="fa fa-car fa-2x mv"></em>
+                                <br />
+                                @L("zonificacion_parametrosLocalidad_opcion_avenida")
+                                <span class="ripple"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10" ng-if="vm.opcionParametro[0]">
+                        <div class="p pv-xxl">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="panel panel-primary" ng-form="frmTipoOrientacion">
+                                        <div class="panel-heading bg-info">
+                                            @L("zonificacion_parametrosLocalidad_asignar_tipo_orientacion")
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" ng-class="{'has-error' : frmTipoOrientacion.selectTipos.$dirty && frmTipoOrientacion.selectTipos.$invalid}">
+                                                        <select ng-model="vm.torieLocalidad.tipoOrientacionId" ng-options="to.id as to.nombre for to in vm.tories " class="form-control" name="selectTipos" required>
+                                                            <option value="">@L("zonificacion_parametrosLocalidad_seleccione")</option>
+                                                        </select>
+                                                        <div ng-show="frmTipoOrientacion.selectTipos.$dirty && frmTipoOrientacion.selectTipos.$invalid">
+                                                            <small ng-show="frmTipoOrientacion.selectTipos.$error.required" class="text-danger">
+                                                                @L("zonificacion_parametrosLocalidad_tipo_orientacion_requerido")
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button class="btn btn-success btn-circle btn-lg pull-right" ng-click="vm.asignarTorieLocalidad()" ng-disabled="frmTipoOrientacion.$invalid" title='@L("zonificacion_parametrosLocalidad_tipoOrientacion_asignar")'>
+                                                        <em class="fa fa-save"></em>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading bg-info">
+                                            @L("zonificacion_parametrosLocalidad_tipo_orientacion_localidad")
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <tbody>
+                                                                <tr ng-repeat="torieLocalidad in vm.toriesLocalidad track by $index"
+                                                                    ng-mouseenter="vm.controlesTorie.mostrar($index)"
+                                                                    ng-mouseleave="vm.controlesTorie.ocultar($index)">
+                                                                    <td>
+                                                                        <h4 class="media-heading">
+                                                                            {{torieLocalidad.nombreTipoOrientacion}}
+                                                                        </h4>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="pull-right" ng-show="vm.controlesTorie.visible[$index]">
+                                                                            <bow-operacion-eliminar-fila mensaje-confirmacion='@L("zonificacion_parametrosLocalidad_eliminarTorieLocalidad_confirmacion")'
+                                                                                                         mensaje-tooltip='@L("zonificacion_parametrosLocalidad_operacionEliminarTorieLocalidad_Tooltip")'
+                                                                                                         operacion-puede-eliminar="vm.puedeEliminarTorieLocalidad(torieLocalidad.id, funcionRetornarPuedeEliminar)"
+                                                                                                         no-puede-eliminar="vm.noPuedeEliminar()"
+                                                                                                         confirmacion-ok="vm.eliminarTorieLocalidadOk(torieLocalidad)"
+                                                                                                         confirmacion-cancel="vm.eliminarTorieLocalidadCancel()">
+                                                                            </bow-operacion-eliminar-fila>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10" ng-if="vm.opcionParametro[1]">
+                        <div class="p pv-xxl">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading bg-purple">
+                                            @L("zonificacion_parametrosLocalidad_Sufijos_asignar")
+                                        </div>
+                                        <div class="panel-body" ng-form="frmSufijo">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" ng-class="{'has-error' : frmSufijo.selectSufijos.$dirty && frmSufijo.selectSufijos.$invalid}">
+                                                        <select ng-model="vm.sufijoLocalidad.sufijoId" ng-options="to.id as to.nombre for to in vm.sufijos " class="form-control" name="selectSufijos" required>
+                                                            <option value="">@L("zonificacion_parametrosLocalidad_seleccione")</option>
+                                                        </select>
+                                                        <div ng-show="frmSufijo.selectSufijos.$dirty && frmSufijos.selectSufijos.$invalid">
+                                                            <small ng-show="frmSufijo.selectSufijos.$error.required" class="text-danger">
+                                                                @L("zonificacion_parametrosLocalidad_sufijo_requerido")
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button class="btn btn-success btn-circle btn-lg pull-right" ng-click="vm.asignarSufijoLocalidad()" ng-disabled="frmSufijo.$invalid" title='@L("zonificacion_parametrosLocalidad_tipoOrientacion_asignar")'>
+                                                        <em class="fa fa-save"></em>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a ng-click="vm.abrirModalNuevoSufijo()" class="clickable pull-right" title='@L("zonificacion_parametrosLocalidad_Sufijos_nuevoSufijo")'>
+                                                <span class="h4">
+                                                    @L("zonificacion_parametrosLocalidad_Sufijos_nuevoSufijo")<em class="fa fa-chevron-right"></em>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading bg-purple">
+                                            Sufijos Asignados a la Localidad
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <tbody>
+                                                                <tr ng-repeat="sufijoLocalidad in vm.sufijosLocalidad.filasMostrar"
+                                                                    ng-mouseenter="vm.controlesSufijo.mostrar($index)"
+                                                                    ng-mouseleave="vm.controlesSufijo.ocultar($index)">
+                                                                    <td>
+                                                                        <h4 class="media-heading">
+                                                                            {{sufijoLocalidad.nombreSufijo}}
+                                                                        </h4>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="pull-right" ng-show="vm.controlesSufijo.visible[$index]">
+                                                                            <bow-operacion-eliminar-fila mensaje-confirmacion='@L("zonificacion_parametrosLocalidad_eliminarSufijo_confirmacion")'
+                                                                                                         mensaje-tooltip='@L("zonificacion_parametrosLocalidad_operacionEliminarSufijo_Tooltip")'
+                                                                                                         operacion-puede-eliminar="vm.puedeEliminarSufijoLocalidad(sufijoLocalidad, funcionRetornarPuedeEliminar)"
+                                                                                                         no-puede-eliminar="vm.noPuedeEliminarSufijo()"
+                                                                                                         confirmacion-ok="vm.eliminarSufijoLocalidadOk(sufijoLocalidad)"
+                                                                            </bow-operacion-eliminar-fila>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="text-center" ng-show="vm.sufijosLocalidad.filasPorPagina < vm.sufijosLocalidad.totalFilas">
+                                                        <pagination items-per-page="vm.sufijosLocalidad.filasPorPagina"
+                                                                    total-items="vm.sufijosLocalidad.totalFilas"
+                                                                    ng-model="vm.sufijosLocalidad.paginaActual"
+                                                                    ng-change="vm.sufijosLocalidad.pageChanged()"
+                                                                    class="pagination-sm"></pagination>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10" ng-if="vm.opcionParametro[2]">
+                        <div class="p pv-xxl">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading bg-orange">
+                                            @L("zonificacion_parametrosLocalidad_Avenidas_nuevaAvenida")
+                                        </div>
+                                        <div class="panel-body" ng-form="frmAvenida">
+                                            <input id="frmAvenidaOculto" ng-model="vm.frmAvenidaOculto" ng-init="vm.frmAvenidaOculto=frmAvenida" hidden>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" ng-class="{'has-error' : frmAvenida.iptNombreAvenida.$dirty && frmAvenida.iptNombreAvenida.$invalid}">
+                                                        <label class="control-label" for="iptNombreAvenida">@L("zonificacion_avenida_modalNuevoAvenida_nombreAvenida")</label>
+                                                        <input type="text" class="form-control" id="iptNombreAvenida" name="iptNombreAvenida" placeholder="@L("zonificacion_avenida_modalNuevoAvenida_nombreAvenida")" ng-model="vm.nuevaAvenida.nombre" required maxlength="50" />
+                                                        <div ng-show="frmAvenida.iptNombreAvenida.$dirty && frmAvenida.iptNombreAvenida.$invalid">
+                                                            <small ng-show="frmAvenida.iptNombreAvenida.$error.required" class="text-danger">
+                                                                @L("zonificacion_sufijo_modalNuevoAvenida_nombreAvenidaRequerido")
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="pull-right">
+                                                        <button class="btn btn-success btn-circle btn-lg" ng-click="vm.saveOrUpdateAvenida()" ng-disabled="frmAvenida.$invalid" title='@L("zonificacion_parametrosLocalidad_tipoOrientacion_asignar")'>
+                                                            <em class="fa fa-save"></em>
+                                                        </button>
+                                                        &nbsp;
+                                                        <button class="btn btn-warning btn-circle btn-lg" ng-click="vm.cancelarUpdateAvenida()" title='@L("zonificacion_pais_cancelar_editar")'>
+                                                            <em class="fa" ng-class="{'fa-ban': vm.editandoAvenida, 'fa-eraser': !vm.editandoAvenida}"></em>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading bg-orange">
+                                            {{vm.avenidasLocalidad.totalFilas}} @L("zonificacion_parametrosLocalidad_Avenidas_cantidadAvenidas")
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <tbody>
+                                                                <tr ng-repeat="avenida in vm.avenidasLocalidad.filasMostrar"
+                                                                    ng-mouseenter="vm.controlesAvenida.mostrar($index)"
+                                                                    ng-mouseleave="vm.controlesAvenida.ocultar($index)">
+                                                                    <td>
+                                                                        <h4>
+                                                                            {{avenida.nombre}}
+                                                                        </h4>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="pull-right" ng-show="vm.controlesAvenida.visible[$index] && !vm.editandoAvenida">
+                                                                            <button class="btn btn-success btn-circle btn-lg" ng-click="vm.editarAvenida(avenida)" ng-hide="vm.eliminandoAvenida" title='@L("zonificacion_parametrosLocalidad_Barrio_editarAvenida")'>
+                                                                                <em class="fa fa-pencil"></em>
+                                                                            </button>
+                                                                            &nbsp;
+                                                                            <bow-operacion-eliminar-fila mensaje-confirmacion='@L("zonificacion_parametrosLocalidad_eliminarAvenida_confirmacion")'
+                                                                                                         mensaje-tooltip='@L("zonificacion_parametrosLocalidad_operacionEliminarAvenida_Tooltip")'
+                                                                                                         operacion-puede-eliminar="vm.puedeEliminarAvenida(avenida, funcionRetornarPuedeEliminar)"
+                                                                                                         no-puede-eliminar="vm.noPuedeEliminarAvenida()"
+                                                                                                         confirmacion-ok="vm.eliminarAvenidaOk(avenida)"
+                                                                                                         confirmacion-cancel="vm.eliminarAvenidaCancel()"
+                                                                            </bow-operacion-eliminar-fila>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="pull-right" ng-show="vm.avenidasLocalidad.filasPorPagina < vm.avenidasLocalidad.totalFilas">
+                                                        <pagination items-per-page="vm.avenidasLocalidad.filasPorPagina"
+                                                                    total-items="vm.avenidasLocalidad.totalFilas"
+                                                                    ng-model="vm.avenidasLocalidad.paginaActual"
+                                                                    ng-change="vm.avenidasLocalidad.pageChanged()"
+                                                                    class="pagination-sm"></pagination>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app-view-header page-header">
+        @L("zonificacion_parametrosLocalidad_titulo_barrios")
+    </div>
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="row" ng-show="vm.ingresandoBarrio || vm.editandoBarrio">
+                <div class="col-lg-12">
+                    <div class="row" ng-form="frmBarrio">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                                    <span ng-if="!vm.editandoBarrio">@L("zonificacion_localidad_EditarBarrio_titulo")</span>
+                                    <span ng-if="vm.editandoBarrio">@L("zonificacion_pais_editar") {{vm.nombreBarrioEditar | uppercase}}</span>
+                                    
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group" ng-class="{'has-error' : frmBarrio.iptNombreBarrio.$dirty && frmBarrio.iptNombreBarrio.$invalid}">
+                                                <label class="control-label" for="iptNombreBarrio">@L("zonificacion_localidad_modalNuevoBarrio_nombreBarrio")</label>
+                                                <input type="text" class="form-control" id="iptNombreBarrio" name="iptNombreBarrio" placeholder="@L("zonificacion_localidad_modalNuevoBarrio_nombreBarrio")" ng-model="vm.nuevoBarrio.nombre" required maxlength="25" />
+                                                <div ng-show="frmBarrio.iptNombreBarrio.$dirty && frmBarrio.iptNombreBarrio.$invalid">
+                                                    <small ng-show="frmBarrio.iptNombreBarrio.$error.required" class="text-danger">
+                                                        @L("zonificacion_localidad_modalNuevoBarrio_nombreBarrioRequerido")
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="pull-right">
+                                                <button class="btn btn-success btn-circle btn-lg" ng-click="vm.saveOrUpdateBarrio()" ng-disabled="frmBarrio.$invalid" title='@L("zonificacion_parametrosLocalidad_barrio_asignar")'>
+                                                    <em class="fa fa-save"></em>
+                                                </button>
+                                                &nbsp;
+                                                <button class="btn btn-warning btn-circle btn-lg" ng-click="vm.cancelarIngresoBarrio()" title='@L("zonificacion_parametrosLocalidad_barrio_cancelar_editar")'>
+                                                    <em class="fa fa-times"></em>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                            {{vm.barriosLocalidad.totalFilas}}@L("zonificacion_parametrosLocalidad_Barrio_titulo")
+                        </div>
+                        <div class="panel-body">
+                            <div class="row" ng-show="!(vm.ingresandoBarrio || vm.editandoBarrio)">
+                                <div class="col-md-12 bow-padding-bottom-15">
+                                    <button class="btn btn-success btn-circle btn-lg pull-right" ng-click="vm.ingresandoBarrio = !vm.ingresandoBarrio" title='@L("zonificacion_parametrosLocalidad_tipoOrientacion_asignar")'>
+                                        <em class="fa fa-plus"></em>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr ng-repeat="barrio in vm.barriosLocalidad.filasMostrar"
+                                            ng-mouseenter="vm.controlesBarrio.mostrar($index)"
+                                            ng-mouseleave="vm.controlesBarrio.ocultar($index)"
+                                            ng-class="{'active': vm.seleccionBarrio.marcado[(vm.barriosLocalidad.filasPorPagina * (vm.barriosLocalidad.paginaActual - 1)) + $index]}">
+                                            <td>
+                                                <a class="clickable" ng-click="vm.consultarManzanasBarrio(barrio, $index)"><h5>{{barrio.nombre}}</h5></a>
+                                            </td>
+                                            <td>
+                                                <div class="pull-right" ng-show="vm.controlesBarrio.visible[$index] && !vm.editandoBarrio && !vm.ingresandoBarrio">
+                                                    <button class="btn btn-success btn-circle btn-lg" ng-click="vm.editarBarrio(barrio)" ng-hide="vm.eliminandoBarrio" title='@L("zonificacion_parametrosLocalidad_Barrio_editarBarrio")'>
+                                                        <em class="fa fa-pencil"></em>
+                                                    </button>
+                                                    &nbsp;
+                                                    <bow-operacion-eliminar-fila mensaje-confirmacion='@L("zonificacion_parametrosLocalidad_eliminarBarrio_confirmacion")'
+                                                                                 mensaje-tooltip='@L("zonificacion_parametrosLocalidad_operacionEliminarBarrio_Tooltip")'
+                                                                                 operacion-puede-eliminar="vm.puedeEliminarBarrio(barrio, funcionRetornarPuedeEliminar)"
+                                                                                 no-puede-eliminar="vm.noPuedeEliminarBarrio()"
+                                                                                 confirmacion-ok="vm.eliminarBarrioOk(barrio)"
+                                                                                 confirmacion-cancel="vm.eliminarBarrioCancel()"
+                                                                            </bow-operacion-eliminar-fila>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pull-right" ng-show="vm.barriosLocalidad.filasPorPagina < vm.barriosLocalidad.totalFilas">
+                                <pagination items-per-page="vm.barriosLocalidad.filasPorPagina"
+                                            total-items="vm.barriosLocalidad.totalFilas"
+                                            ng-model="vm.barriosLocalidad.paginaActual"
+                                            ng-change="vm.barriosLocalidad.pageChanged()"
+                                            class="pagination-sm"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-7">
+            <div class="row" ng-show="vm.ingresandoManzana">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                            Registrar Manzana
+                        </div>
+                        <div class="panel-body">
+                            <bow-nuevamanzana control-operaciones="vm.controlOperacionesNuevaManzana" bow-registro-manzana="vm.registroManzana(manzana)"
+                                              bow-cierre-formulario="vm.cierreFormularioManzana()"></bow-nuevamanzana>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                            {{vm.manzanas.totalFilas}} Manzanas en Barrio {{vm.barrioSeleccionNombre}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row" ng-show="!vm.ingresandoManzana">
+                                <div class="col-md-12 bow-padding-bottom-15">
+                                    <button class="btn btn-success btn-circle btn-lg pull-right" ng-click="vm.ingresandoManzana = !vm.ingresandoManzana" title='@L("zonificacion_parametrosLocalidad_manzana_asignar")' ng-show="vm.barrioSeleccion">
+                                        <em class="fa fa-plus"></em>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr ng-repeat="manzana in vm.manzanas.filasMostrar"
+                                            ng-mouseenter="vm.controlesManzana.mostrar($index)"
+                                            ng-mouseleave="vm.controlesManzana.ocultar($index)">
+                                            <td>
+                                                <h4>{{manzana.nombre}}</span>
+                                            </td>
+                                            <td>
+                                                <div class="pull-right" ng-show="vm.controlesManzana.visible[$index] && !vm.editandoManzana && !vm.ingresandoManzana">
+                                                    <bow-operacion-eliminar-fila mensaje-confirmacion='@L("zonificacion_parametrosLocalidad_eliminarManzana_confirmacion")'
+                                                                                 mensaje-tooltip='@L("zonificacion_parametrosLocalidad_operacionEliminarManzana_Tooltip")'
+                                                                                 operacion-puede-eliminar="vm.puedeEliminarManzana(manzana, funcionRetornarPuedeEliminar)"
+                                                                                 no-puede-eliminar="vm.noPuedeEliminarManzana()"
+                                                                                 confirmacion-ok="vm.eliminarManzanaOk(manzana)"
+                                                                                 confirmacion-cancel="vm.eliminarManzanaCancel()"
+                                                    </bow-operacion-eliminar-fila>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pull-right" ng-show="vm.manzanas.filasPorPagina < vm.manzanas.totalFilas">
+                                <pagination items-per-page="vm.manzanas.filasPorPagina"
+                                            total-items="vm.manzanas.totalFilas"
+                                            ng-model="vm.manzanas.paginaActual"
+                                            ng-change="vm.manzanas.pageChanged()"
+                                            class="pagination-sm"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

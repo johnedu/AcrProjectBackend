@@ -1,0 +1,213 @@
+﻿<div class="app-container" ng-controller="app.views.afiliaciones.grupoInformal as vm">
+    <div class="app-view-header page-header">
+        <div class="col-md-12">
+            @L("afiliaciones_grupoInformal_titulo")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                    @L("afiliaciones_grupoInformal_panelBusqueda_titulo")
+                </div>
+                <div class="panel-body">
+                    <bow-buscar-grupo-informal ng-model="vm.grupoInformal"
+                                               ng-required="true"
+                                               bow-selecciono-grupo="vm.seleccionoGrupo(grupoInformal)"
+                                               control-operaciones="controlBuscarGrupoInformal">
+                    </bow-buscar-grupo-informal>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-7">
+            <div class="panel panel-primary">
+                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                    <span ng-show="!vm.modoConsulta">@L("afiliaciones_grupoInformal_panelNuevo_titulo")</span>
+                    <span ng-show="vm.modoConsulta">@L("afiliaciones_grupoInformal_panelEditar_titulo")</span>
+                </div>
+                <div class="panel-body">
+                    <form role="form" name="frmRegistrarGrupoInformal">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error' : frmRegistrarGrupoInformal.iptNombre.$dirty && frmRegistrarGrupoInformal.iptNombre.$invalid }">
+                                    <label class="control-label" for="iptNombre">@L("afiliaciones_grupoInformal_nombre_titulo")</label>
+                                    <input type="text" class="form-control" id="iptNombre" name="iptNombre" placeholder="@L("afiliaciones_grupoInformal_nombre_titulo_placeholder")" ng-model="vm.grupoInformal.nombre" ng-disabled="vm.modoConsulta" required maxlength="100" />
+                                    <div ng-show="frmRegistrarGrupoInformal.iptNombre.$dirty && frmRegistrarGrupoInformal.iptNombre.$invalid">
+                                        <small ng-show="frmRegistrarGrupoInformal.iptNombre.$error.required" class="text-danger">
+                                            @L("afiliaciones_grupoInformal_nombre_titulo_requerido")
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <bow-buscarsucursal ng-model="vm.grupoInformal.sucursal"
+                                                    ng-disabled="vm.modoConsulta"
+                                                    titulolabel=@L("afiliaciones_grupoInformal_sucursal_titulo")
+                                                    tituloplaceholder=@L("afiliaciones_grupoInformal_sucursal_titulo_placeholder")
+                                                    bow-seleccionosucursal="vm.seleccionoSucursal(sucursal)">
+                                </bow-buscarsucursal>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error' : frmRegistrarGrupoInformal.iptDocumento.$dirty && frmRegistrarGrupoInformal.iptDocumento.$invalid }">
+                                    <label class="control-label" for="iptDocumento">@L("afiliaciones_grupoInformal_encargado_titulo")</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="iptDocumento" name="iptDocumento" placeholder="@L("afiliaciones_grupoInformal_encargado_titulo_placeholder")" ng-model="vm.grupoInformal.encargado.documento" required maxlength="100" ng-disabled="vm.documentoValido || vm.modoConsulta" />
+                                        <div class="input-group-btn">
+                                            <label class="btn btn-primary" ng-click="vm.validarDocumentoEncargado()" ng-disabled="vm.documentoValido" title="@L("afiliaciones_grupoInformal_encargado_btn_buscar")">
+                                                <span class="glyphicon fa fa-search"></span>
+                                            </label>
+                                            <label class="btn btn-primary" ng-click="vm.cambiarDocumentoEncargado()" ng-disabled="!vm.documentoValido || vm.modoConsulta" title="@L("afiliaciones_grupoInformal_encargado_btn_modificar")">
+                                                <span class="glyphicon fa fa-pencil"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div ng-show="frmRegistrarGrupoInformal.iptDocumento.$dirty && frmRegistrarGrupoInformal.iptDocumento.$invalid">
+                                        <small ng-show="frmRegistrarGrupoInformal.iptDocumento.$error.required" class="text-danger">
+                                            @L("afiliaciones_grupoInformal_encargado_requerido")
+                                        </small>
+                                    </div>
+                                </div>
+                                <div ng-show="vm.documentoValido">
+                                    <h5 class="media-heading text-primary">
+                                        {{vm.grupoInformal.encargado.personaNombre}}
+                                    </h5>
+                                    <h5 class="media-heading" ng-class="'text-' + app.theme.name">
+                                        @L("afiliaciones_grupoInformal_encargado_telefonos_titulo")
+                                    </h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr ng-repeat="telefono in vm.grupoInformal.encargado.telefonos">
+                                                    <td>
+                                                        <h5 class="media-heading">
+                                                            {{telefono.telefonoNumero}}
+                                                        </h5>
+                                                        <span class="text-muted">
+                                                            {{telefono.tipoUbicacionNombre}} - {{telefono.nombreLocalidad}}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <h5 class="media-heading" ng-class="'text-' + app.theme.name">
+                                        @L("afiliaciones_grupoInformal_encargado_direcciones_titulo")
+                                    </h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr ng-repeat="direccion in vm.grupoInformal.encargado.direcciones">
+                                                    <td>
+                                                        <h5 class="media-heading">
+                                                            {{direccion.direccionCompleta}}
+                                                        </h5>
+                                                        <span class="text-muted">
+                                                            {{direccion.tipoUbicacionNombre}} - {{direccion.nombreLocalidad}}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-center">
+                                        <label class="control-label">@L("afiliaciones_grupoInformal_encargadoExento_titulo")</label>
+                                        <div class="btn-group">
+                                            <div class="radio-inline c-radio">
+                                                <label>
+                                                    <input type="radio" name="i-radio" value="true" ng-model="vm.grupoInformal.encargadoExentoPago" ng-disabled="vm.modoConsulta">
+                                                    <span class="fa fa-check"></span>@L("afiliaciones_grupoInformal_encargadoExento_si")
+                                                </label>
+                                            </div>
+                                            <div class="radio-inline c-radio">
+                                                <label>
+                                                    <input type="radio" name="i-radio" value="false" ng-model="vm.grupoInformal.encargadoExentoPago" ng-disabled="vm.modoConsulta">
+                                                    <span class="fa fa-close"></span>@L("afiliaciones_grupoInformal_encargadoExento_no")
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-center">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarGrupoInformal.iptPorcentajeDescuento.$dirty && frmRegistrarGrupoInformal.iptPorcentajeDescuento.$invalid }">
+                                            <label class="control-label" for="iptPorcentajeDescuento">@L("afiliaciones_grupoInformal_porcentajeDescuento_titulo")</label>
+                                            <input type="text" class="form-control text-center" id="iptPorcentajeDescuento" name="iptPorcentajeDescuento" placeholder="@L("afiliaciones_grupoInformal_porcentajeDescuento_placeholder")" ng-model="vm.grupoInformal.porcentajeDescuento" required ng-disabled="vm.modoConsulta"
+                                                   bow-input-numero="{ separadorMil: '.', separadordecimal: ',' , maximodecimales: 0, sufijo: ' %', valorMaximo: 100 }" />
+                                            <div ng-show="frmRegistrarGrupoInformal.iptPorcentajeDescuento.$dirty && frmRegistrarGrupoInformal.iptPorcentajeDescuento.$invalid">
+                                                <small ng-show="frmRegistrarGrupoInformal.iptPorcentajeDescuento.$error.required" class="text-danger">
+                                                    @L("afiliaciones_grupoInformal_porcentajeDescuento_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-show="!vm.modoConsulta">
+                                    <div class="col-md-8">
+                                        <bow-buscar-empleado-typeahead ng-model="vm.grupoInformal.empleadoId"
+                                                                       titulolabel='@L("afiliaciones_grupoInformal_empleado_titulo")'
+                                                                       tituloplaceholder='@L("afiliaciones_grupoInformal_empleado_placeholder")'
+                                                                       bow-selecciono-empleado="vm.seleccionoEmpleado(empleado)">
+                                        </bow-buscar-empleado-typeahead>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label"></label><br />
+                                        <button ng-show="vm.accionFormulario == 'Modificar'" type="button" class="btn btn-success" ng-click="vm.verHistorialEmpleado()">@L("afiliaciones_grupoInformal_empleado_btn_historial")</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr ng-repeat="empleado in vm.grupoInformal.listaEmpleadosTabla.filasMostrar track by $index">
+                                                <td>
+                                                    <h4 class="media-heading">
+                                                        {{empleado.codigo}} - {{empleado.nombreCompleto}}
+                                                    </h4>
+                                                    <span class="text-muted">
+                                                        ( {{empleado.localidad}} )
+                                                    </span>
+                                                </td>
+                                                <td class="text-right" ng-show="!vm.modoConsulta">
+                                                    <bow-operacion-eliminar-fila mensaje-confirmacion='@L("afiliaciones_grupoInformal_empleado_tabla_eliminar_confirmacion")'
+                                                                                 mensaje-tooltip='@L("afiliaciones_grupoInformal_empleado_tabla_eliminar_tooltip")'
+                                                                                 operacion-puede-eliminar="vm.puedeEliminarEmpleado(empleado.empleadoId, funcionRetornarPuedeEliminar)"
+                                                                                 no-puede-eliminar="vm.noPuedeEliminar()"
+                                                                                 confirmacion-ok="vm.eliminarEmpleadoOk(empleado.empleadoId, empleado.tipo)">
+                                                    </bow-operacion-eliminar-fila>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center">
+                                        <pagination items-per-page="vm.grupoInformal.listaEmpleados.filasPorPagina"
+                                                    total-items="vm.grupoInformal.listaEmpleados.totalFilas"
+                                                    ng-model="vm.grupoInformal.listaEmpleados.paginaActual"
+                                                    ng-change="vm.grupoInformal.listaEmpleados.pageChanged()"
+                                                    class="pagination-sm"></pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" ng-show="!vm.modoConsulta" class="btn btn-success btn-circle btn-lg" ng-click="vm.guardarGrupoInformal()" ng-disabled="frmRegistrarGrupoInformal.$invalid || !vm.grupoInformal.encargado.personaNombre" title="@L("afiliaciones_grupoInformal_btn_guardar")">
+                                <em class="fa fa-save"></em>
+                            </button>
+                            <button type="button" ng-show="!vm.modoConsulta" class="btn btn-warning btn-circle btn-lg" ng-click="vm.mostrarFormulario(true)" title="@L("afiliaciones_grupoInformal_btn_limpiar")">
+                                <em class="fa fa-eraser"></em>
+                            </button>
+                            <button type="button" ng-show="vm.modoConsulta" class="btn btn-danger btn-circle btn-lg" ng-click="vm.limpiarFormularioGrupo()" title="@L("afiliaciones_grupoInformal_btn_limpiar")">
+                                <em class="fa fa-close"></em>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

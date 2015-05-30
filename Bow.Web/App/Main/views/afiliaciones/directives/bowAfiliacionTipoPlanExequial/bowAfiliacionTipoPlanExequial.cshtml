@@ -1,0 +1,53 @@
+﻿<div class="alert alert-danger text-center" ng-show="mensajeError">
+    <strong>{{mensajeError}}</strong>
+</div>
+<form role="form" name="frmAfiliacionTipoPlanExequial">
+    <div class="row" ng-show="!modoConsulta">
+        <div class="col-md-5">
+            <label class="control-label">@L("directiva_bowAfiliacionTipoPlanExequial_titulo")</label>
+            <br />
+            <div class="btn-group">
+                <label class="btn btn-primary" ng-model="tipoPlan" btn-radio="'Empresarial'">@L("directiva_bowAfiliacionTipoPlanExequial_titulo_empresarial")</label>
+                <label class="btn btn-primary" ng-model="tipoPlan" btn-radio="'Grupo'">@L("directiva_bowAfiliacionTipoPlanExequial_titulo_grupo")</label>
+                <label class="btn btn-primary" ng-model="tipoPlan" btn-radio="'Familiar'">@L("directiva_bowAfiliacionTipoPlanExequial_titulo_familiar")</label>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div ng-show="tipoPlan == 'Empresarial'" class="form-group" ng-class="{'has-error' : frmAfiliacionTipoPlanExequial.iptEmpresa.$dirty && frmAfiliacionTipoPlanExequial.iptEmpresa.$invalid }">
+                <label class="control-label" for="iptEmpresa">@L("directiva_bowAfiliacionTipoPlanExequial_empresa_titulo")</label>
+                <input type="text" class="form-control" id="iptEmpresa" name="iptEmpresa" placeholder="@L("directiva_bowAfiliacionTipoPlanExequial_empresa_placeholder")" ng-model="selectedEmpresa" required maxlength="200" />
+                <div ng-show="frmAfiliacionTipoPlanExequial.iptEmpresa.$dirty && frmAfiliacionTipoPlanExequial.iptEmpresa.$invalid">
+                    <small ng-show="frmAfiliacionTipoPlanExequial.iptEmpresa.$error.required" class="text-danger">
+                        @L("directiva_bowAfiliacionTipoPlanExequial_empresa_requerida")
+                    </small>
+                </div>
+            </div>
+            <div ng-show="tipoPlan == 'Grupo'">
+                <bow-buscar-nombre-grupo-informal ng-required="true"
+                                                  selected="selectedGrupoInformal"
+                                                  titulolabel='@L("directiva_bowAfiliacionTipoPlanExequial_grupo_titulo")'
+                                                  tituloplaceholder='@L("directiva_bowAfiliacionTipoPlanExequial_grupo_placeholder")'
+                                                  bow-consultar-modelo-actual="seleccionoGrupoInformal(grupoInformal)"
+                                                  control-operaciones="controlBuscarNombreGrupoInformal">
+                </bow-buscar-nombre-grupo-informal>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="modoConsulta">
+        <div class="col-md-6">
+            <label class="control-label">@L("directiva_bowAfiliacionTipoPlanExequial_consulta_titulo")</label>
+            <br />
+            {{tipoPlan}}
+        </div>
+        <div class="col-md-6" ng-show="tipoPlan == 'Empresarial'">
+            <label class="control-label">@L("directiva_bowAfiliacionTipoPlanExequial_consulta_empresa")</label>
+            <br />
+            {{selectedEmpresa}}
+        </div>
+        <div class="col-md-6" ng-show="tipoPlan == 'Grupo'">
+            <label class="control-label">@L("directiva_bowAfiliacionTipoPlanExequial_consulta_grupo")</label>
+            <br />
+            {{selectedGrupoInformal.nombre}}
+        </div>
+    </div>
+</form>

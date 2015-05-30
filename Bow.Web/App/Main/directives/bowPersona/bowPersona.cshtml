@@ -1,0 +1,991 @@
+﻿<div class="app-container">
+    <tabset justified="true">
+        <tab heading="@L("personas_nuevapersona_modalNuevaPersona_tabInformacionPersonal")">
+
+            <fieldset ng-disabled="soloLecturaPersona">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <bow-buscarnombrepersona ng-model="nuevaPersona.nombre" titulolabel="@L("personas_nuevapersona_modalNuevaPersona_nombre")" tituloplaceholder="@L("personas_nuevapersona_modalNuevaPersona_nombre")" bow-selecciononombre="seleccionoNombre(nombre)"></bow-buscarnombrepersona>
+                        </div>
+                        <div class="col-md-3">
+                            <bow-buscarapellidopersona ng-model="nuevaPersona.apellido1" titulolabel="@L("personas_nuevapersona_modalNuevaPersona_primerApellido")" tituloplaceholder="@L("personas_nuevapersona_modalNuevaPersona_primerApellido")"></bow-buscarapellidopersona>
+                        </div>
+                        <div class="col-md-3">
+                            <bow-buscarapellidopersona ng-model="nuevaPersona.apellido2" titulolabel="@L("personas_nuevapersona_modalNuevaPersona_segundoApellido")" t tituloplaceholder="@L("personas_nuevapersona_modalNuevaPersona_segundoApellido")"><></bow-buscarapellidopersona>
+                        </div>
+                        <div class="col-md-3">
+                            <bow-buscar-pais titulo='@L("personas_nuevapersona_modalNuevaPersona_nacionalidad")'
+                                             ng-model="selectedPais"
+                                             ng-disabled="soloLecturaPersona"
+                                             selecciono-pais="cargarTiposDocumento(pais)">
+                            </bow-buscar-pais>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row bow-margin-top-15">
+                    <div class="col-md-12">
+                        <div class="col-md-3 bow-margin-top-25">
+                            <div class="btn-switch mb mr btn-switch-info">
+                                <input type="checkbox" id="checkboxTieneDocumento" ng-model="nuevaPersona.tieneDocumento" ng-change="mostrarCamposDocumento()">
+                                <label for="checkboxTieneDocumento" class="btn btn-info">
+                                    <em class="fa fa-check"></em>@L("personas_nuevapersona_modalNuevaPersona_tieneDocumento")
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div ng-show="mostrarDocumento">
+                                <label class="control-label" for="iptTipoDocumento">
+                                    @L("personas_nuevapersona_modalNuevaPersona_tipoDocumento")
+                                </label>
+                                <select ng-model="nuevaPersona.tipoDocumentoId" required
+                                        ng-options="to.id as to.nombre for to in tiposDocumento" class="form-control">
+                                    <option value="">
+                                        @L("personas_nuevapersona_modalNuevaPersona_seleccione")
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div ng-show="mostrarDocumento">
+                                <label class="control-label" for="iptNumeroDocumento">
+                                    @L("personas_nuevapersona_modalNuevaPersona_numeroDocumento")
+                                </label>
+                                <input type="text" class="form-control" required
+                                       name="iptNumeroDocumento" ng-model="nuevaPersona.numeroDocumento" maxlength="30"
+                                       id="iptNumeroDocumento" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center bow-margin-top-20">
+                            <button type="button" class="mr btn btn-pill-left btn-success" ng-click="consultarPersona()" ng-show="!mostrarMasinformacion">@L("personas_nuevapersona_modalNuevaPersona_btnIniciarRegistro")</button>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div ng-show="mostrarMasinformacion" class="line-top bow-margin-top-10">
+                <div class="row bow-margin-top-10">
+                    <div class="col-md-3 ">
+                        <div ng-show="mostrarDocumento">
+                            <label for="iptFechaExpedicion">@L("personas_nuevapersona_modalNuevaPersona_fechaExpedicion")</label>
+                            <p class="input-group">
+                                <input type="text"
+                                       class="form-control"
+                                       id="iptFechaExpedicion"
+                                       name="iptFechaExpedicion"
+                                       ng-model="nuevaPersona.fechaExpDocumento" close-text="Close"
+                                       datepicker-popup="{{configuracionFechaExpedicion.format}}"
+                                       is-open="configuracionFechaExpedicion.opciones.opened"
+                                       min-date="configuracionFechaExpedicion.opciones.minDate"
+                                       max-date="configuracionFechaExpedicion.opciones.maxDate"
+                                       datepicker-options="configuracionFechaExpedicion.opciones"
+                                       ng-disabled="soloLecturaConsultar" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default"
+                                            ng-click="configuracionFechaExpedicion.open($event)">
+                                        <em class="fa fa-calendar"></em>
+                                    </button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" for="iptGenero">@L("personas_nuevapersona_modalNuevaPersona_genero")</label>
+                        <div class="checkbox c-checkbox">
+                            <label>
+                                <input type="radio" name="chkbGenero" value="M" ng-model="nuevaPersona.genero" ng-checked="nuevaPersona.genero == 'M'">
+                                <span class="fa fa-male"></span>@L("personas_nuevapersona_modalNuevaPersona_generoMasculino")
+                            </label>
+                        </div>
+                        <div class="checkbox c-checkbox">
+                            <label>
+                                <input type="radio" name="chkbGenero" value="F" ng-model="nuevaPersona.genero" ng-checked="nuevaPersona.genero == 'F'">
+                                <span class="fa fa-female"></span>@L("personas_nuevapersona_modalNuevaPersona_generoFemenino")
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label" for="iptEstadoCivil">@L("personas_nuevapersona_modalNuevaPersona_estadoCivil")</label>
+                        <select ng-model="nuevaPersona.tipoEstadoCivilId" ng-options="to.id as to.nombre for to in estadoCivil" class="form-control" required ng-disabled="soloLecturaConsultar"></select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" for="iptProfesion">@L("personas_nuevapersona_modalNuevaPersona_profesion")</label>
+                        <input id="iptProfesion" name="iptProfesion" type="text" ng-model="controlIndependiente.profesionId" ng-disabled="soloLecturaConsultar"
+                               class="form-control" typeahead-editable="false" required
+                               typeahead="profesion as profesion.nombre for profesion in profesiones | filter:$viewValue">
+                    </div>
+                </div>
+
+                <div class="row bow-margin-top-10">
+
+                    <div class="col-md-3 bow-margin-top-25">
+                        <div class="btn-switch mb mr btn-switch-info">
+                            <input type="checkbox" id="checkboxTieneFechaNacimiento" ng-model="nuevaPersona.tieneFechaNacimiento" ng-change="mostrarFechaNacimiento()" ng-disabled="soloLecturaConsultar">
+                            <label for="checkboxTieneFechaNacimiento" class="btn btn-info">
+                                <em class="fa fa-check"></em>@L("personas_nuevapersona_modalNuevaPersona_tieneFechaNacimiento")
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <fieldset ng-disabled="soloLecturaConsultar">
+                            <div ng-show="fechaedad">
+                                <label for="iptFechaNacimiento">@L("personas_nuevapersona_modalNuevaPersona_fechaNacimiento")</label>
+                                <span class="pull-right" ng-show="edadcalculada">{{edadcalculada}} @L("personas_nuevapersona_modalNuevaPersona_años")</span>
+                                <p class="input-group">
+                                    <input type="text"
+                                           class="form-control"
+                                           id="iptFechaNacimiento"
+                                           name="iptFechaNacimiento"
+                                           ng-blur="calcularEdad(nuevaPersona.fechaNacimiento)"
+                                           ng-model="nuevaPersona.fechaNacimiento" close-text="Close"
+                                           datepicker-popup="{{configuracionFechaNacimiento.format}}"
+                                           is-open="configuracionFechaNacimiento.opciones.opened"
+                                           min-date="configuracionFechaNacimiento.opciones.minDate"
+                                           max-date="configuracionFechaNacimiento.opciones.maxDate"
+                                           datepicker-options="configuracionFechaNacimiento.opciones" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="configuracionFechaNacimiento.open($event)">
+                                            <em class="fa fa-calendar"></em>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+
+                            <div ng-show="mostrarEdadfecha">
+                                <div class="form-group" ng-class="{'has-error' : modalNuevaPersona.iptEdad.$dirty && modalNuevaPersona.iptEdad.$invalid}">
+                                    <label class="control-label" for="iptEdad">
+                                        @L("personas_nuevapersona_modalNuevaPersona_edad")
+                                    </label>
+                                    <span class="pull-right" ng-show="fechacalculada">{{fechacalculada}}</span>
+                                    <input type="text" class="form-control" id="iptEdad" name="iptEdad"
+                                           ng-pattern="/^[0-9]{1,7}$/"
+                                           ng-model="controlIndependiente.edad" ng-blur="calcularFecha(controlIndependiente.edad)" maxlength="3" />
+                                    <div ng-show="modalNuevaPersona.iptEdad.$dirty && modalNuevaPersona.iptEdad.$invalid">
+                                        <small ng-show="modalNuevaPersona.iptEdad.$error.pattern" class="text-danger">
+                                            @L("personas_nuevapersona_modalNuevaPersona_edadSoloNumeros")
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="iptfechaFallecimiento">@L("personas_nuevapersona_modalNuevaPersona_fechaFallecimiento")</label>
+                        <p class="input-group">
+                            <input type="text"
+                                   class="form-control"
+                                   id="iptFechaFallecimiento"
+                                   name="iptFechaFallecimiento"
+                                   ng-blur="calcularEdad(nuevaPersona.fechaFallecimiento)"
+                                   ng-model="nuevaPersona.fechaFallecimiento" close-text="Close"
+                                   datepicker-popup="{{configuracionFechaFallecimiento.format}}"
+                                   is-open="configuracionFechaFallecimiento.opciones.opened"
+                                   min-date="configuracionFechaFallecimiento.opciones.minDate"
+                                   max-date="configuracionFechaFallecimiento.opciones.maxDate"
+                                   datepicker-options="configuracionFechaFallecimiento.opciones"
+                                   ng-disabled="soloLecturaConsultar" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                        ng-click="configuracionFechaFallecimiento.open($event)">
+                                    <em class="fa fa-calendar"></em>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-md-3 bow-margin-top-25">
+                        <div class="btn-switch mb mr btn-switch-info">
+                            <input type="checkbox" id="checkboxDiscapacitada" ng-model="nuevaPersona.discapacitada">
+                            <label for="checkboxDiscapacitada" class="btn btn-info">
+                                <em class="fa fa-check"></em>@L("personas_nuevapersona_modalNuevaPersona_esDiscapacitada")
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" ng-show="mostrarConsultaPersona">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr ng-repeat="resultadoPersona in resultadoPersona"
+                                    ng-mouseenter="controles.mostrar($index)"
+                                    ng-mouseleave="controles.ocultar($index)">
+                                    <td></td>
+                                    <td>
+                                        <h4 class="media-heading">
+                                            <em class="fa fa-user"></em> {{resultadoPersona.nombreCompleto}}
+                                        </h4>
+                                        <span class="text-muted">
+                                            <span> {{resultadoPersona.tipoDocumentoNombre}} {{resultadoPersona.numeroDocumento}} <em class="fa fa-caret-right" ng-show="resultadoPersona.tipoDocumentoNombre"></em></span>
+                                            <span> ({{resultadoPersona.edad}}) </span>
+                                            <span> ({{resultadoPersona.paisNombre}}) </span>
+
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div ng-show="controles.visible[$index]">
+                                            <button class="btn btn-success btn-circle btn-lg" ng-click="cargarPersona(resultadoPersona.id)" title='@L("personas_nuevapersona_modalNuevaPersona_btnEstaEsLaPersona")'>
+                                                <em class="fa fa-check"></em>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center">
+                    <label class="btn btn-primary bow-margin-top-20" ng-click="cargarNuevaPersona()">
+                        @L("personas_nuevapersona_modalNuevaPersona_btnNoEsNinguno")
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="row" ng-show="mostrarDocumentoPersonaExiste" ng-repeat="resultadoPersona in resultadoPersona">
+                <div class="col-md-12 text-center">
+                    <div class="col-md-12">
+                        <h4 class="media-heading">
+                            @L("personas_nuevapersona_modalNuevaPersona_existeNumeroDocumentoPersona")
+                        </h4><br />
+                        <h4 class="media-heading">
+                            <em class="fa fa-user"></em> {{resultadoPersona.nombreCompleto}}
+                        </h4>
+                        <span class="text-muted">
+                            <span> {{resultadoPersona.tipoDocumentoNombre}} {{resultadoPersona.numeroDocumento}} <em class="fa fa-caret-right" ng-show="resultadoPersona.tipoDocumentoNombre"></em></span>
+                            <span> ({{resultadoPersona.edad}}) </span>
+                            <span> ({{resultadoPersona.paisNombre}}) </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </tab>
+
+        <tab disabled="tabsDisable" heading="@L("personas_nuevapersona_modalNuevaPersona_tabContacto")">
+            <div id="pillsContacto">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li><a href="#tab1" data-toggle="tab">@L("personas_nuevapersona_modalNuevaPersona_pillTelefonos") ({{cantidadTelefonos}})</a></li>
+                    <li><a href="#tab2" data-toggle="tab">@L("personas_nuevapersona_modalNuevaPersona_pillDirecciones") ({{cantidadDirecciones}})</a></li>
+                    <li><a href="#tab3" data-toggle="tab">@L("personas_nuevapersona_modalNuevaPersona_pillWeb") ({{mediosContactoPersona.length}})</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane" id="tab1">
+                        <div class="row">
+                            <fieldset class="bow-margin-bottom-5 bow-padding-bottom-5" ng-disabled="soloLecturaConsultar">
+                                <div class="col-md-6 text-right">
+                                    <div class="btn-switch mb mr btn-switch-info">
+                                        <input type="checkbox" id="checkboxContactarTelefono" ng-model="nuevaPersona.contactarTelefono">
+                                        <label for="checkboxContactarTelefono" class="btn btn-info">
+                                            <em class="fa fa-check"></em>@L("personas_nuevapersona_modalNuevaPersona_contactarTelefono")
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <div class="btn-switch mb mr btn-switch-info">
+                                        <input type="checkbox" id="checkboxContactarSms" ng-model="nuevaPersona.contactarSms">
+                                        <label for="checkboxContactarSms" class="btn btn-info">
+                                            <em class="fa fa-check"></em>@L("personas_nuevapersona_modalNuevaPersona_contactarSms")
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <bow-telefonospersona bow-personaid="personaId" bow-admintelefonospersona="telefonosPersona" ng-disabled="soloLecturaConsultar"></bow-telefonospersona>
+                    </div>
+
+                    <div class="tab-pane" id="tab2">
+                        <bow-direccionespersona bow-personaid="personaId" bow-admindireccionespersona="direccionesPersona" ng-disabled="soloLecturaConsultar"></bow-direccionespersona>
+                    </div>
+
+                    <div class="tab-pane" id="tab3">
+                        <div class="row">
+                            <div class="col-md-12 text-left">
+                                <div class="col-md-6 text-center bow-margin-top-25">
+                                    <label>
+                                        <div class="btn-switch mb mr btn-switch-info">
+                                            <input type="checkbox" id="checkboxContactarCorreo" ng-model="nuevaPersona.contactarCorreo" ng-disabled="soloLecturaConsultar">
+                                            <label for="checkboxContactarCorreo" class="btn btn-info">
+                                                <em class="fa fa-check"></em>@L("personas_nuevapersona_modalNuevaPersona_contactarCorreo")
+                                            </label>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label" for="iptCorreo">
+                                        @L("personas_nuevapersona_modalNuevaPersona_correoElectronico")
+                                    </label>
+                                    <input type="text" class="form-control" id="iptCorreo" ng-disabled="soloLecturaConsultar"
+                                           name="iptCorreo" ng-model="nuevaPersona.correoElectronico" maxlength="80" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                                        <span ng-if="!editandoMedio">@L("personas_nuevapersona_modalNuevaPersona_asignarMedioContacto")</span>
+                                        <span ng-if="editandoMedio">@L("personas_nuevapersona_modalNuevaPersona_editandoMedioContacto"){{nombreMedioEditar | uppercase}}</span>
+                                    </div>
+                                    <div class="panel-body" ng-form="frmMedio">
+                                        <div class="row">
+                                            <fieldset class="bow-margin-bottom-5 bow-padding-bottom-5" ng-disabled="soloLecturaConsultar">
+                                                <div class="col-md-12">
+                                                    <label class="control-label" for="iptMedioContacto">
+                                                        @L("personas_nuevapersona_modalNuevaPersona_medioContacto")
+                                                    </label>
+                                                    <select ng-model="controlIndependiente.medioContacto" ng-options="to as to.nombre for to in tiposMedioContacto" class="form-control"></select>
+                                                </div>
+                                                <div class="col-md-12 bow-margin-top-10">
+                                                    <label class="control-label" for="iptIdentificador">
+                                                        @L("personas_nuevapersona_modalNuevaPersona_identificador")
+                                                    </label>
+                                                    <input type="text" class="form-control" id="iptIdentificador" name="iptIdentificador" placeholder=@L("personas_nuevapersona_modalNuevaPersona_identificador") ng-model="controlIndependiente.identificador" required maxlength="100" />
+                                                </div>
+                                            </fieldset>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="pull-right">
+                                                    <button class="btn btn-success btn-circle btn-lg" ng-click="asignarMedioContacto()" ng-disabled="frmMedio.$invalid">
+                                                        <em class="fa fa-save"></em>
+                                                    </button>
+                                                    &nbsp;
+                                                    <button class="btn btn-warning btn-circle btn-lg" ng-click="cancelarUpdateMedio()">
+                                                        <em class="fa" ng-class="{'fa-ban': editandoMedio, 'fa-eraser': !editandoMedio}"></em>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                                        {{mediosContactoPersona.length}} @L("personas_nuevapersona_modalNuevaPersona_mediosContactoRegistrados")
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <tbody>
+                                                            <tr ng-repeat="medio in mediosContactoPersona"
+                                                                ng-mouseenter="controlesMedio.mostrar($index)"
+                                                                ng-mouseleave="controlesMedio.ocultar($index)">
+                                                                <td>
+                                                                    <h4 class="media-heading">
+                                                                        {{medio.medioContactoNombre}}
+                                                                    </h4>
+                                                                    <span class="text-muted">
+                                                                        {{medio.identificador}}
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="pull-right" ng-show="controlesMedio.visible[$index] && !editandoMedio">
+                                                                        <button class="btn btn-success btn-circle btn-lg" ng-click="editarMedioContactoWeb(medio, $index)" ng-hide="eliminandoMedio">
+                                                                            <em class="fa fa-pencil"></em>
+                                                                        </button>
+
+                                                                        <bow-operacion-eliminar-fila mensaje-confirmacion='@L("personas_nuevapersona_modalNuevaPersona_confirmacionEliminarMedioContacto")'
+                                                                                                     mensaje-tooltip='@L("personas_nuevapersona_modalNuevaPersona_tooltipEliminarMediocontacto")'
+                                                                                                     operacion-puede-eliminar="puedeEliminarMedio(medio.id, funcionRetornarPuedeEliminar)"
+                                                                                                     no-puede-eliminar="noPuedeEliminar()"
+                                                                                                     confirmacion-ok="eliminarMedioOk(medio)"
+                                                                                                     confirmacion-cancel="eliminarMedioCancel()">
+                                                                        </bow-operacion-eliminar-fila>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+
+        <tab disabled="tabsDisable" heading="@L("personas_nuevapersona_modalNuevaPersona_tabInformacionAdicional")">
+            <fieldset ng-disabled="soloLecturaConsultar">
+                <div class="row bow-margin-top-10">
+                    <div class="col-md-12 ">
+                        @L("personas_nuevapersona_modalNuevaPersona_tabInformacionAdicional_preferenciasPersonales")
+                    </div>
+                    <div class="col-md-12 ">
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                                <tr ng-repeat="preferencia in preferencias">
+                                    <td class="text-center">
+                                        {{preferencia.nombre}}
+                                    </td>
+                                    <td class="text-center">
+                                        <select ng-model="preferencia.opcionPreferenciaId" ng-change="changeOpcionPreferencia($index)" ng-options="to.id as to.nombre for to in  preferencia.opcionesPreferencia" class="form-control">
+                                            <option value="">
+                                                @L("personas_nuevapersona_modalNuevaPersona_seleccione")
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+        </tab>
+
+        <tab disabled="tabsDisable" ng-click="cargarAuditoria()" ng-show="mostrarAuditoria" heading="@L("personas_nuevapersona_modalNuevaPersona_tabAuditoria")">
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="iptFiltrarPor" name="iptFiltrarPor" placeholder="@L("afiliaciones_beneficio_filtrarPor")" ng-model="filtrar" maxlength="50" />
+                </div>
+            </div>
+
+            <div class="row bow-margin-top-10">
+                <div class="col-md-12 ">
+                    <div>
+                        <div ng-repeat="auditoria in auditoriaPersona.filasMostrar | filter: filtrar track by $index">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                                    {{auditoria.fechaUsuario}}
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-center"><h4 class="media-heading">@L("personas_nuevapersona_modalNuevaPersona_auditoriaTableCampo")</h4></td>
+                                                            <td class="text-center"><h4 class="media-heading">@L("personas_nuevapersona_modalNuevaPersona_auditoriaTableValorAnterior")</h4></td>
+                                                            <td class="text-center"><h4 class="media-heading">@L("personas_nuevapersona_modalNuevaPersona_auditoriaTableValorNuevo")</h4></td>
+                                                        </tr>
+                                                        <tr ng-repeat="cambios in auditoria.auditoriaCambios">
+                                                            <td class="text-center">
+                                                                {{cambios.campo}}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{cambios.valorAnterior}}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{cambios.valorNuevo}}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-right">
+                            <pagination ng-show="auditoriaPersona.filasPorPagina < auditoriaPersona.totalFilas"
+                                        items-per-page="auditoriaPersona.filasPorPagina"
+                                        total-items="auditoriaPersona.totalFilas"
+                                        ng-model="auditoriaPersona.paginaActual"
+                                        ng-change="auditoriaPersona.pageChanged()"
+                                        class="pagination-sm"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="panel panel-primary">
+                    <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                        {{auditoriaPersona.length}} @L("")Auditorias Encontradas
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="table-responsive">
+                                <div ng-repeat="auditoria in auditoriaPersona">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                                            {{auditoria.fechaUsuario}}
+                                        </div>
+
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr ng-repeat="cambios in auditoria.auditoriaCambios ">
+                                                    <td>
+                                                        <span class="text-muted">
+                                                            {{cambios.campo}}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-muted">
+                                                            {{cambios.valorAnterior}}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-muted">
+                                                            {{cambios.valorNuevo}}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+
+        </tab>
+
+    </tabset>
+
+    <div class="row bow-margin-top-10">
+        <div class="col-md-offset-3 col-md-6 col-md-offset-3">
+            <button class="btn btn-success btn-block" ng-click="savePersona()" ng-show="mostrarMasinformacion" ng-disabled="soloLecturaConsultar">
+                @L("personas_nuevapersona_modalNuevaPersona_btGuardar")
+                <i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="modal-body">
+        <div class="alert alert-danger text-center" ng-show="mensajeError">
+            <strong>{{mensajeError}}</strong>
+        </div>
+        <tabset justified="true">
+            <tab heading="@L("personas_nuevapersona_modalNuevaPersona_tabInformacionPersonal")">
+
+                <fieldset ng-disabled="soloLecturaPersona">
+                    <div class="row bow-margin-top-10">
+                        <div class="col-md-3">
+                            <bow-buscarnombrepersona ng-model="nuevaPersona.nombre" titulolabel="@L("personas_nuevapersona_modalNuevaPersona_nombre")" tituloplaceholder="@L("personas_nuevapersona_modalNuevaPersona_nombre")" bow-selecciononombre="seleccionoNombre(nombre)"></bow-buscarnombrepersona>
+                        </div>
+                        <div class="col-md-3">
+                            <bow-buscarapellidopersona ng-model="nuevaPersona.apellido1" titulolabel="@L("personas_nuevapersona_modalNuevaPersona_primerApellido")" tituloplaceholder="@L("personas_nuevapersona_modalNuevaPersona_primerApellido")"></bow-buscarapellidopersona>
+                        </div>
+                        <div class="col-md-3">
+                            <bow-buscarapellidopersona ng-model="nuevaPersona.apellido2" titulolabel="@L("personas_nuevapersona_modalNuevaPersona_segundoApellido")" t tituloplaceholder="@L("personas_nuevapersona_modalNuevaPersona_segundoApellido")"><></bow-buscarapellidopersona>
+                        </div>
+                        <div class="col-md-3">
+                            <bow-buscar-pais titulo='@L("personas_nuevapersona_modalNuevaPersona_nacionalidad")'
+                                             ng-model="selectedPais"
+                                             ng-disabled="soloLecturaPersona"
+                                             selecciono-pais="cargarTiposDocumento(pais)">
+                            </bow-buscar-pais>
+                        </div>
+                    </div>
+
+                    <div class="row bow-margin-top-10">
+                        <div class="col-md-3 bow-margin-top-5">
+                            <button type="button" class="btn btn-primary btn-block"
+                                    btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false" ng-model="nuevaPersona.tieneDocumento"
+                                    ng-change="mostrarCamposDocumento()">
+                                @L("personas_nuevapersona_modalNuevaPersona_tieneDocumento")
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <div ng-show="mostrarDocumento">
+                                <label class="control-label" for="iptTipoDocumento">
+                                    @L("personas_nuevapersona_modalNuevaPersona_tipoDocumento")
+                                </label>
+                                <select ng-model="nuevaPersona.tipoDocumentoId" required
+                                        ng-options="to.id as to.nombre for to in tiposDocumento" class="form-control">
+                                    <option value="">
+                                        @L("personas_nuevapersona_modalNuevaPersona_seleccione")
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div ng-show="mostrarDocumento">
+                                <label class="control-label" for="iptNumeroDocumento">
+                                    @L("personas_nuevapersona_modalNuevaPersona_numeroDocumento")
+                                </label>
+                                <input type="text" class="form-control" required
+                                       name="iptNumeroDocumento" ng-model="nuevaPersona.numeroDocumento" maxlength="30"
+                                       id="iptNumeroDocumento" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 bow-margin-top-20">
+                            <button class="btn btn-info btn-lg btn-block" ng-click="consultarPersona()" ng-show="!mostrarMasinformacion">
+                                @L("personas_nuevapersona_modalNuevaPersona_btnIniciarRegistro")
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div ng-show="mostrarMasinformacion" class="line-top bow-margin-top-10">
+                    <div class="row bow-margin-top-10">
+                        <div class="col-md-3 ">
+                            <div ng-show="mostrarDocumento">
+                                <label for="iptFechaExpedicion">@L("personas_nuevapersona_modalNuevaPersona_fechaExpedicion")</label>
+                                <p class="input-group">
+                                    <input type="text"
+                                           class="form-control"
+                                           id="iptFechaExpedicion"
+                                           name="iptFechaExpedicion"
+                                           ng-model="nuevaPersona.fechaExpDocumento" close-text="Close"
+                                           datepicker-popup="{{configuracionFechaExpedicion.format}}"
+                                           is-open="configuracionFechaExpedicion.opciones.opened"
+                                           min-date="configuracionFechaExpedicion.opciones.minDate"
+                                           max-date="configuracionFechaExpedicion.opciones.maxDate"
+                                           datepicker-options="configuracionFechaExpedicion.opciones"
+                                           ng-disabled="soloLecturaConsultar" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="configuracionFechaExpedicion.open($event)">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label" for="iptGenero">@L("personas_nuevapersona_modalNuevaPersona_genero")</label><br />
+                            <label class="btn btn-primary" ng-model="nuevaPersona.genero" btn-radio="'Masculino'">@L("personas_nuevapersona_modalNuevaPersona_generoMasculino")</label>
+                            <label class="btn btn-primary" ng-model="nuevaPersona.genero" btn-radio="'Femenino'">@L("personas_nuevapersona_modalNuevaPersona_generoFemenino")</label>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="control-label" for="iptEstadoCivil">@L("personas_nuevapersona_modalNuevaPersona_estadoCivil")</label><br />
+                            <select ng-model="nuevaPersona.tipoEstadoCivilId" ng-options="to.id as to.nombre for to in estadoCivil" class="form-control" required ng-disabled="soloLecturaConsultar"></select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label" for="iptProfesion">@L("personas_nuevapersona_modalNuevaPersona_profesion")</label>
+                            <input id="iptProfesion" name="iptProfesion" type="text" ng-model="controlIndependiente.profesionId" ng-disabled="soloLecturaConsultar"
+                                   class="form-control" typeahead-editable="false" required
+                                   typeahead="profesion as profesion.nombre for profesion in profesiones | filter:$viewValue">
+                        </div>
+                    </div>
+
+                    <div class="row bow-margin-top-10">
+
+                        <div class="col-md-3 bow-margin-top-5">
+                            <button type="button" class="btn btn-primary btn-block" btn-checkbox ng-model="nuevaPersona.tieneFechaNacimiento"
+                                    btn-checkbox-true="true" btn-checkbox-false="false" ng-change="mostrarFechaNacimiento()" ng-disabled="soloLecturaConsultar">
+                                @L("personas_nuevapersona_modalNuevaPersona_tieneFechaNacimiento")
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <fieldset ng-disabled="soloLecturaConsultar">
+                                <div ng-show="fechaedad">
+                                    <label for="iptFechaNacimiento">@L("personas_nuevapersona_modalNuevaPersona_fechaNacimiento")</label>
+                                    <span class="pull-right" ng-show="edadcalculada">{{edadcalculada}} @L("personas_nuevapersona_modalNuevaPersona_años")</span>
+                                    <p class="input-group">
+                                        <input type="text"
+                                               class="form-control"
+                                               id="iptFechaNacimiento"
+                                               name="iptFechaNacimiento"
+                                               ng-blur="calcularEdad(nuevaPersona.fechaNacimiento)"
+                                               ng-model="nuevaPersona.fechaNacimiento" close-text="Close"
+                                               datepicker-popup="{{configuracionFechaNacimiento.format}}"
+                                               is-open="configuracionFechaNacimiento.opciones.opened"
+                                               min-date="configuracionFechaNacimiento.opciones.minDate"
+                                               max-date="configuracionFechaNacimiento.opciones.maxDate"
+                                               datepicker-options="configuracionFechaNacimiento.opciones" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default"
+                                                    ng-click="configuracionFechaNacimiento.open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <div ng-show="mostrarEdadfecha">
+                                    <div class="form-group" ng-class="{'has-error' : modalNuevaPersona.iptEdad.$dirty && modalNuevaPersona.iptEdad.$invalid}">
+                                        <label class="control-label" for="iptEdad">
+                                            @L("personas_nuevapersona_modalNuevaPersona_edad")
+                                        </label>
+                                        <span class="pull-right" ng-show="fechacalculada">{{fechacalculada}}</span>
+                                        <input type="text" class="form-control" id="iptEdad" name="iptEdad"
+                                               ng-pattern="/^[0-9]{1,7}$/"
+                                               ng-model="controlIndependiente.edad" ng-blur="calcularFecha(controlIndependiente.edad)" maxlength="3" />
+                                        <div ng-show="modalNuevaPersona.iptEdad.$dirty && modalNuevaPersona.iptEdad.$invalid">
+                                            <small ng-show="modalNuevaPersona.iptEdad.$error.pattern" class="text-danger">
+                                                @L("personas_nuevapersona_modalNuevaPersona_edadSoloNumeros")
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="iptfechaFallecimiento">@L("personas_nuevapersona_modalNuevaPersona_fechaFallecimiento")</label>
+                            <p class="input-group">
+                                <input type="text"
+                                       class="form-control"
+                                       id="iptFechaFallecimiento"
+                                       name="iptFechaFallecimiento"
+                                       ng-blur="calcularEdad(nuevaPersona.fechaFallecimiento)"
+                                       ng-model="nuevaPersona.fechaFallecimiento" close-text="Close"
+                                       datepicker-popup="{{configuracionFechaFallecimiento.format}}"
+                                       is-open="configuracionFechaFallecimiento.opciones.opened"
+                                       min-date="configuracionFechaFallecimiento.opciones.minDate"
+                                       max-date="configuracionFechaFallecimiento.opciones.maxDate"
+                                       datepicker-options="configuracionFechaFallecimiento.opciones"
+                                       ng-disabled="soloLecturaConsultar" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default"
+                                            ng-click="configuracionFechaFallecimiento.open($event)">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-md-3 bow-margin-top-5">
+                            <button type="button" class="btn btn-primary btn-block" btn-checkbox ng-model="nuevaPersona.discapacitada">
+                                @L("personas_nuevapersona_modalNuevaPersona_esDiscapacitada")
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" ng-show="mostrarConsultaPersona">
+                    <div class="row" ng-repeat="resultadoPersona in resultadoPersona">
+                        <div class="col-md-12 text-center">
+                            <div class="col-md-6">
+                                <label class="control-label" for="iptDatosPersona">
+                                    {{resultadoPersona.tipoDocumentoNombre}} {{resultadoPersona.numeroDocumento}} - {{resultadoPersona.nombreCompleto}} ({{resultadoPersona.edad}})
+                                    <br /> {{resultadoPersona.paisNombre}}
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="btn btn-primary" ng-click="cargarPersona(resultadoPersona.id)">
+                                    @L("personas_nuevapersona_modalNuevaPersona_btnEstaEsLaPersona")
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <br />
+                        <label class="btn btn-primary" ng-click="cargarNuevaPersona()">
+                            @L("personas_nuevapersona_modalNuevaPersona_btnNoEsNinguno")
+                        </label>
+                        <br />
+                    </div>
+                </div>
+                <div class="row" ng-show="mostrarDocumentoPersonaExiste" ng-repeat="resultadoPersona in resultadoPersona">
+                    <div class="col-md-12 text-center">
+                        <div class="col-md-12">
+                            <label class="control-label" for="iptExisteDocumento">
+                                @L("personas_nuevapersona_modalNuevaPersona_existeNumeroDocumentoPersona")
+                            </label><br />
+                            <label class="control-label" for="iptDatosExistePersona">
+                                {{resultadoPersona.tipoDocumentoNombre}} {{resultadoPersona.numeroDocumento}} - {{resultadoPersona.nombreCompleto}} ({{resultadoPersona.edad}})
+                                <br /> {{resultadoPersona.paisNombre}}
+                            </label><br />
+                        </div>
+                    </div>
+                </div>
+
+            </tab>
+
+            <tab disabled="tabsDisable" heading="@L("personas_nuevapersona_modalNuevaPersona_tabContacto")">
+                <div id="pillsContacto">
+                    <ul class="nav nav-pills">
+                        <li><a href="#tab1" data-toggle="tab">@L("personas_nuevapersona_modalNuevaPersona_pillTelefonos") ({{cantidadTelefonos}})</a></li>
+                        <li><a href="#tab2" data-toggle="tab">@L("personas_nuevapersona_modalNuevaPersona_pillDirecciones") ({{cantidadDirecciones}})</a></li>
+                        <li><a href="#tab3" data-toggle="tab">@L("personas_nuevapersona_modalNuevaPersona_pillWeb") ({{mediosContactoPersona.length}})</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" id="tab1">
+                            <div class="row">
+                                <fieldset ng-disabled="soloLecturaConsultar">
+                                    <div class="col-md-12 text-center">
+                                        <div class="col-md-6 text-right">
+                                            <label>
+                                                @L("personas_nuevapersona_modalNuevaPersona_contactarTelefono")
+                                                <input type="checkbox" ng-model="nuevaPersona.contactarTelefono">
+                                            </label>
+                                        </div>
+                                        <div class="col-md-6 text-left">
+                                            <label>
+                                                @L("personas_nuevapersona_modalNuevaPersona_contactarSms")
+                                                <input type="checkbox" ng-model="nuevaPersona.contactarSms">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <bow-telefonospersona bow-personaid="personaId" bow-admintelefonospersona="telefonosPersona" ng-disabled="soloLecturaConsultar"></bow-telefonospersona>
+
+                        </div>
+                        <div class="tab-pane" id="tab2">
+
+                            <bow-direccionespersona bow-personaid="personaId" bow-admindireccionespersona="direccionesPersona" ng-disabled="soloLecturaConsultar"></bow-direccionespersona>
+
+                        </div>
+                        <div class="tab-pane" id="tab3">
+
+                            <div class="row">
+                                <div class="col-md-12 text-left">
+                                    <div class="col-md-4 text-left">
+                                        <label class="control-label" for="iptCorreo">
+                                            @L("personas_nuevapersona_modalNuevaPersona_correoElectronico")
+                                        </label>
+                                        <input type="text" class="form-control" id="iptCorreo" ng-disabled="soloLecturaConsultar"
+                                               name="iptCorreo" ng-model="nuevaPersona.correoElectronico" maxlength="80" />
+                                    </div>
+                                    <form role="form" name="saveContactoWeb">
+                                        <div class="col-md-8 text-left">
+                                            <fieldset ng-disabled="soloLecturaConsultar">
+                                                <div class="col-md-4 text-left">
+                                                    <label class="control-label" for="iptMedioContacto">
+                                                        @L("personas_nuevapersona_modalNuevaPersona_medioContacto")
+                                                    </label>
+                                                    <select ng-model="controlIndependiente.medioContacto" ng-options="to as to.nombre for to in tiposMedioContacto" class="form-control"></select>
+
+                                                </div>
+                                                <div class="col-md-4 text-left">
+                                                    <label class="control-label" for="iptIdentificador">@L("personas_nuevapersona_modalNuevaPersona_identificador")</label>
+                                                    <input type="text" class="form-control" id="iptIdentificador" name="iptIdentificador" placeholder=@L("personas_nuevapersona_modalNuevaPersona_identificador") ng-model="controlIndependiente.identificador" required maxlength="100" />
+                                                </div>
+                                                <div class="col-md-4 text-left">
+                                                    <button class="btn btn-success" ng-click="asignarMedioContacto()" ng-disabled="saveContactoWeb.$invalid">@L("personas_nuevapersona_modalNuevaPersona_btAsignarMedioContacto")</button>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-12 text-left">
+                                    <fieldset ng-disabled="soloLecturaConsultar">
+                                        <div class="col-md-4 text-left">
+                                            <label>
+                                                @L("personas_nuevapersona_modalNuevaPersona_contactarCorreo")
+                                                <input type="checkbox" ng-model="nuevaPersona.contactarCorreo">
+                                            </label>
+                                        </div>
+                                        <div class="col-md-8 text-left">
+                                            <table class="table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">@L("personas_nuevapersona_modalNuevaPersona_direccionTableMedioContacto")</th>
+                                                        <th class="text-center">@L("personas_nuevapersona_modalNuevaPersona_direccionTableIdentificador")</th>
+                                                        <th class="text-center"></th>
+                                                        <th class="text-center"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="medio in mediosContactoPersona">
+                                                        <td class="text-center">
+                                                            {{medio.medioContactoNombre}}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{medio.identificador}}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a ng-click="editarMedioContactoWeb(medio, $index)"><span class="glyphicon glyphicon-pencil font-size-16"></span></a>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a ng-click="eliminarMedioContacto(medio.id, $index)" ng-show="!mensajeEliminar[$index]" title="@L("personas_nuevapersona_modalNuevaPersona_tooltipEliminarMediocontacto")"><span class="glyphicon glyphicon-trash"></span></a>
+                                                            <div ng-show="mensajeEliminar[$index]">
+                                                                @L("personas_nuevapersona_modalNuevaPersona_confirmacionEliminarMedioContacto")<br />
+                                                                <button class="btn btn-success btn-xs" ng-click="eliminarMedioContactoOk(medio, $index)">@L("personas_nuevapersona_modalNuevaPersona_btEliminarMedioContacto")</button>
+                                                                <button class="btn btn-danger btn-xs" ng-click="eliminarMedioContactoCancel($index)">@L("personas_nuevapersona_modalNuevaPersona_btCancelarMedioContacto")</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+
+            <tab disabled="tabsDisable" heading="@L("personas_nuevapersona_modalNuevaPersona_tabInformacionAdicional")">
+                <fieldset ng-disabled="soloLecturaConsultar">
+                    <div class="row bow-margin-top-10">
+                        <div class="col-md-12 ">
+                            @L("personas_nuevapersona_modalNuevaPersona_tabInformacionAdicional_preferenciasPersonales")
+                        </div>
+                        <div class="col-md-12 ">
+                            <table class="table table-striped table-hover">
+                                <tbody>
+                                    <tr ng-repeat="preferencia in preferencias">
+                                        <td class="text-center">
+                                            {{preferencia.nombre}}
+                                        </td>
+                                        <td class="text-center">
+                                            <select ng-model="preferencia.opcionPreferenciaId" ng-change="changeOpcionPreferencia($index)" ng-options="to.id as to.nombre for to in  preferencia.opcionesPreferencia" class="form-control">
+                                                <option value="">
+                                                    @L("personas_nuevapersona_modalNuevaPersona_seleccione")
+                                                </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+            </tab>
+            <tab disabled="tabsDisable" ng-click="cargarAuditoria()" ng-show="mostrarAuditoria" heading="@L("personas_nuevapersona_modalNuevaPersona_tabAuditoria")">
+                <div class="row bow-margin-top-10">
+                    <div class="col-md-12 ">
+                        <div>
+                            <div ng-repeat="auditoria in auditoriaPersona">
+                                {{auditoria.fechaUsuario}}
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">@L("personas_nuevapersona_modalNuevaPersona_auditoriaTableCampo")</th>
+                                            <th class="text-center">@L("personas_nuevapersona_modalNuevaPersona_auditoriaTableValorAnterior")</th>
+                                            <th class="text-center">@L("personas_nuevapersona_modalNuevaPersona_auditoriaTableValorNuevo")</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="cambios in auditoria.auditoriaCambios">
+                                            <td class="text-center">
+                                                {{cambios.campo}}
+                                            </td>
+                                            <td class="text-center">
+                                                {{cambios.valorAnterior}}
+                                            </td>
+                                            <td class="text-center">
+                                                {{cambios.valorNuevo}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+
+        </tabset>
+
+        <div class="row bow-margin-top-10">
+            <div class="col-md-offset-3 col-md-6 col-md-offset-3">
+                <button class="btn btn-info btn-block" ng-click="savePersona()" ng-show="mostrarMasinformacion" ng-disabled="soloLecturaConsultar">
+                    @L("personas_nuevapersona_modalNuevaPersona_btGuardar")
+                    <i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>*@

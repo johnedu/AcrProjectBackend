@@ -1,0 +1,192 @@
+﻿<div class="row">
+    <div class="col-md-12" ng-show="mensajeError">
+        <div class="alert alert-danger text-center">
+            <strong>{{mensajeError}}</strong>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row" ng-hide="mostrarCategoriaNombre">
+            <div class="col-md-12">
+                <div class="row" ng-show="formularioCategoriaVisible">
+                    <div class="col-md-12">
+                        <label class="control-label">@L("directiva_bowCategoriaBeneficio_categoria_panel_nuevo_titulo")</label>
+                        <div class="modal-footer">
+                            <form role="form" name="frmRegistrarCategoria">
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarCategoria.iptNombre.$dirty && frmRegistrarCategoria.iptNombre.$invalid }">
+                                            <label class="control-label" for="iptNombre">@L("directiva_bowCategoriaBeneficio_categoria_panel_nuevo_nombre")</label>
+                                            <input type="text" class="form-control" id="iptNombre" name="iptNombre" placeholder="@L("directiva_bowCategoriaBeneficio_categoria_panel_nuevo_nombre_placeholder")" ng-model="nombreNuevaCategoria" required maxlength="100" />
+                                            <div ng-show="frmRegistrarCategoria.iptNombre.$dirty && frmRegistrarCategoria.iptNombre.$invalid">
+                                                <small ng-show="frmRegistrarCategoria.iptNombre.$error.required" class="text-danger">
+                                                    @L("directiva_bowCategoriaBeneficio_categoria_panel_nuevo_nombre_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-center bow-padding-top-10">
+                                        <div class="pull-right">
+                                            <button class="btn btn-success btn-circle btn-lg" ng-click="guardarCategoria()" ng-disabled="frmRegistrarCategoria.$invalid" title="@L("directiva_bowCategoriaBeneficio_categoria_panel_nuevo_btn_registrar")">
+                                                <em class="fa fa-save"></em>
+                                            </button>
+                                            &nbsp;
+                                            <button class="btn btn-warning btn-circle btn-lg" ng-click="mostrarFormularioCategoria(false)" title="@L("directiva_bowCategoriaBeneficio_categoria_panel_nuevo_btn_cancelar")">
+                                                <em class="fa fa-close"></em>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="!formularioCategoriaVisible">
+                    <div class="col-md-10">
+                        <h5>
+                            @L("afiliaciones_directivaBowCategoriaBeneficio_categoria_titulo")
+                        </h5>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="iptFiltroCategoria" name="iptFiltroCategoria" placeholder="@L("afiliaciones_directivaBowCategoriaBeneficio_categoria_placeholder")" ng-model="filtroCategoria" required />
+                            <div class="input-group-addon">
+                                <div data-toggle="tooltip" data-placement="right">
+                                    <i class="fa fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-right bow-padding-top-10">
+                        <button class="btn btn-success btn-circle btn-lg" ng-click="mostrarFormularioCategoria(true)" title="@L("directiva_bowCategoriaBeneficio_categoria_panel_btn_agregar") {{vm.grupoBeneficioNombreSeleccionado}}">
+                            <em class="fa fa-plus"></em>
+                        </button>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="categoria in listadoCategorias | filter:filtroCategoria">
+                                        <td>
+                                            <h5 class="media-heading">
+                                                <a class="clickable" ng-click="seleccionarCategoria(categoria.id, categoria.nombre)" title="@L("afiliaciones_directivaBowCategoriaBeneficio_categoria_tooltip")">
+                                                    <i class="fa fa-leaf"></i>&nbsp;&nbsp;{{categoria.nombre}}
+                                                </a>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="mostrarBeneficios">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="media-heading">
+                            {{beneficio.categoriaNombre}}
+                        </h4>
+                    </div>
+                    <div class="col-md-6 text-right bow-padding-bottom-10">
+                        <button class="btn btn-success btn-circle btn-lg" ng-click="mostrarFormularioBeneficio(true)" title="@L("directiva_bowCategoriaBeneficio_beneficio_panel_btn_agregar") {{vm.grupoBeneficioNombreSeleccionado}}">
+                            <em class="fa fa-plus"></em>
+                        </button>
+                        <button class="btn btn-warning btn-circle btn-lg" ng-click="categoriaNombreMostrar(false)" title="@L("directiva_bowCategoriaBeneficio_beneficio_panel_btn_volver") {{vm.grupoBeneficioNombreSeleccionado}}">
+                            <em class="fa fa-th"></em>
+                        </button>
+                    </div>
+                </div>
+                <div class="row" ng-show="formularioBeneficioVisible">
+                    <div class="col-md-12">
+                        <label class="control-label">@L("directiva_bowCategoriaBeneficio_beneficio_panel_titulo")</label>
+                        <div class="modal-footer">
+                            <form role="form" name="frmRegistrarBeneficio">
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" ng-class="{'has-error' : frmRegistrarBeneficio.iptNombre.$dirty && frmRegistrarBeneficio.iptNombre.$invalid }">
+                                                    <label class="control-label" for="iptNombre">@L("directiva_bowCategoriaBeneficio_beneficio_panel_nombre")</label>
+                                                    <input type="text" class="form-control" id="iptNombre" name="iptNombre" placeholder="@L("directiva_bowCategoriaBeneficio_beneficio_panel_nombre_placeholder")" ng-model="nombreNuevoBeneficio" required maxlength="100" />
+                                                    <div ng-show="frmRegistrarBeneficio.iptNombre.$dirty && frmRegistrarBeneficio.iptNombre.$invalid">
+                                                        <small ng-show="frmRegistrarBeneficio.iptNombre.$error.required" class="text-danger">
+                                                            @L("directiva_bowCategoriaBeneficio_beneficio_panel_nombre_requerido")
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 text-right">
+                                                <button class="btn btn-success btn-circle btn-lg" ng-click="guardarBeneficio()" title="@L("directiva_bowCategoriaBeneficio_beneficio_panel_btn_registrar")">
+                                                    <em class="fa fa-plus"></em>
+                                                </button>
+                                                <button class="btn btn-warning btn-circle btn-lg" ng-click="mostrarFormularioBeneficio(false)" title="@L("directiva_bowCategoriaBeneficio_beneficio_panel_btn_cancelar")">
+                                                    <em class="fa fa-close"></em>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-center">
+                                        <div class="form-group" ng-class="{'has-error' : frmRegistrarBeneficio.iptDescripcion.$dirty && frmRegistrarBeneficio.iptDescripcion.$invalid }">
+                                            <label class="control-label" for="iptDescripcion">@L("directiva_bowCategoriaBeneficio_beneficio_panel_descripcion")</label>
+                                            <textarea class="form-control" id="iptDescripcion" name="iptDescripcion" placeholder="@L("directiva_bowCategoriaBeneficio_beneficio_panel_descripcion_placeholder")" ng-model="descripcionNuevoBeneficio" required maxlength="500" rows="4"></textarea>
+                                            <div ng-show="frmRegistrarBeneficio.iptDescripcion.$dirty && frmRegistrarBeneficio.iptDescripcion.$invalid">
+                                                <small ng-show="frmRegistrarBeneficio.iptDescripcion.$error.required" class="text-danger">
+                                                    @L("directiva_bowCategoriaBeneficio_beneficio_panel_descripcion_requerido")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="!formularioBeneficioVisible">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="iptFiltroBeneficio" name="iptFiltroBeneficio" placeholder="@L("afiliaciones_directivaBowCategoriaBeneficio_beneficio_placeholder")" ng-model="filtroBeneficio" required />
+                            <div class="input-group-addon">
+                                <div data-toggle="tooltip" data-placement="right">
+                                    <i class="fa fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive" ng-show="!formularioBeneficioVisible">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr ng-repeat="beneficio in listadoBeneficios | filter:filtroBeneficio">
+                                <td>
+                                    <h5 class="media-heading">
+                                        <a class="clickable" ng-click="seleccionarBeneficio(beneficio.id, beneficio.nombre, beneficio.descripcion)" title="@L("afiliaciones_directivaBowCategoriaBeneficio_beneficio_tooltip")">
+                                            <i class="fa fa-star"></i>&nbsp;&nbsp;{{beneficio.nombre}}
+                                        </a>
+                                    </h5>
+                                    <span class="text-muted">
+                                        {{beneficio.descripcion}}
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button class="btn btn-warning btn-circle btn-lg" ng-click="cancelarFormulario()" title="@L("afiliaciones_directivaBowCategoriaBeneficio_btn_cancelar")">
+                            <em class="fa fa-close"></em>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

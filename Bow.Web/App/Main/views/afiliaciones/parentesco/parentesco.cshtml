@@ -1,0 +1,184 @@
+﻿<div class="app-container" ng-controller="app.views.afiliaciones.parentesco as vm">
+    <div class="app-view-header page-header">
+        @L("afiliaciones_gestionarparentescos_titulo")
+        <small>@L("afiliaciones_gestionarparentescos_subTitulo")</small>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                    <span ng-if="!vm.editandoParenteco">@L("afiliaciones_gestionarparentescos_agregarParentesco")</span>
+                    <span ng-if="vm.editandoParenteco">@L("afiliaciones_gestionarparentescos_editandoParentesco") {{vm.nombreParentescoEditar | uppercase}}</span>
+                </div>
+                <div class="panel-body" ng-form="frmParentesco">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group col-md-8" ng-class="{'has-error' : frmParentesco.iptNombre.$dirty && frmParentesco.iptNombre.$invalid}">
+                                <label class="control-label" for="iptNombre">@L("afiliaciones_gestionarparentescos_nombre")</label>
+                                <input type="text" class="form-control" id="iptNombre" name="iptNombre" ng-model="vm.nuevoParentesco.nombre" required maxlength="50" />
+                                <div ng-show="frmParentesco.iptNombre.$dirty && frmParentesco.iptNombre.$invalid">
+                                    <small ng-show="frmParentesco.iptNombre.$error.required" class="text-danger">
+                                        @L("afiliaciones_gestionarparentescos_nombreRequerido")
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label" for="iptPosicion">@L("afiliaciones_gestionarparentescos_posicion")</label><br />
+                                <select class="form-control" ng-model="vm.posicion" ng-options="to.pos for to in vm.posiciones" required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group col-md-8">
+                                <label class="control-label" for="iptGenero">@L("afiliaciones_gestionarparentescos_genero")</label><br />
+                                <div class="checkbox-inline c-checkbox">
+                                    <label>
+                                        <input type="radio" name="chkbGenero" value="M" ng-model="vm.nuevoParentesco.genero" ng-checked="vm.nuevoParentesco.genero == 'M'">
+                                        <span class="fa fa-male"></span>@L("afiliaciones_gestionarparentescos_generoMasculino")
+                                    </label>
+                                </div>
+                                <div class="checkbox-inline c-checkbox">
+                                    <label>
+                                        <input type="radio" name="chkbGenero" value="F" ng-model="vm.nuevoParentesco.genero" ng-checked="vm.nuevoParentesco.genero == 'F'">
+                                        <span class="fa fa-female"></span>@L("afiliaciones_gestionarparentescos_generoFemenino")
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4" ng-class="{'has-error' : frmParentesco.iptRepeticiones.$dirty && frmParentesco.iptRepeticiones.$invalid}">
+                                <label class="control-label" for="iptRepeticiones">@L("afiliaciones_gestionarparentescos_repeticiones")</label>
+                                <input type="number" class="form-control" id="iptRepeticiones" name="iptRepeticiones" min="1" ng-model="vm.nuevoParentesco.repeticiones" required maxlength="2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            <div class="checkbox c-checkbox needsclick">
+                                <label class="needsclick">
+                                    <input type="checkbox" class="needsclick" ng-model="vm.restriccionEdad" ng-click="vm.validarRestriccion()" ng-checked="vm.restriccionEdad">
+                                    <span class="fa fa-check"></span> @L("afiliaciones_gestionarparentescos_restriccionEdad")
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12" ng-show="vm.mostrarRestriccion">
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="vm.nuevoParentesco.limite" ng-required="vm.edadLimiteRequerida">
+                                    <option value="">
+                                        @L("afiliaciones_gestionarparentescos_seleccione")
+                                    </option>
+                                    <option value=">">
+                                        @L("afiliaciones_gestionarparentescos_mayor")
+                                    </option>
+                                    <option value="<">
+                                        @L("afiliaciones_gestionarparentescos_menor")
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-4" ng-class="{'has-error' : frmParentesco.iptAnos.$dirty && frmParentesco.iptAnos.$invalid}">
+                                <input type="number" class="form-control" id="iptAnos" name="iptAnos" min="1" ng-model="vm.nuevoParentesco.edadDiferencia" ng-required="vm.edadLimiteRequerida" maxlength="2" />
+                            </div>
+                            <div class="col-md-2 text-left">
+                                <label class="control-label" for="iptAnos">@L("afiliaciones_gestionarparentescos_anos")</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            <div class="checkbox c-checkbox needsclick">
+                                <label class="needsclick">
+                                    <input type="checkbox" class="needsclick" ng-model="vm.nuevoParentesco.coincidirApellidos">
+                                    <span class="fa fa-check"></span> @L("afiliaciones_gestionarparentescos_coincidirApellidos")
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button class="btn btn-success btn-circle btn-lg" ng-click="vm.saveOrUpdateParentesco()" ng-disabled="frmParentesco.$invalid">
+                                    <em class="fa fa-save"></em>
+                                </button>
+                                &nbsp;
+                                <button class="btn btn-warning btn-circle btn-lg" ng-click="vm.cancelarUpdateParentesco()">
+                                    <em class="fa" ng-class="{'fa-ban': vm.editandoParentesco, 'fa-eraser': !vm.editandoParentesco}"></em>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                    {{vm.parentescos.totalFilas}} @L("afiliaciones_gestionarparentescos_parentescosRegistrados")
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr ng-repeat="parentesco in vm.parentescos.filasMostrar track by $index"
+                                            ng-mouseenter=" vm.controlesParentescos.mostrar($index)"
+                                            ng-mouseleave="vm.controlesParentescos.ocultar($index)">
+                                            <td>
+                                                <h4 class="media-heading">
+                                                    {{parentesco.posicion}}&nbsp;{{parentesco.nombre}}
+                                                </h4>
+                                                <span class="text-muted">
+                                                    <span>
+                                                        {{parentesco.repeticiones}}&nbsp;@L("afiliaciones_gestionarparentescos_tableRepeticiones")
+                                                    </span>
+                                                    <span ng-show="parentesco.limite == '>'">
+                                                        <em class="fa fa-caret-right"></em> @L("afiliaciones_gestionarparentescos_mayor")
+                                                    </span>
+                                                    <span ng-show="parentesco.limite == '<'">
+                                                        <em class="fa fa-caret-right"></em> @L("afiliaciones_gestionarparentescos_menor")
+                                                    </span>
+                                                    <span ng-show="parentesco.edadDiferencia > ''"> {{parentesco.edadDiferencia}}&nbsp;@L("afiliaciones_gestionarparentescos_anos") </span>
+                                                    <span ng-show="parentesco.coincidirApellidos == true">
+                                                        <em class="fa fa-caret-right"></em> <em class="fa fa-check-square-o"></em>&nbsp;@L("afiliaciones_gestionarparentescos_tableCoincidirApellidos")
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="pull-right" ng-show="vm.controlesParentescos.visible[$index] && !vm.editandoParentesco">
+                                                    <bow-operacion-editar-fila operacion-editar="vm.editarParentesco(parentesco.id)"
+                                                                               mensaje-tooltip='@L("afiliaciones_gestionarparentescos_editarParentesco")'
+                                                                               posicion-tooltip="left"
+                                                                               ng-hide="vm.eliminandoParentesco">
+                                                    </bow-operacion-editar-fila>
+                                                    <bow-operacion-eliminar-fila mensaje-confirmacion='@L("afiliaciones_gestionarparentescos_deseaEliminar")'
+                                                                                 mensaje-tooltip='@L("afiliaciones_gestionarparentescos_eliminarParentesco")'
+                                                                                 operacion-puede-eliminar="vm.puedeEliminarParentesco(parentesco.id, funcionRetornarPuedeEliminar)"
+                                                                                 no-puede-eliminar="vm.noPuedeEliminar()"
+                                                                                 confirmacion-cancel="vm.eliminarParentescoCancel()"
+                                                                                 confirmacion-ok="vm.eliminarParentescoOk(parentesco.id, parentesco.posicion)">
+                                                    </bow-operacion-eliminar-fila>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-right">
+                                    <pagination ng-show="vm.parentescos.filasPorPagina < vm.parentescos.totalFilas"
+                                                items-per-page="vm.parentescos.filasPorPagina"
+                                                total-items="vm.parentescos.totalFilas"
+                                                ng-model="vm.parentescos.paginaActual"
+                                                ng-change="vm.parentescos.pageChanged()"
+                                                class="pagination-sm"></pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

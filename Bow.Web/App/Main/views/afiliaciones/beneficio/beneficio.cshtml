@@ -1,0 +1,180 @@
+﻿<div class="app-container" ng-controller="app.views.afiliaciones.beneficio as vm">
+    <div class="app-view-header page-header">
+        <div class="row">
+            <div class="col-md-12">
+                @L("afiliaciones_beneficio_titulo")
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                    @L("afiliaciones_beneficio_panelCategorias_titulo")
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <button type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.formularioNuevaCategoria()" title="@L("afiliaciones_beneficio_botonRegistrarCategoria")">
+                                <em class="fa fa-plus"></em>
+                            </button>
+                        </div>
+                    </div>
+                    <form role="form" name="formNuevaCategoria">
+                        <div ng-show="vm.mostrarNuevaCategoria">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <br />
+                                    <div class="form-group" ng-class="{'has-error' : formNuevaCategoria.iptNombreCategoria.$dirty && formNuevaCategoria.iptNombreCategoria.$invalid}">
+                                        <label class="control-label" for="iptNombreCategoria">@L("afiliaciones_beneficio_nombreCategoria")</label>
+                                        <input type="text" class="form-control" id="iptNombreCategoria" name="iptNombreCategoria" ng-model="vm.nuevaCategoria.nombre" required maxlength="50" /> <br />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.saveCategoria()" ng-disabled="formNuevaCategoria.$invalid" title="@L("afiliaciones_beneficio_botonGuardarCategoria")">
+                                            <em class="fa fa-save"></em>
+                                        </button>
+                                        &nbsp;&nbsp;
+                                        <button type="button" class="btn btn-warning btn-circle btn-lg" ng-click="vm.mostrarNuevaCategoria = !vm.mostrarNuevaCategoria" title="@L("afiliaciones_beneficio_botonCancelar")">
+                                            <em class="fa fa-close"></em>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" id="iptFiltrarPor" name="iptFiltrarPor" placeholder="@L("afiliaciones_beneficio_filtrarPor")" ng-model="filtrar" maxlength="50" />
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            <br />
+                            {{vm.categorias.length}} @L("afiliaciones_beneficio_categorias")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr ng-repeat="categoria in vm.categorias | filter: filtrar"
+                                            ng-mouseenter=" vm.controlesCategorias.mostrar($index)"
+                                            ng-mouseleave="vm.controlesCategorias.ocultar($index)">
+                                            <td>
+                                                <h4 class="media-heading">
+                                                    <a class="clickable" ng-click="vm.cargarBeneficios(categoria.id)" title="@L("afiliaciones_beneficio_categorias_seleccione")">
+                                                        <i class="fa fa-folder-open"></i>&nbsp;&nbsp;&nbsp;{{categoria.nombre}}
+                                                    </a>
+                                                </h4>
+                                            </td>
+                                            <td class="text-center">
+                                                <span ng-show="vm.controlesCategorias.visible[$index]" class="pull-right">
+                                                    <bow-operacion-editar-fila operacion-editar="vm.editarCategoria(categoria.id)"
+                                                                               mensaje-tooltip="@L("afiliaciones_beneficio_editarCategoria")"
+                                                                               ng-show="!vm.eliminadoCategoria">
+                                                    </bow-operacion-editar-fila>
+                                                    <bow-operacion-eliminar-fila mensaje-confirmacion="@L("afiliaciones_beneficio_confirmacionEliminarCategoria")"
+                                                                                 mensaje-tooltip="@L("afiliaciones_beneficio_eliminarCategoria")"
+                                                                                 operacion-puede-eliminar="vm.puedeEliminar(categoria.id, funcionRetornarPuedeEliminar)"
+                                                                                 no-puede-eliminar="vm.noPuedeEliminar()"
+                                                                                 confirmacion-ok="vm.deleteCategoria(categoria.id)"
+                                                                                 confirmacion-cancel="vm.cancelarEliminar()">
+                                                    </bow-operacion-eliminar-fila>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="panel panel-primary">
+                <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                    @L("afiliaciones_beneficio_panelBeneficios_titulo")
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h4 ng-show="vm.tipoCategoria" ng-class="'text-' + app.theme.name"> {{vm.tipoCategoria}} ( {{vm.beneficios.length}} @L("afiliaciones_beneficio_beneficios") ) </h4>
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            <button ng-show="vm.tipoCategoria" type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.formularioNuevoBeneficio()" title="@L("afiliaciones_beneficio_botonRegistrarBeneficio")">
+                                <em class="fa fa-plus"></em>
+                            </button>
+                        </div>
+                    </div>
+                    <form role="form" name="formNuevoBeneficio">
+                        <div ng-show="vm.mostrarNuevoBeneficio">
+                            <div class="col-md-12">
+                                <br />
+                                <div class="form-group" ng-class="{'has-error' : formNuevoBeneficio.iptNombreBeneficio.$dirty && formNuevoBeneficio.iptNombreBeneficio.$invalid}">
+                                    <label class="control-label" for="iptNombreBeneficio">@L("afiliaciones_beneficio_nombreBeneficio")</label>
+                                    <input type="text" class="form-control" id="iptNombreBeneficio" name="iptNombreBeneficio" ng-model="vm.nuevoBeneficio.nombre" required maxlength="50" />
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="control-label" for="iptDescripcionBeneficio">@L("afiliaciones_beneficio_descripcionBeneficio")</label>
+                                <textarea type="text" class="form-control" id="iptDescripcionBeneficio" name="iptDescripcionBeneficio" ng-model="vm.nuevoBeneficio.descripcion" maxlength="200" /> <br />
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-success btn-circle btn-lg" ng-click="vm.saveBeneficio()" ng-disabled="formNuevoBeneficio.$invalid" title="@L("afiliaciones_beneficio_botonGuardarBeneficio")">
+                                            <em class="fa fa-save"></em>
+                                        </button>
+                                        &nbsp;&nbsp;
+                                        <button type="button" class="btn btn-warning btn-circle btn-lg" ng-click="vm.mostrarNuevoBeneficio = !vm.mostrarNuevoBeneficio" title="@L("afiliaciones_beneficio_botonCancelar")">
+                                            <em class="fa fa-close"></em>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr ng-repeat="beneficio in vm.beneficios"
+                                            ng-mouseenter="vm.controlesBeneficios.mostrar($index)"
+                                            ng-mouseleave="vm.controlesBeneficios.ocultar($index)">
+                                            <td>
+                                                <h4 class="media-heading">
+                                                    {{beneficio.nombre}}
+                                                </h4>
+                                            </td>
+                                            <td class="text-center">
+                                                <span ng-show="vm.controlesBeneficios.visible[$index]" class="pull-right">
+                                                    <bow-operacion-editar-fila operacion-editar="vm.editarBeneficio(beneficio.id)"
+                                                                               mensaje-tooltip="@L("afiliaciones_beneficio_editarBeneficio")"
+                                                                               ng-show="!vm.eliminadoBeneficio">
+                                                    </bow-operacion-editar-fila>
+                                                    <bow-operacion-eliminar-fila mensaje-confirmacion="@L("afiliaciones_beneficio_confirmacionEliminarBeneficio")"
+                                                                                 mensaje-tooltip="@L("afiliaciones_beneficio_eliminarBeneficio")"
+                                                                                 operacion-puede-eliminar="vm.puedeEliminarBeneficio(beneficio.id, funcionRetornarPuedeEliminar)"
+                                                                                 no-puede-eliminar="vm.noPuedeEliminarBeneficio()"
+                                                                                 confirmacion-ok="vm.deleteBeneficio(beneficio.id)"
+                                                                                 confirmacion-cancel="vm.cancelarEliminarBeneficio()">
+                                                    </bow-operacion-eliminar-fila>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

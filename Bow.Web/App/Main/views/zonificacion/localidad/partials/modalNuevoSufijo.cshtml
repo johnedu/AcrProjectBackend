@@ -1,0 +1,69 @@
+﻿<div class="modal-body">
+    <div class="app-view-header page-header">
+        @L("zonificacion_sufijo_modalNuevoSufijo_titulo")
+        <span class="pull-right clickable" ng-click="cerrarModal()" title='@L("zonificacion_sufijo_modalNuevoSufijo_btCerrar")'><i class="fa fa-times font-size-16"></i></span>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading bg-purple">
+            {{sufijos.totalFilas}} @L("zonificacion_parametrosLocalidad_sufijos_registrados")
+        </div>
+        <div class="panel-body" ng-form="frmSufijo">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error' : frmSufijo.iptNombreSufijo.$dirty && frmSufijo.iptNombreSufijo.$invalid}">
+                        <label class="control-label" for="iptNombreSufijo">@L("zonificacion_sufijo_modalNuevoSufijo_nombreSufijo")</label>
+                        <input type="text" class="form-control" id="iptNombreSufijo" name="iptNombreSufijo" placeholder="@L("zonificacion_sufijo_modalNuevoSufijo_nombreSufijo")" ng-model="nuevoSufijo.nombre" required maxlength="50" />
+                        <div ng-show="frmSufijo.iptNombreSufijo.$dirty && frmSufijo.iptNombreSufijo.$invalid">
+                            <small ng-show="frmSufijo.iptNombreSufijo.$error.required" class="text-danger">
+                                @L("zonificacion_sufijo_modalNuevoSufijo_nombreSufijoRequerido")
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row bow-padding-bottom-20">
+                <div class="col-md-12">
+                    <button class="btn btn-success btn-circle btn-lg pull-right" ng-click="registrarSufijo()" ng-disabled="frmSufijo.$invalid" title='@L("zonificacion_sufijo_modalNuevoSufijo_btGuardar")'>
+                        <em class="fa fa-save"></em>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr ng-repeat="sufijo in sufijos.filasMostrar track by $index"
+                                    ng-mouseenter="controlesSufijo.mostrar($index)"
+                                    ng-mouseleave="controlesSufijo.ocultar($index)">
+                                    <td>
+                                        <h4 class="media-heading">
+                                            {{sufijo.nombre}}
+                                        </h4>
+                                    </td>
+                                    <td>
+                                        <div class="pull-right" ng-show="controlesSufijo.visible[$index]">
+                                            <bow-operacion-eliminar-fila mensaje-confirmacion='@L("zonificacion_sufijo_modalEliminarSufijo_confirmacion")'
+                                                                         mensaje-tooltip='@L("zonificacion_sufijo_eliminarSufijo")'
+                                                                         operacion-puede-eliminar="puedeEliminarSufijo(sufijo.sufijoId, funcionRetornarPuedeEliminar)"
+                                                                         no-puede-eliminar="noPuedeEliminar()"
+                                                                         confirmacion-ok="eliminarSufijoOk(sufijo)">
+                                            </bow-operacion-eliminar-fila>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+                            <pagination ng-show="sufijos.filasPorPagina < sufijos.totalFilas" items-per-page="sufijos.filasPorPagina"
+                                        total-items="sufijos.totalFilas"
+                                        ng-model="sufijos.paginaActual"
+                                        ng-change="sufijos.pageChanged()"
+                                        class="pagination-sm"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿<div class="modal-body">
+    <div class="app-view-header page-header">
+        @L("parametro_nombreestado_titulo")
+        <span class="pull-right clickable" ng-click="cerrarModal()"><i class="fa fa-times font-size-16"></i></span>
+    </div>
+    <div class="panel-body" ng-form="frmNombreEstado">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" ng-class="{'has-error' : frmNombreEstado.iptNombreEstadoNombre.$dirty && frmNombreEstado.iptNombreEstadoNombre.$invalid}">
+                    <label class="control-label" for="iptNombreEstadoNombre">@L("parametro_nombreestado_nombreEstado")</label>
+                    <input type="text" class="form-control" id="iptNombreEstadoNombre" name="iptNombreEstadoNombre" placeholder="@L("parametro_nombreestado_nombreEstado")" ng-model="nuevoNombreEstado.nombre" required maxlength="20" />
+                    <div ng-show="frmNombreEstado.iptNombreEstadoNombre.$dirty && frmNombreEstado.iptNombreEstadoNombre.$invalid">
+                        <small ng-show="frmNombreEstado.iptNombreEstadoNombre.$error.required" class="text-danger">
+                            @L("parametro_nombreestado_nombreEstadoRequerido")
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error' : frmNombreEstado.iptAbreviacionNombreEstado.$dirty && frmNombreEstado.iptAbreviacionNombreEstado.$invalid}">
+                    <label class="control-label" for="iptAbreviacionNombreEstado">@L("parametro_nombreestado_abreviacionEstado")</label>
+                    <input type="text" class="form-control" id="iptAbreviacionNombreEstado" name="iptAbreviacionNombreEstado" placeholder="@L("parametro_nombreestado_abreviacionEstado")" ng-model="nuevoNombreEstado.abreviacion" required maxlength="2" />
+                    <div ng-show="frmNombreEstado.iptAbreviacionNombreEstado.$dirty && frmNombreEstado.iptAbreviacionNombreEstado.$invalid">
+                        <small ng-show="frmNombreEstado.iptAbreviacionNombreEstado.$error.required" class="text-danger">
+                            @L("parametro_nombreestado_abreviacionEstadoRequerido")
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row bow-padding-bottom-20">
+            <div class="col-md-12">
+                <button class="btn btn-success btn-circle btn-lg pull-right" ng-click="registrarSufijo()" ng-disabled="frmNombreEstado.$invalid">
+                    <em class="fa fa-save"></em>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

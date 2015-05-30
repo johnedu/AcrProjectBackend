@@ -1,0 +1,65 @@
+﻿<div class="alert alert-danger text-center" ng-show="mensajeError">
+    <strong>{{mensajeError}}</strong>
+</div>
+<div class="row" ng-show="!modoConsulta">
+    <div class="col-md-6">
+        <label class="control-label font-size-16">@L("directiva_bowAfiliacionBeneficiosPlanExequial_beneficiosIncluidos_titulo")</label>
+        <div class="line-top"></div>
+        <div ng-repeat="beneficio in listadoBeneficiosPropios">
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <del ng-show="beneficio.reemplazado">{{beneficio.nombre}} - ( {{beneficio.categoriaBeneficioNombre}} )</del>
+                        <label class="control-label" ng-hide="beneficio.reemplazado">{{beneficio.nombre}} - ( {{beneficio.categoriaBeneficioNombre}} )</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <label class="control-label font-size-16">@L("directiva_bowAfiliacionBeneficiosPlanExequial_beneficiosAdicionales_titulo")</label>
+        <div class="line-top"></div>
+        <div ng-repeat="beneficio in listadoBeneficiosAdicionales">
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-8 text-left">
+                        <label class="control-label">{{beneficio.nombre}} - ( {{beneficio.categoriaBeneficioNombre}} )</label>
+                        <div ng-show="beneficio.beneficioPlanExequialNombre">
+                            <label class="control-label"><em>@L("directiva_bowAfiliacionBeneficiosPlanExequial_reemplazaBeneficio_titulo")</em></label> {{beneficio.beneficioPlanExequialNombre}}
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label class="control-label">@L("directiva_bowAfiliacionBeneficiosPlanExequial_valor_titulo")</label> <span ng-show="beneficio.valor">{{beneficio.valor | currency:"$ ":0}}</span>
+                    </div>
+                    <div class="col-md-1 text-center">
+                        <input class="control-label" type="checkbox" ng-model="beneficio.beneficioSeleccionado" ng-change="cambiarBeneficios(beneficio.beneficioPlanExequialId, beneficio.beneficioSeleccionado)" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="modoConsulta">
+    <div class="col-md-6">
+        <label class="control-label font-size-16">@L("directiva_bowAfiliacionBeneficiosPlanExequial_beneficios_titulo")</label>
+        <div class="line-top"></div>
+        <div ng-repeat="beneficio in listadoBeneficiosPropios">
+            <div class="modal-footer" ng-show="!beneficio.reemplazado">
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <label class="control-label">{{beneficio.nombre}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-repeat="beneficio in listadoBeneficiosAdicionales">
+            <div class="modal-footer" ng-show="beneficio.beneficioSeleccionado">
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <label class="control-label">{{beneficio.nombre}} - ( {{beneficio.valor | currency:"$ ":0}} )</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

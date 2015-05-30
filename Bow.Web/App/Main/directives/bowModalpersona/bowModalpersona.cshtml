@@ -1,0 +1,16 @@
+﻿<div class="app-container">
+    <div class="app-view-header page-header">
+        &nbsp;&nbsp;{{titulo}}
+        <small>@L("personas_modalPersona_subTitulo") {{titulo}}</small>
+    </div>
+    <div class="modal-body">
+        <bow-persona ng-model="personaConsultar" fecha-nacimiento-required="fechaNacimientoRequerida" registro-persona="personaRegistrada(persona)" mostrar-auditoria="true"></bow-persona>
+    </div>
+</div>
+
+@*<div class="modal-header text-center">
+    <h2>{{titulo}}</h2>
+</div>
+<div class="modal-body">
+    <bow-persona ng-model="personaConsultar" fecha-nacimiento-required="fechaNacimientoRequerida" registro-persona="personaRegistrada(persona)" mostrar-auditoria="true"></bow-persona>
+</div>*@

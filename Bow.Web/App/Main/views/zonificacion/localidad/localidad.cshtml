@@ -1,0 +1,129 @@
+﻿<div class="app-container" ng-controller="app.views.zonificacion.localidad as vm">
+    <div class="app-view-header page-header">
+        @L("zonificacion_localidad_titulo"){{vm.localidad.nombreDepartamento}}
+        <small>@L("zonificacion_localidad_indicativoDepartamento") {{vm.localidad.indicativoDepartamento}}</small>
+        <a class="pull-right" ui-sref="zonificacionPais({paisId:vm.localidad.idPais})">@L("zonificacion_zonificacion_listaDepartamentos")<i class="fa fa-chevron-left font-size-16"></i></a>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                <span ng-if="!vm.editandoLocalidad">@L("zonificacion_localidad_nuevaLocalidad")</span>
+                <span ng-if="vm.editandoLocalidad">@L("zonificacion_localidad_editar") {{vm.nombrePaisEditar | uppercase}}</span>
+            </div>
+            <div class="panel-body" ng-form="frmLocalidad">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="{'has-error' : frmLocalidad.iptNombreLocalidad.$dirty && frmLocalidad.iptNombreLocalidad.$invalid}">
+                            <h4 class="media-heading">
+                                <label class="control-label" for="iptNombreLocalidad">@L("zonificacion_localidad_modalNuevaLocalidad_nombreLocalidad")</label>
+                            </h4>
+                            <input type="text" class="form-control" id="iptNombreLocalidad" name="iptNombreLocalidad" placeholder="@L("zonificacion_localidad_modalNuevaLocalidad_nombreLocalidad")" ng-model="vm.nuevaLocalidad.nombre" required maxlength="25" />
+                            <div ng-show="frmLocalidad.iptNombreLocalidad.$dirty && frmLocalidad.iptNombreLocalidad.$invalid">
+                                <small ng-show="frmLocalidad.iptNombreLocalidad.$error.required" class="text-danger">
+                                    @L("zonificacion_localidad_modalNuevaLocalidad_nombreLocalidadRequerido")
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : frmLocalidad.iptHabitantesLocalidad.$dirty && frmLocalidad.iptHabitantesLocalidad.$invalid}">
+                            <h4 class="media-heading">
+                                <label class="control-label" for="iptHabitantesLocalidad">@L("zonificacion_localidad_modalNuevaLocalidad_habitantesLocalidad")</label>
+                            </h4>
+                            <input ng-pattern="/^[0-9]+$/" type="text" class="form-control" id="iptHabitantesLocalidad" name="iptHabitantesLocalidad" placeholder=@L("zonificacion_localidad_modalNuevaLocalidad_habitantesLocalidadHolder") ng-model="vm.nuevaLocalidad.habitantes" required maxlength="8" />
+                            <div ng-show="frmLocalidad.iptHabitantesLocalidad.$dirty && frmLocalidad.iptHabitantesLocalidad.$invalid">
+                                <small ng-show="frmLocalidad.iptHabitantesLocalidad.$error.required" class="text-danger">
+                                    @L("zonificacion_localidad_modalNuevaLocalidad_habitantesLocalidadRequerido")
+                                </small>
+                                <small ng-show="frmLocalidad.iptHabitantesLocalidad.$error.pattern" class="text-danger">
+                                    @L("zonificacion_localidad_modalNuevaLocalidad_habitantesLocalidadNumerico")
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button class="btn btn-success btn-circle btn-lg" ng-click="vm.saveOrUpdateLocalidad()" ng-disabled="frmLocalidad.$invalid" title="Guardar Localidad">
+                                <em class="fa fa-save"></em>
+                            </button>
+                            &nbsp;
+                            <button class="btn btn-warning btn-circle btn-lg" ng-click="vm.cancelarUpdateLocalidad()" title="Cancelar Actualización">
+                                <em class="fa" ng-class="{'fa-ban': vm.editandoLocalidad, 'fa-eraser': !vm.editandoLocalidad}"></em>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading" ng-class="'bg-' + app.theme.name">
+                {{vm.localidades.totalFilas}} @L("zonificacion_localidad_cantidadLocalidades")
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="localidad in vm.localidades.filasMostrar track by $index"
+                                        ng-mouseenter="vm.controles.mostrar($index)"
+                                        ng-mouseleave="vm.controles.ocultar($index)">
+                                        <td>
+                                            <h4 class="media-heading">
+                                                <a ui-sref="parametrosLocalidad({localidadId : localidad.id})" title="@L("zonificacion_localidad_operacionZonificacionTooltip")">
+                                                    {{localidad.nombre}}
+                                                </a>
+                                            </h4>
+                                            <span class="text-muted">
+                                                @L("zonificacion_localidad_numeroHabitantes") {{localidad.habitantes}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="pull-right" ng-show="vm.controles.visible[$index] && !vm.editandoLocalidad">
+                                                <a ui-sref="parametrosLocalidad({localidadId : localidad.id})">
+                                                    <button class="btn btn-info btn-circle btn-lg" ng-hide="vm.eliminandoLocalidad" title="@L("zonificacion_localidad_operacionParametrosTooltip")">
+                                                        <em class="fa fa-cogs"></em>
+                                                    </button>
+                                                </a>
+                                                &nbsp;
+                                                <a ui-sref="zonasLocalidad({localidadId : localidad.id})">
+                                                    <button class="btn btn-info btn-circle btn-lg" ng-hide="vm.eliminandoLocalidad" title="@L("zonificacion_localidad_operacionZonasTooltip")">
+                                                        <em class="fa fa-map-marker"></em>
+                                                    </button>
+                                                </a>
+                                                &nbsp;
+                                                <button class="btn btn-success btn-circle btn-lg" ng-click="vm.editarLocalidad(localidad)" ng-hide="vm.eliminandoLocalidad" title="@L("zonificacion_localidad_operacionEditarTooltip")">
+                                                    <em class="fa fa-pencil"></em>
+                                                </button>
+                                                &nbsp;
+                                                <bow-operacion-eliminar-fila mensaje-confirmacion='@L("zonificacion_localidad_eliminarLocalidad_confirmacion")'
+                                                                             mensaje-tooltip='@L("zonificacion_localidad_operacionEliminarTooltip")'
+                                                                             operacion-puede-eliminar="vm.puedeEliminarLocalidad(localidad.id, funcionRetornarPuedeEliminar)"
+                                                                             no-puede-eliminar="vm.noPuedeEliminar()"
+                                                                             confirmacion-ok="vm.eliminarLocalidadOk(localidad)"
+                                                                             confirmacion-cancel="vm.eliminarLocalidadCancel()">
+                                                </bow-operacion-eliminar-fila>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <pagination items-per-page="vm.localidades.filasPorPagina"
+                                            total-items="vm.localidades.totalFilas"
+                                            ng-model="vm.localidades.paginaActual"
+                                            ng-change="vm.localidades.pageChanged()"
+                                            class="pagination-sm"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
