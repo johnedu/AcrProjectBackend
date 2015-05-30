@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<localizationDictionary culture="es">
+  <texts>
+    
+    <!-- MENU -->
+    <text name="menu_afiliacion" value="AFILIACIÓN" />
+    <text name="menu_afiliacion_administracion" value="Administración Afiliación" />
+    <text name="menu_afiliacion_cambioFechas" value="Cambio Fechas Protección" />
+    <text name="menu_afiliacion_contratacionTelefonica" value="Contratación Telefónica" />
+    <text name="menu_afiliacion_sincronizacion" value="Sincronización" />
+    <text name="menu_afiliacion_empresaAfiliada" value="Empresa Afiliada" />
+    
+    <text name="menu_comercial" value="COMERCIAL" />
+    <text name="menu_comercial_desprendibleVendedor" value="Desprendible Vendedor" />
+    <text name="menu_comercial_pagoComision" value="Pago Comisión" />
+    <text name="menu_comercial_planExequial" value="Plan Exequial" />
+    <text name="menu_comercial_administracionSolicitudes" value="Administración Solicitudes" />
+    <text name="menu_comercial_cambioCedula" value="Cambio Cédula" />
+    <text name="menu_comercial_contactoComercial" value="Contacto Comercial" />
+    <text name="menu_comercial_gestionContacto" value="Gestión Contacto" />
+    <text name="menu_comercial_reportes" value="Reportes" />
+    
+    <text name="menu_cartera" value="CARTERA" />
+    <text name="menu_cartera_pagos" value="Pagos" />
+    <text name="menu_cartera_facturas" value="Facturas" />
+    <text name="menu_cartera_plazos" value="Plazos" />
+    <text name="menu_cartera_condonarCuota" value="Condonar Cuota" />
+    <text name="menu_cartera_cambioDiaCobro" value="Cambio Día Cobro" />
+    <text name="menu_cartera_administracionTalonario" value="Administración Talonario" />
+    <text name="menu_cartera_administracionRestricciones" value="Administración Restricciones" />
+    
+    <text name="menu_servicios" value="SERVICIOS" />
+    <text name="menu_servicios_ordenServicio" value="Orden de Servicio" />
+    <text name="menu_servicios_administracionConvenio" value="Administración Convenio" />
+    <text name="menu_servicios_monitorOrden" value="Monitor Orden" />
+    
+    <text name="menu_administracion" value="ADMINISTRACION" />
+    <text name="menu_administracion_empresaAdministrativa" value="Empresa Administrativa" />
+    <text name="menu_administracion_personal" value="Personal" />
+    <text name="menu_administracion_envioCorreo" value="Envío Correo" />
+    <text name="menu_administracion_ingresoRestriccion" value="Ingreso Restricción" />
+    <text name="menu_administracion_administracionParametros" value="Administración Parámetros" />
+    <text name="menu_administracion_zonificacion" value="Zonificación" />
+
+    <!-- ZONIFICACION -->
+    <text name="zonificacion_modalNuevoPais_titulo" value="Nuevo Pais" />
+    <text name="zonificacion_modalNuevoDepartamento_indicativoDepto_requerido" value="Debe Indicar el Indicativo del Departamento" />
+    <text name="zonificacion_modalNuevoDepartamento_lbIndicativoDepto" value="Indicativo Departamento" />
+    <text name="zonificacion_modalNuevoDepartamento_lbNombreDepto" value="Nombre Departamento" />
+    <text name="zonificacion_modalNuevoDepartamento_nombreDepto_requerido" value="Debe Indicar el Nombre del Departamento" />
+    <text name="zonificacion_modalNuevoDepartamento_titulo" value="Nuevo Departamento" />
+    
+    
+    <text name="zonificacion_modalpais_titulo" value="Editar Pais" />
+    <text name="zonificacion_modalpais_btGuardar" value="Guardar Cambios" />
+    <text name="zonificacion_modalpais_btCancelar" value="Cancelar" />
+    <text name="zonificacion_modalpaiseliminar_btCancelar" value="Cancelar" />
+    <text name="zonificacion_modalpaiseliminar_btEliminar" value="Eliminar Pais" />
+    <text name="zonificacion_modalpaiseliminar_confirmacion" value="¿Está seguro que desea eliminar el siguiente Pais? " />
+    <text name="zonificacion_modalpaiseliminar_nombrepais_requerido" value="Debe indicar el Nombre del Pais" />
+    <text name="zonificacion_modalpaiseliminar_indicativopais_requerido" value="Debe indicar el Indicativo del Pais" />
+    <text name="zonificacion_modalpaiseliminar_titulo" value="Eliminar Pais" />
+    <text name="zonificacion_pais_btRegistrarPais" value="Registrar" />
+    <text name="zonificacion_pais_cantidadPaises" value="Paises Registrados" />
+    <text name="zonificacion_pais_crearPais" value="Registrar Nuevo Pais" />
+    <text name="zonificacion_pais_lbIndicativoPais" value="Indicativo del Pais" />
+    <text name="zonificacion_pais_lbIndicativoTable" value="Indicativo" />
+    <text name="zonificacion_pais_lbNombrePais" value="Nombre del Pais" />
+    <text name="zonificacion_pais_lbIndicativoTable" value="Operación" />
+    <text name="zonificacion_pais_lbOperacionTable_zonificacion" value="Zonificación" />
+    <text name="zonificacion_pais_lbOperacionTable_editar" value="Editar" />
+    <text name="zonificacion_pais_lbOperacionTable_eliminar" value="Eliminar" />
+    <text name="zonificacion_pais_lkEditarPaisTable" value="Editar" />
+    <text name="zonificacion_pais_lkEliminarPaisTable" value="Eliminar" />
+    <text name="zonificacion_pais_titulo" value="Paises Registrados" />
+  </texts>
+</localizationDictionary>

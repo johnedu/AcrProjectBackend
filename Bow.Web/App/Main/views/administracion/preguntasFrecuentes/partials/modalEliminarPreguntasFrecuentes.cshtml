@@ -1,0 +1,18 @@
+﻿<div class="modal-header">
+    <h2>@L("")Eliminar Pregunta Frecuente</h2>
+</div>
+<div class="modal-body">
+    <div class="alert alert-danger text-center" ng-show="mensajeError">
+        <strong>{{mensajeError}}</strong>
+    </div>
+    <div>
+        <p>@L("")¿Está seguro que desea eliminar la siguiente pregunta?</p>
+        <ul>
+            <li><strong>{{preguntaFrecuente.pregunta}}</strong></li>
+        </ul>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-click="okModal()">@L("")Aceptar</button>
+    <button class="btn btn-danger" ng-click="cancelModal()">@L("")Cancelar</button>
+</div>

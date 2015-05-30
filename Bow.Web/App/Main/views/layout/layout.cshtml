@@ -1,0 +1,67 @@
+﻿@using System.Threading
+@using System.Web.Optimization
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="ACR. Sistema de Administración de la App">
+    <meta name="author" content="ACR">
+    <title>ACR App - Sistema de Administración de la APP</title>
+    <link rel="shortcut icon" href="~/favicon.ico?ver=1">
+
+    @Styles.Render("~/bundles/BootstrapStyles")
+    @Styles.Render("~/bundles/ApplicationStyles")
+    @Styles.Render("~/bundles/ABPStyles")
+    @*@Styles.Render("~/Bundles/App/Main/css")*@
+
+
+    @*@Styles.Render("~/Bundles/App/vendor/css")
+    @Styles.Render("~/Bundles/App/Main/css")*@
+
+    <script type="text/javascript">
+        //This is used to get the application's root path from javascript. It's useful if you're running application in a virtual directory under IIS.
+        var abp = abp || {}; abp.appPath = '@ApplicationPath';
+    </script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="@Url.Content("~/Scripts/others/html5shiv.js")"></script>
+        <script src="@Url.Content("~/Scripts/others/respond.min.js")"></script>
+    <![endif]-->
+    @*@Scripts.Render("~/Bundles/App/vendor/js")*@
+    @Scripts.Render("~/bundles/VendorScripts")
+    @Scripts.Render("~/bundles/AbpVendorScripts")
+    @Scripts.Render("~/bundles/AbpScripts")
+    <script>
+        //Localizing momentjs
+        moment.locale('@Thread.CurrentThread.CurrentUICulture.Name');
+    </script>
+
+    <!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
+    <script src="~/api/AbpServiceProxies/GetAll?type=angular"></script>
+    <script src="~/AbpScripts/GetScripts" type="text/javascript"></script>
+    <script src="~/AbpLocalization/GetScripts" type="text/javascript"></script>
+</head>
+<body ng-app="app" ng-cloak="" ng-class="{ 'layout-fixed' : app.layout.isFixed, 'layout-boxed' : app.layout.isBoxed, 'layout-dock' : app.layout.isDocked, 'layout-material': app.layout.isMaterial, 'aside-offscreen' : app.sidebar.isOffscreen, 'footer-hidden': app.footer.hidden, 'in-app': !$state.includes('page')}">
+
+    <div class="app-container" ng-controller="CoreController">
+        <!-- top navbar-->
+        <header ng-include="'/App/Main/views/layout/header.cshtml'" ng-controller="HeaderNavController" ng-class="app.theme.topbar"></header>
+        <!-- Sidebar-->
+        <aside ng-include="'/App/Main/views/layout/sidebar.cshtml'" ng-class="app.theme.sidebar"></aside>
+        <!-- Main-->
+        <section>
+            <!-- Content-->
+            <div ui-view autoscroll="false" @*ng-class="app.views.animation"*@ class="app"></div>
+        </section>
+        <!-- Page footer-->
+        <footer ng-include="'/App/Main/views/layout/footer.cshtml'"></footer>
+    </div>
+
+    @Scripts.Render("~/bundles/ApplicationScripts")
+    @Scripts.Render("~/Bundles/App/Main/js")
+
+</body>
+</html>

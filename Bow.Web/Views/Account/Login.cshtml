@@ -1,0 +1,40 @@
+﻿<div class="container container-sm animated fadeInDown">
+    <div class="center-block mt-xl">
+        <!-- START panel-->
+        <div class="panel">
+            <div class="panel-body">
+                <p class="pv text-bold">Bienvenido a la ACR</p>
+                <form role="form" class="mb-lg">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group has-feedback mb">
+                                <input id="userInput" type="text" placeholder="Ingrese el Usuario" autocomplete="off" class="form-control" />
+                                <span class="fa fa-user form-control-feedback text-muted"></span>
+                            </div>
+                            <br />
+                            <div class="form-group has-feedback">
+                                <input id="passwordInput" type="password" placeholder="Ingrese la Contraseña" class="form-control" />
+                                <span class="fa fa-lock form-control-feedback text-muted"></span>
+                            </div>
+                            <div class="checkbox c-checkbox pull-left mt0">
+                                <label>
+                                    <input id="rememberMeInput" type="checkbox" value="" />
+                                    <span class="fa fa-check"></span>Recordar Usuario
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-block btn-info" id="LoginButton">Ingresar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @section scripts
+        {
+            <script src="~/js/Account/login.js"></script>
+        }
+        <!-- END panel-->
+        <div ng-include="'app/views/page.footer.html'" class="p-lg text-center"></div>
+    </div>
+</div>

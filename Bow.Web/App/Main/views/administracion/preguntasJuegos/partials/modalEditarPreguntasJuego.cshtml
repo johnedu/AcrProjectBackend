@@ -1,0 +1,63 @@
+﻿<div class="modal-header">
+    <h3>{{preguntaTexto}}</h3>
+</div>
+<div class="modal-body">
+    <div class="alert alert-danger text-center" ng-show="mensajeError">
+        <strong>{{mensajeError}}</strong>
+    </div>
+    <form role="form" name="modalEditarPregunta">
+        <div class="form-group" ng-class="{'has-error' : modalEditarPregunta.iptTexto.$dirty && modalEditarPregunta.iptTexto.$invalid}">
+            <label class="control-label" for="iptTexto">@L("")Texto</label>
+            <textarea class="form-control" id="iptTexto" name="iptTexto" placeholder="@L("")Ingrese la pregunta" ng-model="pregunta.texto" required maxlength="4096" rows="5"></textarea>
+            <div ng-show="modalEditarPregunta.iptTexto.$dirty && modalEditarPregunta.iptTexto.$invalid">
+                <small ng-show="modalEditarPregunta.iptTexto.$error.required" class="text-danger">
+                    @L("")El texto de la pregunta es requerido
+                </small>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : modalEditarPregunta.iptPista.$dirty && modalEditarPregunta.iptPista.$invalid}">
+            <label class="control-label" for="iptPista">@L("")Pista</label>
+            <textarea class="form-control" id="iptPista" name="iptPista" placeholder="@L("")Ingrese la pista" ng-model="pregunta.pista" required maxlength="4096" rows="5"></textarea>
+            <div ng-show="modalEditarPregunta.iptPista.$dirty && modalEditarPregunta.iptPista.$invalid">
+                <small ng-show="modalEditarPregunta.iptPista.$error.required" class="text-danger">
+                    @L("")La pista de la pregunta es requerida
+                </small>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : frmRegistrarEmpresaOrganizacion.selectedJuego.$dirty && frmRegistrarEmpresaOrganizacion.selectedJuego.$invalid }">
+            <label class="control-label" for="selectedJuego">@L("")Juego</label>
+            <select ng-model="pregunta.juegoId" ng-options="to.id as to.nombre for to in listaJuegos" class="form-control" name="selectedJuego" id="selectedJuego" required ng-disabled="true">
+                <option value="">@L("")Seleccione...</option>
+            </select>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : frmRegistrarEmpresaOrganizacion.selectedDimension.$dirty && frmRegistrarEmpresaOrganizacion.selectedDimension.$invalid }">
+            <label class="control-label" for="selectedDimension">@L("")Dimesión</label>
+            <select ng-model="pregunta.dimensionId" ng-options="to.id as to.nombre for to in listaDimensiones" class="form-control" name="selectedDimension" id="selectedDimension">
+                <option value="">@L("")Seleccione...</option>
+            </select>
+            <div ng-show="frmRegistrarEmpresaOrganizacion.selectedJuego.$dirty && frmRegistrarEmpresaOrganizacion.selectedJuego.$invalid">
+                <small ng-show="frmRegistrarEmpresaOrganizacion.selectedJuego.$error.required" class="text-danger">
+                    @L("")La dimensión de la pregunta es requerida
+                </small>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : frmRegistrarEmpresaOrganizacion.selectedNivel.$dirty && frmRegistrarEmpresaOrganizacion.selectedNivel.$invalid }">
+            <label class="control-label" for="selectedNivel">@L("")Nivel</label>
+            <select ng-model="pregunta.nivel" class="form-control" name="selectedNivel" id="selectedNivel" required>
+                <option value="">@L("")Seleccione...</option>
+                <option value="B">@L("")Bajo</option>
+                <option value="M">@L("")Medio</option>
+                <option value="A">@L("")Alto</option>
+            </select>
+            <div ng-show="frmRegistrarEmpresaOrganizacion.selectedNivel.$dirty && frmRegistrarEmpresaOrganizacion.selectedNivel.$invalid">
+                <small ng-show="frmRegistrarEmpresaOrganizacion.selectedNivel.$error.required" class="text-danger">
+                    @L("")El nivel de la pregunta es requerido
+                </small>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-click="okModal()" ng-disabled="modalEditarPregunta.$invalid">@L("")Guardar</button>
+    <button class="btn btn-danger" ng-click="cancelModal()">@L("")Cancelar</button>
+</div>

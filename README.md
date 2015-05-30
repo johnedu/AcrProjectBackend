@@ -1,2 +1,0 @@
-# AcrProjectBackend
-Acr Project

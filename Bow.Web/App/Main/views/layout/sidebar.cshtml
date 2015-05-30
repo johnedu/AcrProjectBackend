@@ -1,0 +1,40 @@
+﻿<!-- START Sidebar-->
+<div class="sidebar-wrapper">
+    <div ui-sidebar="" class="sidebar">
+        <div class="sidebar-nav" ng-controller="app.views.layout.sidebar as vm">
+            <ul class="nav">
+                <li>
+                    <hr />
+                </li>
+                <li ng-repeat="menuItem in vm.menu.items" ng-class="{active: vm.menuSeleccion == menuItem.name}">
+                    <a href="" title="{{menuItem.displayName}}" ripple="" ng-click="vm.seleccionoOpcionMenu(menuItem.name)">
+                        <em class="sidebar-item-icon {{menuItem.icon}}"></em>
+                        <span>{{menuItem.displayName}}</span>
+                        <em class="sidebar-item-caret fa pull-right fa-angle-right"></em>
+                        <span class="ripple">
+                            <span style="width: 240px; height: 240px; left: 106px; top: -94.2833px;" class="angular-ripple"></span>
+                        </span>
+                    </a>
+                    <ul class="nav sidebar-subnav">
+                        <li class="sidebar-subnav-header">
+                            <a>
+                                <em class="sidebar-item-icon fa fa-angle-down">{{menuItem.displayName}}</em>
+                            </a>
+                        </li>
+                        <li class="" ui-sref-active="active" ng-repeat="ddMenu in menuItem.items">
+                            <a href="{{ddMenu.url}}">
+                                <em class="sidebar-item-icon"></em>
+                                <span>{{ddMenu.displayName}}</span>
+                                <span class="ripple"><span style="width: 240px; height: 240px; left: -36px; top: -95.15px;" class="angular-ripple"></span></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <hr />
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END Sidebar-->
