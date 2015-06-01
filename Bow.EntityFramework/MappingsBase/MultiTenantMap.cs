@@ -15,9 +15,6 @@ namespace Bow.MappingsBase
         {
             //Llave Primaria
             HasKey(mt => mt.Id);
-
-            //Propiedad de TenantId
-            Property(mt => mt.TenantId).IsRequired();
         }
     
     }

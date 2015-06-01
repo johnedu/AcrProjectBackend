@@ -1,0 +1,32 @@
+﻿<div class="modal-header">
+    <h2>@L("")Agregar Pregunta Frecuente</h2>
+</div>
+<div class="modal-body">
+    <div class="alert alert-danger text-center" ng-show="mensajeError">
+        <strong>{{mensajeError}}</strong>
+    </div>
+    <form role="form" name="modalNuevaPreguntaFrecuente">
+        <div class="form-group" ng-class="{'has-error' : modalNuevaPreguntaFrecuente.iptPregunta.$dirty && modalNuevaPreguntaFrecuente.iptPregunta.$invalid}">
+            <label class="control-label" for="iptPregunta">@L("")Pregunta</label>
+            <textarea class="form-control" id="iptPregunta" name="iptPregunta" placeholder="@L("")Ingrese la pregunta" ng-model="preguntaFrecuente.pregunta" required maxlength="4096" rows="5"></textarea>
+            <div ng-show="modalNuevaPreguntaFrecuente.iptNombrePais.$dirty && modalNuevaPreguntaFrecuente.iptPregunta.$invalid">
+                <small ng-show="modalNuevaPreguntaFrecuente.iptPregunta.$error.required" class="text-danger">
+                    @L("")La pregunta es requerida
+                </small>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : modalNuevaPreguntaFrecuente.iptRespuesta.$dirty && modalNuevaPreguntaFrecuente.iptRespuesta.$invalid}">
+            <label class="control-label" for="iptRespuesta">@L("")Respuesta</label>
+            <textarea class="form-control" id="iptRespuesta" name="iptRespuesta" placeholder="@L("")Ingrese la respuesta" ng-model="preguntaFrecuente.respuesta" required maxlength="4096" rows="5"></textarea>
+            <div ng-show="modalNuevaPreguntaFrecuente.iptRespuesta.$dirty && modalNuevaPreguntaFrecuente.iptRespuesta.$invalid">
+                <small ng-show="modalNuevaPreguntaFrecuente.iptRespuesta.$error.required" class="text-danger">
+                    @L("")La respuesta es requerida
+                </small>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-click="okModal()" ng-disabled="modalNuevaPreguntaFrecuente.$invalid">@L("")Aceptar</button>
+    <button class="btn btn-danger" ng-click="cancelModal()">@L("")Cancelar</button>
+</div>

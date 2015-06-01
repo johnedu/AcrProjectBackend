@@ -1,0 +1,43 @@
+﻿<div class="modal-header">
+    <h2>@L("")Agregar Entidad</h2>
+</div>
+<div class="modal-body">
+    <div class="alert alert-danger text-center" ng-show="mensajeError">
+        <strong>{{mensajeError}}</strong>
+    </div>
+    <form role="form" name="modalNuevaEntidad">
+        <div class="form-group" ng-class="{'has-error' : modalNuevaEntidad.iptNombre.$dirty && modalNuevaEntidad.iptNombre.$invalid}">
+            <label class="control-label" for="iptNombre">@L("")Nombre</label>
+            <input type="text" class="form-control" id="iptNombre" name="iptNombre" placeholder="@L("")Ingrese el nombre" ng-model="entidad.nombre" required maxlength="512" />
+            <div ng-show="modalNuevaEntidad.iptNombre.$dirty && modalNuevaEntidad.iptNombre.$invalid">
+                <small ng-show="modalNuevaEntidad.iptNombre.$error.required" class="text-danger">
+                    @L("")El nombre de la entidad es requerido
+                </small>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : modalNuevaEntidad.iptDescripcion.$dirty && modalNuevaEntidad.iptDescripcion.$invalid}">
+            <label class="control-label" for="iptDescripcion">@L("")Descripción</label>
+            <textarea class="form-control" id="iptDescripcion" name="iptDescripcion" placeholder="@L("")Ingrese la descripción" ng-model="entidad.descripcion" required maxlength="4096" rows="5"></textarea>
+            <div ng-show="modalNuevaEntidad.iptDescripcion.$dirty && modalNuevaEntidad.iptDescripcion.$invalid">
+                <small ng-show="modalNuevaEntidad.iptDescripcion.$error.required" class="text-danger">
+                    @L("")La descripción de la entidad es requerida
+                </small>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : modalNuevaEntidad.selectedJuego.$dirty && modalNuevaEntidad.selectedDimension.$invalid }">
+            <label class="control-label" for="selectedDimension">@L("")Dimesión</label>
+            <select ng-model="entidad.dimensionId" ng-options="to.id as to.nombre for to in listaDimensiones" class="form-control" name="selectedDimension" id="selectedDimension">
+                <option value="">@L("")Seleccione...</option>
+            </select>
+            <div ng-show="modalNuevaEntidad.selectedJuego.$dirty && modalNuevaEntidad.selectedJuego.$invalid">
+                <small ng-show="modalNuevaEntidad.selectedJuego.$error.required" class="text-danger">
+                    @L("")La dimensión de la pregunta es requerida
+                </small>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-click="okModal()" ng-disabled="modalNuevaEntidad.$invalid">@L("")Aceptar</button>
+    <button class="btn btn-danger" ng-click="cancelModal()">@L("")Cancelar</button>
+</div>

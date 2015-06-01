@@ -1,0 +1,106 @@
+﻿<div class="modal-header">
+    <div class="row">
+        <div class="col-md-10">
+            <h2>{{preguntaTexto}}</h2>
+            <h3>( {{juego}} )</h3>
+        </div>
+        <div class="col-md-2 text-right">
+            <button class="btn btn-danger fa fa-close" ng-click="cancelModal()"></button>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="alert alert-danger text-center" ng-show="mensajeError">
+        <strong>{{mensajeError}}</strong>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div ng-show="!mostrarFormulario">
+                <div class="row" ng-show="!btn_nuevo_disabled">
+                    <div class="col-md-6">
+                        <a ng-click="mostrarFormularioNuevaRespuesta()" title="@L("")Nueva Respuesta">@L("")Nueva Respuesta <span class="glyphicon glyphicon-plus-sign font-size-16"></span></a>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <p>{{respuestasPregunta.totalFilas}} <span ng-show="opcionesInfoTributaria.totalFilas == '1'">@L("")Respuesta</span><span ng-hide="opcionesInfoTributaria.totalFilas == '1'">@L("")Respuestas</span></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>@L("")Texto</th>
+                                    <th class="text-center" ng-show="juego == 'Millonario'">@L("")Aplica Comodin 50/50</th>
+                                    <th class="text-center">@L("")Respuesta Correcta</th>
+                                    <th class="text-center">@L("")Editar</th>
+                                    <th class="text-center">@L("")Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="respuesta in respuestasPregunta.filasMostrar track by $index">
+                                    <td>
+                                        <strong>{{respuesta.texto}}</strong>
+                                    </td>
+                                    <td class="text-center" ng-show="juego == 'Millonario'">
+                                        <span ng-show="respuesta.comodin50_50" class="fa fa-check fa-2x"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span ng-show="respuesta.respuestaVerdadera" class="fa fa-check fa-2x"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a class="clickable" ng-click="mostrarFormularioEditarRespuesta(respuesta.id)" title="@L("")Editar"><span class="fa fa-pencil fa-2x"></span></a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a class="clickable" ng-click="eliminarRespuesta($index)" ng-show="!mensajeEliminar[$index]" title="@L("")Eliminar la respuesta"><span class="fa fa-trash fa-2x"></span></a>
+                                        <div ng-show="mensajeEliminar[$index]">
+                                            @L("")¿Está seguro?<br />
+                                            <button class="btn btn-success btn-xs" ng-click="eliminarRespuestaOk(respuesta.id, $index)">@L("")Si</button>
+                                            <button class="btn btn-danger btn-xs" ng-click="eliminarCancel($index)">@L("")No</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="mostrarFormulario">
+                <form role="form" name="formNuevaRespuesta">
+                    <div class="form-group" ng-class="{'has-error' : formNuevaRespuesta.iptTexto.$dirty && formNuevaRespuesta.iptTexto.$invalid }">
+                        <label class="control-label" for="iptTexto">@L("")Texto</label>
+                        <textarea class="form-control" id="iptTexto" name="iptTexto" placeholder="@L("")Texto de la respuesta" ng-model="respuesta.texto" required maxlength="4096" rows="5"></textarea>
+                        <div ng-show="formNuevaRespuesta.iptTexto.$dirty && formNuevaRespuesta.iptTexto.$invalid">
+                            <small ng-show="formNuevaRespuesta.iptTexto.$error.required" class="text-danger">
+                                @L("")El texto es requerido
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="juego == 'Millonario'">
+                        <div class="col-md-6">
+                            <div class="checkbox c-checkbox needsclick">
+                                <label class="needsclick">
+                                    <input type="checkbox" value="" class="needsclick" ng-model="respuesta.comodin50_50">
+                                    <span class="fa fa-check"></span>@L("")Aplica para el comodin 50/50
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="checkbox c-checkbox needsclick">
+                                <label class="needsclick">
+                                    <input type="checkbox" value="" class="needsclick" ng-model="respuesta.respuestaVerdadera">
+                                    <span class="fa fa-check"></span>@L("")Es la respuesta correcta de la pregunta
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-right">
+                        <button type="button" class="btn btn-success" ng-click="guardarModificarRespuesta()" ng-disabled="formNuevaRespuesta.$invalid">@L("")Guardar</button>
+                        <button type="button" class="btn btn-danger" ng-click="cancelFormulario()">@L("")Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,6 @@
 ﻿using System.Reflection;
 using Abp.Modules;
 using AutoMapper;
-using Bow.Zonificacion.DTOs.InputModels;
-using Bow.Zonificacion.Entidades;
 using Bow.Utilidades.AutoMapper;
 using System.Linq;
 using System;
